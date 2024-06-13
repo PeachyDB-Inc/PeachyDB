@@ -37,7 +37,7 @@ PeachyDB is a horizontally scalable database intended to overcome the shortcomin
   <li><a href="#27-costs">27. Costs</a></li>
   <li><a href="#28-support-and-license">28. Support and License</a></li>
   <li><a href="#29-benchmarks">29. Benchmarks</a></li>
-  <li><a href="#30-why-are-we-closed-source">30. Why are we closed source?</a></li>
+  <li><a href="#30-why-are-we-closed-source">30. Open source?</a></li>
 </ul>
 
 
