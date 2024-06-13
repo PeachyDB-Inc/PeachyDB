@@ -23,7 +23,7 @@ Examples provide a clear explanation of how to utilize a client to drive load to
 - **2.c)** Partition key, primary key, clustering key have the same meaning as in Apache Cassandra.
 - **2.d)** 'table_options' of CQL for creating Tables, Materialized views are ignored.
 
-## 3. Materialized Views (MV) and Secondary Indexes are supported and behave similarly to Apache Cassandra.
+## 3. Materialized Views (MV) and Secondary Indexes behave similarly to Apache Cassandra
 - **3.a)** MV is the same as the base table, with possibly a different partition key and clustering key than the base table (the clustering key is likely different from the base table, else there are very few reasons to create the MV).
 - **3.b)** MV partition key, primary key are subject to the same requirements as Cassandra.
 - **3.c)** UPDATE/DELETE/INSERT cannot be directly invoked on Materialized View, MVs are automatically maintained based upon write queries on the base table.
@@ -39,7 +39,7 @@ Examples provide a clear explanation of how to utilize a client to drive load to
 - **3.k)** Secondary indexes of numerous kinds on collections are supported.
 - **3.l)** Secondary index on user-defined-type is not supported because there is no natural sort order of user-defined-type. This is the same as Apache Cassandra.
 
-## 4. INSERT, DELETE, UPDATE behave differently from Apache Cassandra as explained:
+## 4. INSERT, DELETE, UPDATE behave differently from Apache Cassandra
 - **4.a)** Unlike Apache Cassandra INSERT is an INSERT not an UPSERT, if the primary key conflicts with an existing object INSERT will fail.
 - **4.b)** Unlike Apache Cassandra UPDATE is an UPDATE not an UPSERT. So if the underlying item doesn't exist UPDATE will fail.
 - **4.c)** UPDATE query can modify any columns other than the columns that form the partition key of the base table or columns that form the partition key of any MVs on the base table (this is less restrictive than Apache Cassandra which does not allow modifying any primary key column of the base table).
@@ -68,7 +68,7 @@ Examples provide a clear explanation of how to utilize a client to drive load to
 - **4.i)** Apache Cassandra will often times truncate timestamp value to milliseconds, we do the same.
 - **4.j)** A DATEMSK environment variable points to the DATEMSK file, which allows the following formats (%A, %T,%F, %FT%T). We will allow replacing this file later on.
 
-## 5. Select queries work under similar constraints as Apache Cassandra.
+## 5. Select queries work under similar constraints as Apache Cassandra
 - **5.a)** SELECT query that has WHERE clause conditions restricting all the partition key constraints can perform better than others because they can be sent to specific nodes.
 - **5.b)** SELECT query that has WHERE clause conditions which also restrict some of the primary key columns (in addition to the partition key columns) can perform even better.
 - **5.c)** SELECT query can be invoked on Materialized View instead of base table. Such queries can also benefit if partition key of MV is restricted along with any of the other primary key columns.
