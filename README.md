@@ -127,7 +127,7 @@ As with Apache Cassandra, choose the partition key very carefully.
 Try to avoid making too many schema changes in your application at the moment, because the current product has very limited space overhead for that. A schema that contains 500+ tables may not work at the moment.
 
 ### 9. Client Refresh
-Every time you Drop/Add a table refresh the client. This is an expensive operation and should only be done when a table is added/dropped, never otherwise.
+Every time you Drop/Add a table, refresh the client. This is an expensive operation and should only be done when a table is added/dropped, never otherwise.
 
 ### 10. Replication Factor
 The industry-standard replication factor of 3 is recommended. This means that the minimum cluster size has to be 3 nodes. The product will not work on fewer nodes. In your storage calculations include replication factor. If your data is 10TB, then with replication factor included overall storage requirement is 30TB. If we include SSD overheads, journaling overheads, versioning overhead, fragmentation overheads, any background tasks merging overheads, etc., then it is safe to have overall storage of about 60TB available through the cluster. Other horizontally scalable databases have similar space overheads.
@@ -144,4 +144,53 @@ At the moment the product relies on k-safety. This implies that as long as more 
 - **12.b)** If non-coordinator nodes which are involved in writes are also down then it can delay the application of transactions.
 - **12.c)** It is best to monitor the cluster closely and replace failed nodes as quickly as possible.
 - **12.d)** This product chooses consistency over availability for write transactions in the presence of failures.
-- **12.e)** During a failover to elect a new leader, pending write txns that have been committed to the journal but not yet applied will still be applied, however, the client that originated the query will
+- **12.e)** During a failover to elect a new leader, pending write transactions that have been committed to the journal but not yet applied will still be applied. However, the client that originated the query will only receive a timeout and will reconnect to a different leader. In this situation, if the client resubmits the same write, then depending on the situation, the client will receive errors.
+- **12.f)** As indicated below, utilize AWS partition placement groups to mitigate correlated failures of multiple AWS instances.
+
+### 13. Cluster Size Limit
+The current cluster size limit is 64 nodes. We will improve upon this later.
+
+### 14. Adding Nodes to the Cluster
+When adding more nodes to the cluster, plan on adding at least 3 or 4 nodes (one by one, of course) to evenly spread out the data. However, you have to add the nodes one by one. You will find this to be a much more convenient task than with Cassandra. You can check its rough status periodically and even cancel the ongoing operation if you change your mind, although the further along you are, the more work is needed to cancel the operation, and it is better to avoid canceling. Also, add nodes to a cluster only after it has sufficient data (i.e., nodes are all at least 50% full to their maximum capacity, else the product may not be able to come up with a good redistribution).
+
+### 15. Replacing a Failed Node
+When replacing a failed node, always utilize the node SUBSTITUTE command from the node tool. **DO NOT** utilize REMOVE node and then ADD node. SUBSTITUTE does not alter the data partitioning or ownership and will complete relatively faster and retain data distribution. REMOVE and ADD will cause a data repartitioning storm. This is very important to understand and avoid. When substituting a node, please utilize a node with the same capabilities as before (same storage and vCPUs), else the code can potentially get confused and generate imbalanced nodes. At the moment, we do not allow nodes of different AWS types in a cluster, so having dissimilar nodes in the cluster should not be much of a concern.
+
+### 16. Removing Nodes from the Cluster
+**DO NOT** remove a node from the cluster (especially for replacement and even otherwise). This is because removing nodes can sometimes lead to poorer data distribution. This is a known issue, which we will resolve. For now, know that it will work, but it should be avoided as much as possible. Do it only if you know that you are going to shrink your database. This should be an uncommon situation.
+
+### 17. Datacenter Clusters
+Currently, a single datacenter cluster is supported. However, the user can utilize AWS CloudFormation templates to replicate to multiple independent datacenters which are managed independently. The multiple datacenters in Apache Cassandra are also considered independent.
+
+### 18. Monitoring Nodes
+Check the liveness of nodes every few minutes and storage utilization of nodes every hour. If storage utilization is reaching the limits, try to add a few nodes to the cluster. Also, make sure that the data is more or less uniformly distributed in the cluster. Currently, adding nodes to a cluster requires user intervention; the cluster will not resize automatically. Failed nodes also need to be identified by the user and substituted. **NOTE**: Liveness of nodes should be checked more frequently, every 2 minutes. A single AWS instance of the very cheapest kind, such as t2.nano, can be dedicated to checking for utilization, liveness, and if there is a problem, send an alert to the administrator.
+
+### 19. Interference with Server Containers
+Please **DO NOT** directly interfere with server containers or attach to them. Try to utilize only the APIs and tools provided. This is because there are workarounds for known issues in place, which if broken can cause the database to be unrecoverable, and you will have no option but to rejoin the node in the cluster, which is going to waste too much time and resources sending all the data back and catching up. This will also degrade the performance of the cluster during the joining.
+
+### 20. AWS Instance Types for Database Servers
+Currently, our product works only with i3 and i3en AWS instances for database servers. AWS Spot instances should **NOT** be utilized with production clusters because the i3 instances (which are required for performance) will lose their database if the instance is stopped or terminated. For experimental clusters, spot instances can be utilized. AWS recommends i3 instances (or similar) with local SSDs for storage, for running databases such as Cassandra/DynamoDB. Other instances **DO NOT** perform well in some usage scenarios. Additionally, if you were to utilize Spot instances together with EBS storage, the storage costs would also add up quickly (you have to make a detailed calculation to figure out if there would be a significant difference in the two approaches for your use case. This is just for your knowledge; we **DO NOT** support EBS usage due to its poor performance for the usage scenarios of our product).
+
+- **20.a)** Server instances are either i3 instances or i3en instances, and the cluster is composed of the same kind of instances so all nodes have roughly the same capability. For now, this is a requirement; later we can change this. In production, server instances have to be either reserved or on-demand. They cannot be SPOT instances. Additionally, we have also observed difficulty obtaining Spot instances sometimes; this may be specific to our usage, your experience might be different. (If you want to utilize Spot instances in production, you have to somehow guarantee that the instances will not get stopped/terminated because that will lead to data loss, and additionally, with enough such stopped instances, the product will stop working. We don't know if there is some way to guarantee this in AWS.).
+
+- **20.b)** i3en instances are slightly cheaper by storage, but they have much lower performing SSDs, while they have faster network I/O and newer Xeon processors compared to i3 instances. They have better compute performance but lower SSD performance. So CPU-bound loads will be better, and I/O-bound loads will perform probably worse. There is also not a 1:1 mapping between i3 and i3en instances in terms of vCPU, memory. Evaluate your tradeoffs and also determine if these instances are available in enough numbers in your region.
+
+- **20.b.1)** We do not yet support Graviton-based r6gd instances for servers because their advertised SSD I/O characteristics are much worse than i3 instances. As a result, for data sets that do not fit in memory, they could perform much worse. If customers want this option, we can look into it at a later point. If your workload is more CPU-bound, these instances could help; we will have to check later if there is demand for these.
+
+- **20.c)** Client instances can be of one of the following AWS instance types:
+    - m5.large, m5n.large, m5a.large, m5ad.large,
+    - c5.large, c5n.large, c5a.large, c5ad.large,
+    - m5.xlarge, m5n.xlarge, m5a.xlarge, m5ad.xlarge,
+    - c5.xlarge, c5n.xlarge, c5a.xlarge, c5ad.xlarge,
+    - m5.2xlarge, m5n.2xlarge, m5a.2xlarge, m5ad.2xlarge,
+    - c5.2xlarge, c5n.2xlarge, c5a.2xlarge, c5ad.2xlarge,
+    - m5.4xlarge, m5n.4xlarge, m5a.4xlarge, m5ad.4xlarge,
+    - c5.4xlarge, c5n.4xlarge, c5a.4xlarge, c5ad.4xlarge,
+    - m5.8xlarge, m5n.8xlarge, m5a.8xlarge, m5ad.8xlarge,
+    - c5.9xlarge, c5n.9xlarge, c5a.8xlarge, c5ad.8xlarge,
+    - i3.large, i3.xlarge
+
+  The above are the only kinds of instances supported for clients. Clients do not store any data and they can be SPOT instances if your application can tolerate instance stop/terminate. If you plan to run a lot of client threads, utilize an instance with a lot of cores. Carefully examine the tradeoffs of the different types before choosing a client type. c5n instances have the highest network I/O. You could utilize Spot instances but plan for Client instance termination/interruption.
+
+- **20.c.1)** NOTE: Unlike server clusters, the client clusters can be augmented to become heterogeneous. In other words, a single client cluster may be composed of instances of different AWS instance types. This is not the case with the server cluster (which has to be
+
