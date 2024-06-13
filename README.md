@@ -99,7 +99,7 @@ NOTE: Depending upon the use case MV can perform better or Secondary index can p
 - **6.f)** Write transactions will respond to the client as soon as each statement in the batch has been applied on some node, however, it will not wait for it to be applied on all applicable nodes before responding to the client. Writes are applied only if a quorum of coordinators have received the write txn and marked it as to-be-applied. Thus as soon as the write returns if you submit an MVCC read-only query to obtain the modified data right away you might get older data. That is just the nature of MVCC, it is not guaranteed to return the most recently committed data. This is true of all MVCC implementations.
 - **6.g)** Transaction functionality is rather limited, this is because this is a first implementation. We will make it better later.
 
-#### 6.h) QUERY TIMEOUT
+#### 6.h) Query Timeout
 If a DELETE/UPDATE/INSERT hits a timeout, it could be due to one of the following reasons:
 - **6.h.1)** The server has a lot of load and cannot handle too much write traffic, then write load should be reduced. In such a case, write queries submitted to the coordinator should not be resubmitted because they have been journaled and the cluster will eventually apply them.
 - **6.h.2)** The coordinator failed over and a new one got elected. The failover process could take a very short time, typically a few milliseconds. In this case, the write query sent to the coordinator may have to be resubmitted because it may have been lost.
@@ -109,7 +109,7 @@ If a DELETE/UPDATE/INSERT hits a timeout, it could be due to one of the followin
 
 If a SELECT query times out, the causes could again be one of 6.h.1), 6.h.2), 6.h.3). The only difference is that SELECT queries are never journaled. The suggestions to address any issues are similar to the ones in 6.h.1), 6.h.2), 6.h.3).
 
-## 7. PARTITION KEY
+## 7. Partition Key
 As with Apache Cassandra, choose the partition key very carefully.
 - **7.a)** Partition key is utilized for consistent hashing to distribute data evenly in the nodes in the cluster and a poorly chosen partition key will create hot spots which cannot be fixed. Adding new nodes in the cluster will NOT fix hot spots.
 - **7.b)** IMPORTANT: Choose a partition key with high enough cardinality so that it can be distributed somewhat randomly in the cluster. This is true of the base table as well as MVs.
@@ -393,7 +393,7 @@ If you are able to drive enough stress into the system and it presents no signif
 - **25.h)** A single write query batch cannot update more than 100 tables and materialized views combined. Likewise, a single read query batch cannot access more than 60 tables and materialized views. These are not 'unique' table numbers but the total number of table/MV accesses. Each query accessing a table/MV would count towards the total even if a previous query in the same batch has accessed the same table/MV.
 - **25.i)** For batched writes, any error messages for the writes will be reported for only the first 10 failed writes in the batch; the rest of the writes will be accompanied by any error codes but not any error messages.
 
-### 26. Security Issues
+## 26. Security Issues
 
 - **26.a)** Currently, we do not have specific encryption (data at rest, in transit, or field-specific) related features or private networking, etc. We do not have any TLS/SSL-based client and inter-node communication. The current product represents a large attack surface for malicious actors. If this is important to your usage, please check if you have alternate mechanisms in place for cloud security which can provide you security guarantees. (Such issues exist with Cassandra as well, as of the last check. It's possible that there have been improvements since).
 - **26.b)** We have Apache Cassandra specific role-based authentication.
