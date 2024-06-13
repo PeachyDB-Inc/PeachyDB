@@ -6,7 +6,7 @@ PeachyDB is a horizontally scalable database intended to overcome the shortcomin
 
 **Product Status**: Beta release.
 
-## 1. Apache Cassandra features currently not implemented:
+## 1. Apache Cassandra features currently not implemented
 - TTL
 - Write-timestamp
 - Statics
@@ -16,7 +16,7 @@ PeachyDB is a horizontally scalable database intended to overcome the shortcomin
 - Backup/Restore is not yet implemented.
 - Any data encryption features are not available.
 
-## 2. Currently only a C++ client is available.
+## 2. Only a C++ client is available 
 Examples provide a clear explanation of how to utilize a client to drive load to servers.
 - **2.a)** User-defined-type, collection-types are supported.
 - **2.b)** A primary key column of a Base Table or a Materialized View cannot be of type user-defined-type, or a collection-type. This is the same as Apache Cassandra (up to the most recent versions of CQL, if this has changed since please send me a note).
@@ -387,3 +387,28 @@ If you are able to drive enough stress into the system and it presents no signif
 - **25.c)** Each collection (list, set, map) is limited in size to 64kb.
 
 - **25.d)** Currently, each record (primary key, clustering columns) should be less than 1mb. This is an artificial limitation related to replication, which we can later remove. We have not tested records that are that large; the actual limit may be a little smaller due to numerous buffer sizes utilized. This can be later ameliorated on customer request.
+- **25.e)** By default, the maximum query response size returned by servers is 1mb.
+- **25.f)** Any server cannot have more than 2k local read-only queries active at a time.
+- **25.g)** Range deletes will delete no more than 1k objects at a time.
+- **25.h)** A single write query batch cannot update more than 100 tables and materialized views combined. Likewise, a single read query batch cannot access more than 60 tables and materialized views. These are not 'unique' table numbers but the total number of table/MV accesses. Each query accessing a table/MV would count towards the total even if a previous query in the same batch has accessed the same table/MV.
+- **25.i)** For batched writes, any error messages for the writes will be reported for only the first 10 failed writes in the batch; the rest of the writes will be accompanied by any error codes but not any error messages.
+
+### 26. Security Issues
+
+- **26.a)** Currently, we do not have specific encryption (data at rest, in transit, or field-specific) related features or private networking, etc. We do not have any TLS/SSL-based client and inter-node communication. The current product represents a large attack surface for malicious actors. If this is important to your usage, please check if you have alternate mechanisms in place for cloud security which can provide you security guarantees. (Such issues exist with Cassandra as well, as of the last check. It's possible that there have been improvements since).
+- **26.b)** We have Apache Cassandra specific role-based authentication.
+
+## 27. Costs
+
+New users will be offered a 1-month free trial offer. During this time, your AWS instances will not incur any software license charges. However, any underlying AWS infrastructure, instances, etc., will still incur AWS costs that will be charged by AWS. Once the 1-month trial period expires, you will be charged a minimal software license fee per AWS instance, in addition to the AWS infrastructure costs. For significant discounts, an annual software license can be purchased.
+
+Why do we charge a software license fee at all?
+
+- **27.a)** We offer a product that should outperform and outscale Cassandra.
+- **27.b)** We have a simplified consistency model to significantly reduce application development costs.
+- **27.c)** We have virtually zero administration costs.
+- **27.d)** We avoid the severe pathologies related to data modifications that alternatives have and we also allow more options on write transactions.
+- **27.e)** The products that do charge a software license are more expensive than ours.
+- **27.f)** Please try other products and then compare for yourself; you will find our product to be easier to work with and have lower costs.
+- **27.g)** This is just a start; we plan to make this much more useful, both in terms of performance and very large and significant features, and a whole slew of associated products and technologies, and also address aforementioned limitations and community feature requests.
+- **27.h)** How do we provide this service without having some way to fund the development?
