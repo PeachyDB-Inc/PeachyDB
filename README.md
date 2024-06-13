@@ -412,3 +412,51 @@ Why do we charge a software license fee at all?
 - **27.f)** Please try other products and then compare for yourself; you will find our product to be easier to work with and have lower costs.
 - **27.g)** This is just a start; we plan to make this much more useful, both in terms of performance and very large and significant features, and a whole slew of associated products and technologies, and also address aforementioned limitations and community feature requests.
 - **27.h)** How do we provide this service without having some way to fund the development?
+
+## 28. Support and License
+
+We have made every effort to ensure a product of extremely high quality but a few initial hiccups are inevitable.
+
+**28.a)** You can email comments to support@peachydb.com but if the volume is too high, we may not be able to get to your comments at all.
+
+**28.b)** Avoid sending a comment unless you have run into a show stopper bug and combine all your questions in one email but please keep it short, and take some time before sending it.
+
+**28.c)** If you do send an email do provide the name of your organization, how many nodes you are utilizing or plan on utilizing, how soon you want to go online, any verifiable information about which AWS user you are. Emails without any contact information on organization etc will be ignored.
+
+**28.d)** If your emails are too long or too many, they will be ignored. At this point we are very constrained on resources and with the best of intentions we will still not be able to help everyone. (Where applicable, in your email, mention specific points indicated above).
+
+**28.e)** CAUTION: As indicated in our license, the product is provided as is and we are not responsible for any losses that may occur due to utilizing this product. We will not accept any form of litigation for any issues. To minimize your risk please test your use case thoroughly. You will most likely find the product exceeds your expectations for the use cases it is designed for.
+
+**28.f)** We do not have any presence on GitHub. Any similarly named project on Github should be ignored. We are not related to any project on Github.
+
+**28.g)** Currently the product is released only on Amazon AWS and is subject to all costs associated with AWS. We will formulate a separate license for allowing users to run product on their private resources later on.
+
+**28.h)** Support License. Due to very limited resources, we can not accept too many requests for support license at this time, so if we are not able to accommodate your request please know that we will eventually get to it, but it could take some time. We will eventually make it much easier for everyone to figure things out on their own, we have to get there.
+
+**28.i)** We can not offer customer support to organizations that are providing support on this product to third parties.
+
+**28.j)** Please test your use case very thoroughly before purchasing any annual reserved instances to minimize any surprises along the way.
+
+**28.k)** Since we are mostly compatible with Cassandra CQL, if you have issues with our current release you can migrate to Cassandra or similar products easily. We hope that this should not be needed.
+
+## 29. Benchmarks
+
+What about benchmarks?
+
+**29.a)** Benchmarks can be smoke and mirrors. All vendors contrive them to favor their product.
+
+**29.b)** Please make your own measurements for your use case.
+
+**29.c)** We expect to perform better than Cassandra.
+
+**29.d)** Subsequent releases will be more focused on performance improvements. Like other products, we have a very long list of improvements that should make us significantly better in every metric compared to our current release and competitive with the best products available out there in performance, scalability and features.
+
+**29.e)** Note points 5.f.5) and 23.h) above for performance improvement.
+
+**29.f)** Our product also has limitations listed in the sections above. If your use case fits better with the alternatives, it would be better to stick with them. Different products may be optimized better for different situations.
+
+**29.g)** Due to compatibility with Cassandra CQL you can easily migrate to other products if they fit your usage better.
+
+## 30. Why are we closed source?
+
+At the moment we want the user to focus only on their application and not depend upon specifics of our product which are most likely to be overhauled in subsequent releases. We want to minimize the effort users have to undertake to interact with the product.
