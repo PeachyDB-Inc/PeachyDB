@@ -103,7 +103,7 @@ Examples provide a clear explanation of how to utilize a client to drive load to
 - **4.i)** Apache Cassandra will often times truncate timestamp value to milliseconds, we do the same.
 - **4.j)** A DATEMSK environment variable points to the DATEMSK file, which allows the following formats (%A, %T,%F, %FT%T). We will allow replacing this file later on.
 
-## 5. Select queries work under similar constraints as Apache Cassandra
+## 5. SELECT works under similar constraints as Apache Cassandra
 - **5.a)** SELECT query that has WHERE clause conditions restricting all the partition key constraints can perform better than others because they can be sent to specific nodes.
 - **5.b)** SELECT query that has WHERE clause conditions which also restrict some of the primary key columns (in addition to the partition key columns) can perform even better.
 - **5.c)** SELECT query can be invoked on Materialized View instead of base table. Such queries can also benefit if partition key of MV is restricted along with any of the other primary key columns.
