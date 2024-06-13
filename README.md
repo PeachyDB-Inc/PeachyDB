@@ -18,7 +18,7 @@ PeachyDB is a horizontally scalable database intended to overcome the shortcomin
   <li><a href="#8-schema-changes">8. Schema Changes</a></li>
   <li><a href="#9-client-refresh">9. Client Refresh</a></li>
   <li><a href="#10-replication-factor">10. Replication Factor</a></li>
-  <li><a href="#11-coordinator-nodes">11. Coordinator Nodes</a></li>
+  <li><a href="#11-co-ordinator-nodes">11. Coordinator Nodes</a></li>
   <li><a href="#12-durability">12. Durability</a></li>
   <li><a href="#13-cluster-size-limit">13. Cluster Size Limit</a></li>
   <li><a href="#14-adding-nodes-to-the-cluster">14. Adding Nodes to Cluster</a></li>
