@@ -453,7 +453,7 @@ Why do we charge a software license fee at all?
 
 We have made every effort to ensure a product of extremely high quality but a few initial hiccups are inevitable.
 
-**28.a)** You can email comments to support@peachydb.com but if the volume is too high, we may not be able to get to your comments at all.
+**28.a)** Customers with support contracts can send an email on the provided address.
 
 **28.b)** Avoid sending a comment unless you have run into a show stopper bug and combine all your questions in one email but please keep it short, and take some time before sending it.
 
