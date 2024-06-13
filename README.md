@@ -83,7 +83,7 @@ NOTE: Depending upon the use case MV can perform better or Secondary index can p
   - **5.f.4)** SELECT on MV has to be explicitly invoked on the MV (not on the base table).
   - **5.f.5)** IMPORTANT: MV as well as Secondary indexes take up a lot of space, utilize them after carefully examining your queries. The more secondary indexes and MVs you create on a single table the more it will degrade the write performance. (This is true of all other databases as well).
 
-## 6. Database Transactions (read-only and read-write):
+## 6. Database Transactions (read-only and read-write)
 - **6.a)** Batch of writes
   - **6.a.1)** Can contain a sequence of insert, delete, update queries (no selects).
   - **6.a.2)** IMPORTANT: If one of the writes in the batch fails to apply, it will be skipped and the user will be informed that it was skipped, however, the rest of the batch will be applied. This is not ideal. However, this is a first step that is likely to meet several use cases.
@@ -99,7 +99,7 @@ NOTE: Depending upon the use case MV can perform better or Secondary index can p
 - **6.f)** Write transactions will respond to the client as soon as each statement in the batch has been applied on some node, however, it will not wait for it to be applied on all applicable nodes before responding to the client. Writes are applied only if a quorum of coordinators have received the write txn and marked it as to-be-applied. Thus as soon as the write returns if you submit an MVCC read-only query to obtain the modified data right away you might get older data. That is just the nature of MVCC, it is not guaranteed to return the most recently committed data. This is true of all MVCC implementations.
 - **6.g)** Transaction functionality is rather limited, this is because this is a first implementation. We will make it better later.
 
-### 6.h) QUERY TIMEOUT
+#### 6.h) QUERY TIMEOUT
 If a DELETE/UPDATE/INSERT hits a timeout, it could be due to one of the following reasons:
 - **6.h.1)** The server has a lot of load and cannot handle too much write traffic, then write load should be reduced. In such a case, write queries submitted to the coordinator should not be resubmitted because they have been journaled and the cluster will eventually apply them.
 - **6.h.2)** The coordinator failed over and a new one got elected. The failover process could take a very short time, typically a few milliseconds. In this case, the write query sent to the coordinator may have to be resubmitted because it may have been lost.
