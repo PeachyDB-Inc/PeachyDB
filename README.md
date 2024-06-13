@@ -462,8 +462,6 @@ We have made every effort to ensure a product of extremely high quality but a fe
 
 **28.e)** **Caution**: As indicated in our license, the product is provided as is and we are not responsible for any losses that may occur due to utilizing this product. We will not accept any form of litigation for any issues. To minimize your risk please test your use case thoroughly. You will most likely find the product exceeds your expectations for the use cases it is designed for.
 
-**28.f)** We do not have any presence on GitHub. Any similarly named project on Github should be ignored. We are not related to any project on Github.
-
 **28.g)** Currently the product is released only on Amazon AWS and is subject to all costs associated with AWS. We will formulate a separate license for allowing users to run product on their private resources later on.
 
 **28.h)** Support License. Due to very limited resources, we can not accept too many requests for support license at this time, so if we are not able to accommodate your request please know that we will eventually get to it, but it could take some time. We will eventually make it much easier for everyone to figure things out on their own, we have to get there.
