@@ -6,6 +6,39 @@ PeachyDB is a horizontally scalable database intended to overcome the shortcomin
 
 **Product Status**: Beta release.
 
+## Table of Contents
+1. Apache Cassandra features not implemented
+2. Only C++ client available
+3. Materialized Views (MV) and Secondary Indexes behave similarly to Apache Cassandra
+4. INSERT, DELETE, UPDATE behave differently from Apache Cassandra
+5. Select queries work under similar constraints as Apache Cassandra
+6. Database Transactions (read-only and read-write)
+7. Partition Key
+8. Schema Changes
+9. Client Refresh
+10. Replication Factor
+11. Coordinator Nodes
+12. Durability
+13. Cluster Size Limit
+14. Adding Nodes to the Cluster
+15. Replacing a Failed Node
+16. Removing Nodes from the Cluster
+17. Datacenter Clusters
+18. Monitoring Nodes
+19. Interference with Database Servers
+20. AWS Instance Types for Database Servers, Clients
+21. CloudFormation Effectiveness
+22. Backup/Restore
+23. Deployment Strategy
+24. Known Bugs/Issues
+25. Limits
+26. Security Issues
+27. Costs
+28. Support and License
+29. Benchmarks
+30. Why are we closed source?
+
+
 ## 1. Apache Cassandra features not implemented
 - TTL
 - Write-timestamp
