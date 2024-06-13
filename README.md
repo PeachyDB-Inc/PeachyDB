@@ -6,7 +6,7 @@ PeachyDB is a horizontally scalable database intended to overcome the shortcomin
 
 **Product Status**: Beta release.
 
-## 1. Apache Cassandra features currently not implemented
+## 1. Apache Cassandra features not implemented
 - TTL
 - Write-timestamp
 - Statics
@@ -16,7 +16,7 @@ PeachyDB is a horizontally scalable database intended to overcome the shortcomin
 - Backup/Restore is not yet implemented.
 - Any data encryption features are not available.
 
-## 2. Only a C++ client is available 
+## 2. Only C++ client available 
 Examples provide a clear explanation of how to utilize a client to drive load to servers.
 - **2.a)** User-defined-type, collection-types are supported.
 - **2.b)** A primary key column of a Base Table or a Materialized View cannot be of type user-defined-type, or a collection-type. This is the same as Apache Cassandra (up to the most recent versions of CQL, if this has changed since please send me a note).
