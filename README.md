@@ -168,7 +168,7 @@ Check the liveness of nodes every few minutes and storage utilization of nodes e
 ## 19. Interference with Server Containers
 Please **DO NOT** directly interfere with server containers or attach to them. Try to utilize only the APIs and tools provided. This is because there are workarounds for known issues in place, which if broken can cause the database to be unrecoverable, and you will have no option but to rejoin the node in the cluster, which is going to waste too much time and resources sending all the data back and catching up. This will also degrade the performance of the cluster during the joining.
 
-## 20. AWS Instance Types for Database Servers
+## 20. AWS Instance Types for Database Servers, Clients
 Currently, our product works only with i3 and i3en AWS instances for database servers. AWS Spot instances should **NOT** be utilized with production clusters because the i3 instances (which are required for performance) will lose their database if the instance is stopped or terminated. For experimental clusters, spot instances can be utilized. AWS recommends i3 instances (or similar) with local SSDs for storage, for running databases such as Cassandra/DynamoDB. Other instances **DO NOT** perform well in some usage scenarios. Additionally, if you were to utilize Spot instances together with EBS storage, the storage costs would also add up quickly (you have to make a detailed calculation to figure out if there would be a significant difference in the two approaches for your use case. This is just for your knowledge; we **DO NOT** support EBS usage due to its poor performance for the usage scenarios of our product).
 
 - **20.a)** Server instances are either i3 instances or i3en instances, and the cluster is composed of the same kind of instances so all nodes have roughly the same capability. For now, this is a requirement; later we can change this. In production, server instances have to be either reserved or on-demand. They cannot be SPOT instances. Additionally, we have also observed difficulty obtaining Spot instances sometimes; this may be specific to our usage, your experience might be different. (If you want to utilize Spot instances in production, you have to somehow guarantee that the instances will not get stopped/terminated because that will lead to data loss, and additionally, with enough such stopped instances, the product will stop working. We don't know if there is some way to guarantee this in AWS.).
@@ -192,5 +192,47 @@ Currently, our product works only with i3 and i3en AWS instances for database se
 
   The above are the only kinds of instances supported for clients. Clients do not store any data and they can be SPOT instances if your application can tolerate instance stop/terminate. If you plan to run a lot of client threads, utilize an instance with a lot of cores. Carefully examine the tradeoffs of the different types before choosing a client type. c5n instances have the highest network I/O. You could utilize Spot instances but plan for Client instance termination/interruption.
 
-- **20.c.1)** NOTE: Unlike server clusters, the client clusters can be augmented to become heterogeneous. In other words, a single client cluster may be composed of instances of different AWS instance types. This is not the case with the server cluster (which has to be
+- **20.c.1)** NOTE: Unlike server clusters, the client clusters can be augmented to become heterogeneous. In other words, a single client cluster may be composed of instances of different AWS instance types. This is not the case with the server cluster, which has to be homogeneous for now.
+
+- **20.d)** For experimentation with your databases, you can try utilizing SPOT instances for servers. This could work for testing purposes to reduce costs. But this is not recommended/supported for production servers. This is because spot instances do not guarantee availability. The user would have to actively monitor stopped/terminated instances and replace them. For small enough a database, this might be doable manually. If there are enough stopped instances, the product might fail in unexpected ways. If you have a way to guarantee that your instances are not going to be stopped/terminated, then you might be able to utilize spot instances for even larger database instances. If you have decided to utilize the product, then you can purchase annual AWS reserved instances to attain discounts on AWS costs as well as any software license costs. Note: If a spot instance gets terminated in the server stack, it will probably be better to simply delete the stack and start over because there is a chance that more instances might get terminated in the near time frame (possibly).
+
+## 21. CloudFormation Effectiveness
+Utilize the steps indicated in the link below to utilize CloudFormation effectively (do switch on Logging AWS CloudFormation with AWS CloudTrail, also set up endpoints to ensure latency expectations):
+Setting up with AWS CloudFormation
+
+The steps to create/delete/modify/describe server/client clusters are documented separately. Please follow the directions carefully, and you should have the clusters running with example tests running in a short period of time.
+
+## 22. Backup/Restore
+We do not have backup/restore at the moment. The Cluster has a built-in replication factor, which has some fault tolerance. Utilizing AWS Partition Placement Groups can reduce the probability of correlated hardware failures. If there are multiple concurrent hardware failures, it can lead to data loss if all copies of a partition are lost due to the failures. In production clusters, utilizing Partition placement groups is a requirement for this reason. However, note that utilizing Partition Placement groups does not reduce the probability of correlated failures to zero. AWS also indicates that partition placement algorithms are "best effort" and depend upon the availability of instances in the partitions to keep the EC2 instances balanced across partitions. Thus, it is still possible to have correlated failures, although the probability of this happening should be reduced by some degree. It is possible that in some cases it reduces odds of correlated failures very significantly so that in practice data loss does not occur.
+
+(Backup/Restore can also be useful in situations of accidental deletion of data by the user. For accidental user deletion of data, we do not have any built-in mechanism to prevent/revert it. This can be mitigated via customer's application-level strategies).
+
+AWS provides utilities to backup AWS instances, however, we have not yet investigated them and even if some functionality exists then we may still have to provide some tools to make it work with our product.
+
+There are several third-party products that can be utilized for Backup/Restore. We have not investigated those, and there is a chance that we may have to provide some tools to make them work with our product.
+
+NOTE: It's virtually certain that eventually one or more AWS instances will incur hardware failures and they will have to be replaced. Depending upon your usage, you have to determine carefully which approaches (if any) you want to utilize to mitigate a scenario where enough number of concurrent failures lead to data loss. Currently, such approaches would have to be determined at a layer outside our product.
+
+We have to provide backup and restore tools as soon as we can.
+
+## 23. Deployment Strategy
+We utilize AWS CloudFormation templates to create AWS stacks to deploy our database clusters. You have to create an S3 bucket with write permissions in which the CloudFormation templates will be stored. All AWS EC2 instances must be within the same Subnet, VPC.
+
+- **23.a)** As a first step, create a test cluster with the cheapest instances (i3.2xlarge for server clusters). If you can allocate Spot instances while guaranteeing somehow they will not be disrupted, then utilize Spot instances. They are not supported for production because disruptions can lead to loss of data, however, for testing purposes as long as you know you won't be disrupted, it will be more cost-effective to utilize this option. IMPORTANT: Occasionally you will find that an AWS EC2 Spot instance is stopped. Please keep an eye on the AWS console to look out for this. If this is a test cluster, you could simply delete the clusters and start over. A stopped instance is considered to be a failed instance which would have to be substituted in a production cluster.
+  - **23.a.1)** Utilize the computation below to determine, based upon the number of nodes in the cluster, how much data you can store in the database; choose a cluster of at least 4 nodes.
+  - **23.a.2)** Drive the data load and validate that there are no hot spots and data is evenly distributed in the cluster. If data is not evenly distributed, rethink your tables, partition keys, drop the tables that are not evenly distributed. It might take some time for table drop to complete. And add back the tables with different partition keys. Make sure data is evenly distributed in the cluster. As long as partition keys are of high cardinality, there shouldn't be any hot spots.
+  - **23.a.3)** When enough data has been added into the cluster, try adding 2 nodes in the cluster (one by one, of course) and validate that the data on the nodes is still more or less uniformly distributed.
+  - **23.a.4)** Test all your usage queries to make sure everything works. This is crucial to avoid any surprises or bugs in production. This is extremely important at this stage of our product (BETA release), and we expect at least some hiccups.
+  - **23.a.5)** The tool to determine storage utilization on nodes in the cluster is explained in the file that contains all the commands.
+
+If you are able to drive enough stress into the system and it presents no significant issues, you can utilize a production cluster consisting of more powerful EC2 instances. Thoroughly testing your use case scenario will minimize any risks in deployment.
+
+- **23.b)** Once the use case has been validated, determine how much data you plan on having in the cluster. According to the above calculations, with a replication factor of 3 and accounting for SSD overhead, journaling, multiversioning overhead, fragmentation, background tasks, merging, etc., another factor of 2 has to be included. So for 10TB actual data, you need 10*3*2 = 60TB total storage requirement. While this might seem excessive, other horizontally scalable databases with replication factors have similar overheads.
+
+- **23.c)** Try to utilize a cluster of less than 64 nodes.
+
+- **23.d)** For different storage requirements, here are suggestions:
+  - **23.d.1)** For a total storage requirement of < 122TB, utilize i3.2xlarge instances to form a cluster. (each i3.2xlarge instance has about 1.9TB of SSD available)
+  - **23.d.2)** For a total storage requirement of < 244TB, utilize i3.4xlarge instances to form a cluster. (each i3.4xlarge instance has about 3.8TB SSD available)
+  - **23.d.3)** For a total storage requirement of < 488TB, utilize i3.8xlarge instances to form a cluster. (each i3.8xlarge instance has
 
