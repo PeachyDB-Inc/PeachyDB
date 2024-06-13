@@ -358,3 +358,32 @@ If you are able to drive enough stress into the system and it presents no signif
 - **24.52)** Canceling an ongoing cluster configuration change (add/remove/substitute node) operation is not advised. It's available if the change was mistakenly started and needs to be canceled right away. It has not been tested very well to see if it works when the operation is well on its way. It does work when an operation has just about started.
 
 - **24.53)** Before adding/removing/substituting a node in a cluster, please make sure that all the nodes in the cluster are live (with the exception of substitute). Otherwise, the operation will get stuck communicating with dead nodes.
+- **24.54)** Immediately after a cluster configuration change (add/remove node), it is expected that performance will degrade temporarily because older vnodes are being purged from nodes where they are no longer needed. This task is delayed until the add/remove completes so that the data can still be served in the interim. If a cluster configuration change has just completed and some vnodes are to be removed from a node, then if an additional cluster configuration change is invoked which adds back some of those vnodes, it will be stalled until vnode_gc completes removal of those vnodes. This should only happen in node removal.
+
+- **24.55)** Instead of specifying `uuid()`, you have to specify `fnuuid()` in queries when obtaining a UUID. `uuid()` cannot be utilized as a part of the partition key; otherwise, you will not be able to query the table since the client has no track of UUID.
+
+- **24.56)** All components of the partition key must be generated at the client and provided with the query; this appears to be a requirement in Cassandra as well.
+
+- **24.57)** If an EC2 instance newly added to a cluster fails to come up, you can collect `/var/log/peachy` from the instance to see if there are any problems.
+
+- **24.58)** When looking at query statistics, it's important to understand that the statistics are printed every 10 minutes, which may suggest lower CPU utilization during periods of low/no activity. Care should be taken to look at statistics that are representative of durations when the clients are driving sufficient traffic to the servers.
+
+- **24.59)** If an AWS EC2 Instance restarts (product restart/reboot), then for some time, the write performance on all the instances will degrade because the just restarted node will incur I/O to build the cache and will reduce the throughput in the cluster.
+
+- **24.60)** Adding nodes to the server/client stack will retain the property `SpotInstance` utilized for creating the original stack. If the original stack was created with spot instances, the newly added instance will also be a spot instance.
+
+- **24.61)** Occasionally, a cluster configuration change appears to be stuck, and AWS does add/remove/substitute the node, but the node refuses to come online or join the cluster. This can happen if some aspect of AWS infrastructure did not get set up in a timely manner. If "docker container ls" on the new node shows no container running, errors in `/var/log/peachy.errors` can be correlated with `setup_cluster_config.py`. Repair can involve running a repair script.
+
+- **24.62)** We have measured and confirmed with AWS an issue regarding ephemeral SSD performance attached to i3/i3en instances. The performance of I/O on the ephemeral storage can vary a lot depending on the other processes running in other instances associated with the same physical resources. This has been addressed to some extent in our layer.
+
+- **24.63)** Complete the currently submitted operation on an AWS stack before submitting another one; otherwise, the behavior can be unpredictable. Any commands issued via the tools provided should not be prematurely terminated with Ctrl-C unless you know what you are doing.
+
+## 25. Limits
+
+- **25.a)** The maximum query request size, including all serialized parameters, is 320kb. The larger the request, the more time-consuming it will be.
+
+- **25.b)** If all the clients submit a combined more than 1k large queries at a given instant, then some of them may get rejected. A large query is any query which is serialized in more than 1300 bytes.
+
+- **25.c)** Each collection (list, set, map) is limited in size to 64kb.
+
+- **25.d)** Currently, each record (primary key, clustering columns) should be less than 1mb. This is an artificial limitation related to replication, which we can later remove. We have not tested records that are that large; the actual limit may be a little smaller due to numerous buffer sizes utilized. This can be later ameliorated on customer request.
