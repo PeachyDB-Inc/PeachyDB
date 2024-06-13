@@ -462,15 +462,15 @@ We have made every effort to ensure a product of extremely high quality but a fe
 
 **28.e)** **Caution**: As indicated in our license, the product is provided as is and we are not responsible for any losses that may occur due to utilizing this product. We will not accept any form of litigation for any issues. To minimize your risk please test your use case thoroughly. You will most likely find the product exceeds your expectations for the use cases it is designed for.
 
-**28.g)** Currently the product is released only on Amazon AWS and is subject to all costs associated with AWS. We will formulate a separate license for allowing users to run product on their private resources later on.
+**28.f)** Currently the product is released only on Amazon AWS and is subject to all costs associated with AWS. We will formulate a separate license for allowing users to run product on their private resources later on.
 
-**28.h)** Support License. Due to very limited resources, we can not accept too many requests for support license at this time, so if we are not able to accommodate your request please know that we will eventually get to it, but it could take some time. We will eventually make it much easier for everyone to figure things out on their own, we have to get there.
+**28.g)** Support License. Due to very limited resources, we can not accept too many requests for support license at this time, so if we are not able to accommodate your request please know that we will eventually get to it, but it could take some time. We will eventually make it much easier for everyone to figure things out on their own, we have to get there.
 
-**28.i)** We can not offer customer support to organizations that are providing support on this product to third parties.
+**28.h)** We can not offer customer support to organizations that are providing support on this product to third parties.
 
-**28.j)** Please test your use case very thoroughly before purchasing any annual reserved instances to minimize any surprises along the way.
+**28.i)** Please test your use case very thoroughly before purchasing any annual reserved instances to minimize any surprises along the way.
 
-**28.k)** Since we are mostly compatible with Cassandra CQL, if you have issues with our current release you can migrate to Cassandra or similar products easily. We hope that this should not be needed.
+**28.j)** Since we are mostly compatible with Cassandra CQL, if you have issues with our current release you can migrate to Cassandra or similar products easily. We hope that this should not be needed.
 
 ## 29. Benchmarks
 
