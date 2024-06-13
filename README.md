@@ -111,7 +111,7 @@ If a DELETE/UPDATE/INSERT hits a timeout, it could be due to one of the followin
 
 If a SELECT query times out, the causes could again be one of 6.h.1), 6.h.2), 6.h.3). The only difference is that SELECT queries are never journaled. The suggestions to address any issues are similar to the ones in 6.h.1), 6.h.2), 6.h.3).
 
-### 7. PARTITION KEY
+## 7. PARTITION KEY
 As with Apache Cassandra, choose the partition key very carefully.
 - **7.a)** Partition key is utilized for consistent hashing to distribute data evenly in the nodes in the cluster and a poorly chosen partition key will create hot spots which cannot be fixed. Adding new nodes in the cluster will NOT fix hot spots.
 - **7.b)** IMPORTANT: Choose a partition key with high enough cardinality so that it can be distributed somewhat randomly in the cluster. This is true of the base table as well as MVs.
@@ -123,21 +123,21 @@ As with Apache Cassandra, choose the partition key very carefully.
 - **7.h)** If you require co-locating multiple records on the same partition then you can choose the same partition key for them, but please make certain that such co-location does not imbalance the cluster by placing too many objects in the same partition. The overall goal is to utilize a high cardinality partition key to distribute objects evenly in the partitions.
 - **7.i)** Colocating related items utilizing the same partition key also allows batched writes among them to be more efficient. And as we improve capabilities of write batches this will allow more flexible writes (although this will be available in later releases).
 
-### 8. Schema Changes
+## 8. Schema Changes
 Try to avoid making too many schema changes in your application at the moment, because the current product has very limited space overhead for that. A schema that contains 500+ tables may not work at the moment.
 
-### 9. Client Refresh
+## 9. Client Refresh
 Every time you Drop/Add a table, refresh the client. This is an expensive operation and should only be done when a table is added/dropped, never otherwise.
 
-### 10. Replication Factor
+## 10. Replication Factor
 The industry-standard replication factor of 3 is recommended. This means that the minimum cluster size has to be 3 nodes. The product will not work on fewer nodes. In your storage calculations include replication factor. If your data is 10TB, then with replication factor included overall storage requirement is 30TB. If we include SSD overheads, journaling overheads, versioning overhead, fragmentation overheads, any background tasks merging overheads, etc., then it is safe to have overall storage of about 60TB available through the cluster. Other horizontally scalable databases have similar space overheads.
 
 At the moment, the replication factor should not be less than 3. We will work later to get a better idea of how much of a risk there is to allow a replication factor of a minimum of 2. We did not consider this as it could potentially lead to data loss in an environment where there is no backup restore.
 
-### 11. Co-ordinator Nodes
+## 11. Co-ordinator Nodes
 The number of Coordinator nodes should be at least 3 but it can be more. The only downside to having more coordinator nodes is that it will increase the journal replication load by a little bit. But it should not matter too much. Choose enough to tolerate failures. At the moment the number of coordinators is chosen when creating a cluster and thereafter it cannot be altered.
 
-### 12. Durability
+## 12. Durability
 At the moment the product relies on k-safety. This implies that as long as more than k/2 coordinator nodes are alive then the committed transactions are durable. Otherwise, we can lose some most recently committed transactions. (product restart alone should not cause logs to be lost, only power cycle or segfaults, etc. could cause this on a given node, so this should be quite rare). If you are concerned about this and want to tolerate more failures, please increase the number of coordinators to 5 or 7 depending on how big your cluster is. (k = number of coordinator nodes).
 
 - **12.a)** If more than k/2 coordinator nodes are down, write txns cannot be applied and will timeout.
@@ -147,28 +147,28 @@ At the moment the product relies on k-safety. This implies that as long as more 
 - **12.e)** During a failover to elect a new leader, pending write transactions that have been committed to the journal but not yet applied will still be applied. However, the client that originated the query will only receive a timeout and will reconnect to a different leader. In this situation, if the client resubmits the same write, then depending on the situation, the client will receive errors.
 - **12.f)** As indicated below, utilize AWS partition placement groups to mitigate correlated failures of multiple AWS instances.
 
-### 13. Cluster Size Limit
+## 13. Cluster Size Limit
 The current cluster size limit is 64 nodes. We will improve upon this later.
 
-### 14. Adding Nodes to the Cluster
+## 14. Adding Nodes to the Cluster
 When adding more nodes to the cluster, plan on adding at least 3 or 4 nodes (one by one, of course) to evenly spread out the data. However, you have to add the nodes one by one. You will find this to be a much more convenient task than with Cassandra. You can check its rough status periodically and even cancel the ongoing operation if you change your mind, although the further along you are, the more work is needed to cancel the operation, and it is better to avoid canceling. Also, add nodes to a cluster only after it has sufficient data (i.e., nodes are all at least 50% full to their maximum capacity, else the product may not be able to come up with a good redistribution).
 
-### 15. Replacing a Failed Node
+## 15. Replacing a Failed Node
 When replacing a failed node, always utilize the node SUBSTITUTE command from the node tool. **DO NOT** utilize REMOVE node and then ADD node. SUBSTITUTE does not alter the data partitioning or ownership and will complete relatively faster and retain data distribution. REMOVE and ADD will cause a data repartitioning storm. This is very important to understand and avoid. When substituting a node, please utilize a node with the same capabilities as before (same storage and vCPUs), else the code can potentially get confused and generate imbalanced nodes. At the moment, we do not allow nodes of different AWS types in a cluster, so having dissimilar nodes in the cluster should not be much of a concern.
 
-### 16. Removing Nodes from the Cluster
+## 16. Removing Nodes from the Cluster
 **DO NOT** remove a node from the cluster (especially for replacement and even otherwise). This is because removing nodes can sometimes lead to poorer data distribution. This is a known issue, which we will resolve. For now, know that it will work, but it should be avoided as much as possible. Do it only if you know that you are going to shrink your database. This should be an uncommon situation.
 
-### 17. Datacenter Clusters
+## 17. Datacenter Clusters
 Currently, a single datacenter cluster is supported. However, the user can utilize AWS CloudFormation templates to replicate to multiple independent datacenters which are managed independently. The multiple datacenters in Apache Cassandra are also considered independent.
 
-### 18. Monitoring Nodes
+## 18. Monitoring Nodes
 Check the liveness of nodes every few minutes and storage utilization of nodes every hour. If storage utilization is reaching the limits, try to add a few nodes to the cluster. Also, make sure that the data is more or less uniformly distributed in the cluster. Currently, adding nodes to a cluster requires user intervention; the cluster will not resize automatically. Failed nodes also need to be identified by the user and substituted. **NOTE**: Liveness of nodes should be checked more frequently, every 2 minutes. A single AWS instance of the very cheapest kind, such as t2.nano, can be dedicated to checking for utilization, liveness, and if there is a problem, send an alert to the administrator.
 
-### 19. Interference with Server Containers
+## 19. Interference with Server Containers
 Please **DO NOT** directly interfere with server containers or attach to them. Try to utilize only the APIs and tools provided. This is because there are workarounds for known issues in place, which if broken can cause the database to be unrecoverable, and you will have no option but to rejoin the node in the cluster, which is going to waste too much time and resources sending all the data back and catching up. This will also degrade the performance of the cluster during the joining.
 
-### 20. AWS Instance Types for Database Servers
+## 20. AWS Instance Types for Database Servers
 Currently, our product works only with i3 and i3en AWS instances for database servers. AWS Spot instances should **NOT** be utilized with production clusters because the i3 instances (which are required for performance) will lose their database if the instance is stopped or terminated. For experimental clusters, spot instances can be utilized. AWS recommends i3 instances (or similar) with local SSDs for storage, for running databases such as Cassandra/DynamoDB. Other instances **DO NOT** perform well in some usage scenarios. Additionally, if you were to utilize Spot instances together with EBS storage, the storage costs would also add up quickly (you have to make a detailed calculation to figure out if there would be a significant difference in the two approaches for your use case. This is just for your knowledge; we **DO NOT** support EBS usage due to its poor performance for the usage scenarios of our product).
 
 - **20.a)** Server instances are either i3 instances or i3en instances, and the cluster is composed of the same kind of instances so all nodes have roughly the same capability. For now, this is a requirement; later we can change this. In production, server instances have to be either reserved or on-demand. They cannot be SPOT instances. Additionally, we have also observed difficulty obtaining Spot instances sometimes; this may be specific to our usage, your experience might be different. (If you want to utilize Spot instances in production, you have to somehow guarantee that the instances will not get stopped/terminated because that will lead to data loss, and additionally, with enough such stopped instances, the product will stop working. We don't know if there is some way to guarantee this in AWS.).
