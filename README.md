@@ -60,3 +60,44 @@ Examples provide a clear explanation of how to utilize a client to drive load to
     - **4.f.5.4)** A WHERE clause which doesn't have enough restrictions in accordance with 4.f.5.1) will be rejected.
     - **4.f.5.5)** If enough primary key columns are not restricted the query could become quite slow because it might end up scanning large swaths of the database to find objects to modify.
     - **4.f.5.6)** Example to clarify primary key restrictions. If a table has primary key columns A, B, C, D, E (in order). If a WHERE clause restricts A, B, D, E then only restrictions on A, B can be utilized effectively for query performance, however, if your usage requires D, E restrictions for correctness please include them as well. Equality restrictions perform the best and are required on partition key.
+- **4.f.6)** In the unlikely event of failure of deletion/update of any one record, the operation will be aborted only on those database servers where it encountered a failure. It will still be applied on all the other servers that succeeded in applying it. Failure of DELETE/UPDATE should not happen. However, bugs in software could possibly cause this situation. If the user does notice this, they should find out why the delete failed on any server, if they can, and resubmit the DELETE/UPDATE with the issue addressed. If they see no reason for failure then file a bug for us to fix.
+- **4.f.7)** NOTE: The above functionality to delete multiple objects is provided only when deleting the object. If you are deleting only some fields of an object and not the whole object, that is actually treated as an UPDATE and it is still subject to all requirements of an UPDATE statement.
+- **4.f.8)** We understand these limitations and will improve upon these later on. For the moment the user has to work with these limitations. It helps with a lot of use cases as a result it is better to provide DELETE/UPDATE on multiple objects functionality with the above limitations rather than not providing it at all. But the limitations are real and have to be alleviated. We will do that as soon as we can.
+
+- **4.g)** The "IF syntax" of DELETE, UPDATE statements has no meaning, simply add all conditions to the WHERE clause of DELETE/UPDATE, it will not incur any additional overhead. There is only one use case for IF syntax. The IF syntax allows expressions involving user-defined-type, whereas WHERE clause grammar in CQL does not allow it. If you have such use case then utilize IF syntax, else place conditions in WHERE clause. It has no implications related to Paxos. IMPORTANT: DO NOT include any primary key constraints in the IF clause, you WILL get errors, place all those constraints in WHERE clause.
+
+- **4.h)** Unlike Apache Cassandra, data modification should not generate severe performance problems, unless the WHERE clause for DELETE/UPDATE does not have enough restrictions on primary key columns and the query ends up scanning large swaths of the database.
+- **4.i)** Apache Cassandra will often times truncate timestamp value to milliseconds, we do the same.
+- **4.j)** A DATEMSK environment variable points to the DATEMSK file, which allows the following formats (%A, %T,%F, %FT%T). We will allow replacing this file later on.
+
+## 5. Select queries work under similar constraints as Apache Cassandra.
+- **5.a)** SELECT query that has WHERE clause conditions restricting all the partition key constraints can perform better than others because they can be sent to specific nodes.
+- **5.b)** SELECT query that has WHERE clause conditions which also restrict some of the primary key columns (in addition to the partition key columns) can perform even better.
+- **5.c)** SELECT query can be invoked on Materialized View instead of base table. Such queries can also benefit if partition key of MV is restricted along with any of the other primary key columns.
+- **5.d)** SELECT query which does not restrict all of the partition key columns will perform the worst, as the query has to be executed on all nodes that could potentially contain the answer.
+- **5.e)** SELECT query that could potentially involve scanning a lot of data has to be marked ALLOW FILTER (just as in Apache Cassandra)
+- **5.f)** Occasionally due to networking issues or other causes the SELECT query may timeout or have partial results. In such cases, a flag is set on the query results which can determine if the results were partial or had timed out.
+
+NOTE: Depending upon the use case MV can perform better or Secondary index can perform better. Examine the where clause of your queries to determine which is better.
+  - **5.f.1)** If your query restricts all columns of partition key and secondary index column then the query will be sent to a single node and will be fast enough.
+  - **5.f.2)** If the query does not restrict all columns of partition key but restricts secondary index column then it will have to be sent to all nodes that could possibly contain the result, this will make it slower (but still likely much better than Apache Cassandra).
+  - **5.f.3)** If the query restricts columns in a different order than the clustering order of columns in the base table, then an MV could perform better.
+  - **5.f.4)** SELECT on MV has to be explicitly invoked on the MV (not on the base table).
+  - **5.f.5)** IMPORTANT: MV as well as Secondary indexes take up a lot of space, utilize them after carefully examining your queries. The more secondary indexes and MVs you create on a single table the more it will degrade the write performance. (This is true of all other databases as well).
+
+## 6. Transactions are of two kinds (read-only and read-write):
+- **6.a)** Batch of writes
+  - **6.a.1)** Can contain a sequence of insert, delete, update queries (no selects).
+  - **6.a.2)** IMPORTANT: If one of the writes in the batch fails to apply, it will be skipped and the user will be informed that it was skipped, however, the rest of the batch will be applied. This is not ideal. However, this is a first step that is likely to meet several use cases.
+  - **6.a.3)** At the moment, the write batch query string, including space for query parameters and all other encodings should not be more than 320KB in size.
+  - **6.a.4)** At the moment, range deletes or range updates are not allowed in a batch of writes, in other words, a delete/update query must specify all the primary key members in the Where clause in order to alter only a single object that matches the primary key.
+  - **6.a.5)** The user can specify range DELETE/UPDATE as a separate write txn (NOT as part of a write Batch, where it will be rejected). The functionality is available in a limited form as described above.
+  - **6.a.6)** With the exception of unappliable writes being skipped, the batch will be applied as a whole (in other words readers will not see partial results of a batch).
+- **6.b)** Batch of read-only transactions - transactions that perform only reads. Currently, such batches which have even one query that has ALLOW-FILTER will not return results that are transactional (We will improve this later). The rest of the transactions will return MVCC (multi-version concurrency control) consistent results. (MVCC is the same as snapshot isolation). MVCC read-only transactions return snapshot isolation consistent results, which can return data which is older than the most recently committed.
+
+- **6.c)** The user can check on the SELECT query results if it was transactional or not.
+- **6.d)** Write batch can contain only UPDATE/DELETE/INSERT queries, read batch can contain only SELECTs, also, schema/security-data queries cannot be part of a batch.
+- **6.e)** Transactions utilize distributed consensus, as a result, the database will become unavailable for writes if the majority of the coordinator nodes are down. This is the price to pay for consistency. Some of this is mitigated with a larger number of coordinator nodes.
+- **6.f)** Write transactions will respond to the client as soon as each statement in the batch has been applied on some node, however, it will not wait for it to be applied on all applicable nodes before responding to the client. Writes are applied only if a quorum of coordinators have received the write txn and marked it as to-be-applied. Thus as soon as the write returns if you submit an MVCC read-only query to obtain the modified data right away you might get older data. That is just the nature of MVCC, it is not guaranteed to return the most recently committed data. This is true of all MVCC implementations.
+- **6.g)** Transaction functionality is rather limited, this is because this is a first implementation. We will make it better later.
+
