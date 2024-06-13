@@ -262,7 +262,7 @@ If you are able to drive enough stress into the system and it presents no signif
 
 - **23.b)** Once the use case has been validated, determine how much data you plan on having in the cluster. According to the above calculations, with a replication factor of 3 and accounting for SSD overhead, journaling, multiversioning overhead, fragmentation, background tasks, merging, etc., another factor of 2 has to be included. So for 10TB actual data, you need 10*3*2 = 60TB total storage requirement. While this might seem excessive, other horizontally scalable databases with replication factors have similar overheads.
 
-- **23.c)** Try to utilize a cluster of less than 64 nodes.
+- **23.c)** Try to utilize a cluster of less than 64 nodes, although we have not stress tested clusters nearing this size, so you may run into performance issues even at clusters of less than this size. We plan to address these issues soon.
 
 - **23.d)** For different storage requirements, here are suggestions:
   - **23.d.1)** For a total storage requirement of < 122TB, utilize i3.2xlarge instances to form a cluster. (each i3.2xlarge instance has about 1.9TB of SSD available)
