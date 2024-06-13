@@ -101,3 +101,47 @@ NOTE: Depending upon the use case MV can perform better or Secondary index can p
 - **6.f)** Write transactions will respond to the client as soon as each statement in the batch has been applied on some node, however, it will not wait for it to be applied on all applicable nodes before responding to the client. Writes are applied only if a quorum of coordinators have received the write txn and marked it as to-be-applied. Thus as soon as the write returns if you submit an MVCC read-only query to obtain the modified data right away you might get older data. That is just the nature of MVCC, it is not guaranteed to return the most recently committed data. This is true of all MVCC implementations.
 - **6.g)** Transaction functionality is rather limited, this is because this is a first implementation. We will make it better later.
 
+### 6.h) QUERY TIMEOUT
+If a DELETE/UPDATE/INSERT hits a timeout, it could be due to one of the following reasons:
+- **6.h.1)** The server has a lot of load and cannot handle too much write traffic, then write load should be reduced. In such a case, write queries submitted to the coordinator should not be resubmitted because they have been journaled and the cluster will eventually apply them.
+- **6.h.2)** The coordinator failed over and a new one got elected. The failover process could take a very short time, typically a few milliseconds. In this case, the write query sent to the coordinator may have to be resubmitted because it may have been lost.
+- **6.h.3)** The DELETE/UPDATE query has been specified with a WHERE clause which did not have enough restrictions on it and caused the servers to scan large swaths of the database and eventually caused a timeout. In this case, it is better for the user to re-examine the WHERE clause and add as many restrictions as possible to make it perform in subsequent invocations. NOTE: Primary key column restrictions are useful only if provided in order of primary key columns. If one of the primary key columns is not restricted then any restrictions on the subsequent (in order of primary key) columns will not help much.
+- **6.h.4)** Repeatedly submitting the same DELETE/UPDATE query without addressing point 6.h.3) can make the database unavailable for subsequent writes and very significantly degrade performance of reads.
+- **6.h.5)** There is also a possibility that due to a software bug the coordinator is hanging indefinitely and it may never respond. In such a situation, we have to investigate the bug. Sometimes restarting the product can help to keep moving on, but sometimes it may not help.
+
+If a SELECT query times out, the causes could again be one of 6.h.1), 6.h.2), 6.h.3). The only difference is that SELECT queries are never journaled. The suggestions to address any issues are similar to the ones in 6.h.1), 6.h.2), 6.h.3).
+
+### 7. PARTITION KEY
+As with Apache Cassandra, choose the partition key very carefully.
+- **7.a)** Partition key is utilized for consistent hashing to distribute data evenly in the nodes in the cluster and a poorly chosen partition key will create hot spots which cannot be fixed. Adding new nodes in the cluster will NOT fix hot spots.
+- **7.b)** IMPORTANT: Choose a partition key with high enough cardinality so that it can be distributed somewhat randomly in the cluster. This is true of the base table as well as MVs.
+- **7.c)** IMPORTANT: When choosing a partition key be aware that SELECT query performance will be best when partition key equality restrictions are included in the query. This allows the query to be sent to only one node in the cluster, instead of to a lot of nodes that could possibly contain the data. This is true of queries on the base table as well as any MVs as well as queries on Secondary Index. Thus choosing a partition key also directly impacts SELECT performance. This is true of all clustered products including Apache Cassandra. (DELETE/UPDATE that affect multiple objects must also specify the partition key in the WHERE clause).
+- **7.d)** IMPORTANT: Just as with Apache Cassandra, once partition key, primary key columns have been chosen for a table they cannot be altered. The table has to be dropped and re-created.
+- **7.e)** Partition Key must also be chosen carefully for Materialized View (else it will generate hotspots for MV records). MV partition key must also be of high cardinality.
+- **7.f)** It is possible to colocate (on the same cluster node) related records of different tables by utilizing the same partition key for those tables. Currently, this is the only way to guarantee colocation of records of different tables. This will make a batch of SELECT queries on multiple related tables faster. However, you have to once again be careful not to introduce any hotspots. We will improve upon this later.
+- **7.g)** NOTE that range-delete, range-update require a WHERE clause which restricts all partition key columns (on the base table as well as MV tables) with equality constraints. This must also be kept in mind when choosing the partition key if your usage requires deleting/updating a range of objects. However, 7.b) is very critical and the cardinality of the partition key has to be high enough to allow uniform distribution in the cluster.
+- **7.h)** If you require co-locating multiple records on the same partition then you can choose the same partition key for them, but please make certain that such co-location does not imbalance the cluster by placing too many objects in the same partition. The overall goal is to utilize a high cardinality partition key to distribute objects evenly in the partitions.
+- **7.i)** Colocating related items utilizing the same partition key also allows batched writes among them to be more efficient. And as we improve capabilities of write batches this will allow more flexible writes (although this will be available in later releases).
+
+### 8. Schema Changes
+Try to avoid making too many schema changes in your application at the moment, because the current product has very limited space overhead for that. A schema that contains 500+ tables may not work at the moment.
+
+### 9. Client Refresh
+Every time you Drop/Add a table refresh the client. This is an expensive operation and should only be done when a table is added/dropped, never otherwise.
+
+### 10. Replication Factor
+The industry-standard replication factor of 3 is recommended. This means that the minimum cluster size has to be 3 nodes. The product will not work on fewer nodes. In your storage calculations include replication factor. If your data is 10TB, then with replication factor included overall storage requirement is 30TB. If we include SSD overheads, journaling overheads, versioning overhead, fragmentation overheads, any background tasks merging overheads, etc., then it is safe to have overall storage of about 60TB available through the cluster. Other horizontally scalable databases have similar space overheads.
+
+At the moment, the replication factor should not be less than 3. We will work later to get a better idea of how much of a risk there is to allow a replication factor of a minimum of 2. We did not consider this as it could potentially lead to data loss in an environment where there is no backup restore.
+
+### 11. Co-ordinator Nodes
+The number of Coordinator nodes should be at least 3 but it can be more. The only downside to having more coordinator nodes is that it will increase the journal replication load by a little bit. But it should not matter too much. Choose enough to tolerate failures. At the moment the number of coordinators is chosen when creating a cluster and thereafter it cannot be altered.
+
+### 12. Durability
+At the moment the product relies on k-safety. This implies that as long as more than k/2 coordinator nodes are alive then the committed transactions are durable. Otherwise, we can lose some most recently committed transactions. (product restart alone should not cause logs to be lost, only power cycle or segfaults, etc. could cause this on a given node, so this should be quite rare). If you are concerned about this and want to tolerate more failures, please increase the number of coordinators to 5 or 7 depending on how big your cluster is. (k = number of coordinator nodes).
+
+- **12.a)** If more than k/2 coordinator nodes are down, write txns cannot be applied and will timeout.
+- **12.b)** If non-coordinator nodes which are involved in writes are also down then it can delay the application of transactions.
+- **12.c)** It is best to monitor the cluster closely and replace failed nodes as quickly as possible.
+- **12.d)** This product chooses consistency over availability for write transactions in the presence of failures.
+- **12.e)** During a failover to elect a new leader, pending write txns that have been committed to the journal but not yet applied will still be applied, however, the client that originated the query will
