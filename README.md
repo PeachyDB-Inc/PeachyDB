@@ -336,3 +336,28 @@ If you are able to drive enough stress into the system and it presents no signif
 - **24.38)** Larger clusters are better handled by larger AWS instances since they have more vCPUs to handle more load.
 - **24.39)** Write queries have completely different latency behavior compared to read queries. It may be better to separate client threads that issue write queries from those that issue read queries.
 - **24.40)** The number of client threads you can effectively utilize is also determined by whether your workload is primarily I/O bound or CPU bound.
+- **24.41)** If you overload a small AWS client instance with too many threads, the threads will start thrashing locally and severely degrade the performance of the client. Follow the guidelines provided with the example to avoid such a situation. To check CPU utilization on the client, 'escape' from the docker client container (Ctrl-p, Ctrl-q), run `top` to check the AWS instance kind and determine how many vCPUs are available. Additionally, hit Ctrl-C to the client and check the transaction throughput; if it is not high enough per thread and any support bundles from the servers also indicate that the servers are not hitting high throughput, then there may be a need for multiple client machines with fewer threads.
+
+- **24.42)** If your query performance has degraded, it is most likely due to some node not being online. One way to check this is to keep track of QPS, and if you see a significant degradation, check if the members are all online or if something else is going on with some node. Query timeouts can also happen when the leader node restarts, electing a new leader.
+
+- **24.43)** Since we utilize murmur hash for partitioning, the `token()` function is meaningless in this usage. Therefore, for the current release, the `token()` function is not supported. If later on we allow other approaches to hashing, we can revisit this functionality.
+
+- **24.44)** Currently, cluster configuration changes (add/remove/substitute nodes) must be initiated only when all nodes are online. If nodes go offline during cluster configuration changes, the operation could suffer performance loss. Additionally, completing the operation might require the nodes involved to be online. It is best to keep an eye on the cluster to ensure that everything is working. For node addition, all existing nodes must be online. For node substitution, the node being substituted can be offline, but the remaining must be online. For node removal, all nodes must be online.
+
+- **24.45)** Please take a look at 23.i.2) and the example client provided to create the client.
+
+- **24.46)** Please review point 12) above carefully to understand the durability of transactions.
+
+- **24.47)** As noted in point 22) above, we do not have a backup restore at the moment.
+
+- **24.48)** Continuous Integration/Continuous Deployment (CI/CD) in AWS is not yet supported. We have to work on this part to make the customer experience much more seamless.
+
+- **24.49)** Occasionally AWS operations performed with scripts can fail; it's best to keep an eye on the AWS console to make sure that the operation went through as expected.
+
+- **24.50)** When the database size exceeds the size of the Page cache, performance will degrade slightly, and when the database size exceeds RAM and SSD I/O is required, then performance will degrade to a greater extent. This is true for all kinds of databases.
+
+- **24.51)** In schema definition, any user-defined types must be defined before the tables that utilize them. User-defined type arguments are provided in the form of a collection of name-value pairs.
+
+- **24.52)** Canceling an ongoing cluster configuration change (add/remove/substitute node) operation is not advised. It's available if the change was mistakenly started and needs to be canceled right away. It has not been tested very well to see if it works when the operation is well on its way. It does work when an operation has just about started.
+
+- **24.53)** Before adding/removing/substituting a node in a cluster, please make sure that all the nodes in the cluster are live (with the exception of substitute). Otherwise, the operation will get stuck communicating with dead nodes.
