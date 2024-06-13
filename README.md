@@ -1,5 +1,6 @@
 # PeachyDB
 Databases and things
+
 # Customer Advice
 
 PeachyDB is a horizontally scalable database intended to overcome the shortcomings of Apache Cassandra. We are mostly compatible with CQL, differences are noted below. This note contains various issues that a customer should be aware of when utilizing this product. All the commands and examples to run a cluster and drive it with a client are provided in a separate document. Reading this document is a pre-requisite to understanding this product.
@@ -263,4 +264,8 @@ If you are able to drive enough stress into the system and it presents no signif
 - **23.l)** CAUTION: We are not responsible for the accuracy of capacity, pricing, or any other information regarding AWS in this note. The customer must make their own validations and ensure that any planning they make is with respect to the latest AWS suggestions/requirements, etc. We will not be responsible for any issues that arise due to this. We have tried to make the information accurate to the best we know, but we could be mistaken, or the information may later change on AWS, and the user must confirm with their own calculations; we will not accept any liability for this.
 
 - **23.m)** To monitor the status of the cluster, the cheapest instance can be reserved. All it has to be able to do is obtain the status of the cluster via TCP/IP and run peachydb_status_tool.py for it. It is recommended that such a status check be run every minute. And the user should set up a script to make sure that no instance is down. If some instance is down, then report that to the Administrator to take appropriate action. The user should also track storage utilization via this tool to ensure that the cluster is not imbalanced or reaching capacity. (you can utilize an AWS t3.nano spot instance for such a task).
+
+- **23.n)** With reference to 23.m) it is important to understand that occasionally some nodes drop messages and are trying to catchup and will show up as offline. But this should be infrequent and action needs to be taken only if the node does not come back online on its own.
+
+- **23.o)** As a first step write a simple test with all the schema and queries with variables bound to the queries. Make sure that there are no syntax errors and variable are bound correctly to the right parameters/positions. Once a simple test works then start to utilize stress test to load data and perform queries.
 
