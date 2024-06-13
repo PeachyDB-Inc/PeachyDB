@@ -6,37 +6,39 @@ PeachyDB is a horizontally scalable database intended to overcome the shortcomin
 
 **Product Status**: Beta release.
 
-## Table of Contents
-1. Apache Cassandra features not implemented
-2. Only C++ client available
-3. Materialized Views (MV) and Secondary Indexes behave similarly to Apache Cassandra
-4. INSERT, DELETE, UPDATE behave differently from Apache Cassandra
-5. Select queries work under similar constraints as Apache Cassandra
-6. Database Transactions (read-only and read-write)
-7. Partition Key
-8. Schema Changes
-9. Client Refresh
-10. Replication Factor
-11. Coordinator Nodes
-12. Durability
-13. Cluster Size Limit
-14. Adding Nodes to the Cluster
-15. Replacing a Failed Node
-16. Removing Nodes from the Cluster
-17. Datacenter Clusters
-18. Monitoring Nodes
-19. Interference with Database Servers
-20. AWS Instance Types for Database Servers, Clients
-21. CloudFormation Effectiveness
-22. Backup/Restore
-23. Deployment Strategy
-24. Known Bugs/Issues
-25. Limits
-26. Security Issues
-27. Costs
-28. Support and License
-29. Benchmarks
-30. Why are we closed source?
+<h2>Table of Contents</h2>
+<ul>
+  <li><a href="#1-apache-cassandra-features-not-implemented">1. Apache Cassandra features not implemented</a></li>
+  <li><a href="#2-only-c-client-available">2. Clients Available</a></li>
+  <li><a href="#3-materialized-views-mv-and-secondary-indexes-behave-similarly-to-apache-cassandra">3. Materialized Views (MV) and Secondary Indexes</a></li>
+  <li><a href="#4-insert-delete-update-behave-differently-from-apache-cassandra">4. INSERT, DELETE, UPDATE behavior</a></li>
+  <li><a href="#5-select-queries-work-under-similar-constraints-as-apache-cassandra">5. Select query behavior </a></li>
+  <li><a href="#6-database-transactions-read-only-and-read-write">6. Database Transactions </a></li>
+  <li><a href="#7-partition-key">7. Partition Key</a></li>
+  <li><a href="#8-schema-changes">8. Schema Changes</a></li>
+  <li><a href="#9-client-refresh">9. Client Refresh</a></li>
+  <li><a href="#10-replication-factor">10. Replication Factor</a></li>
+  <li><a href="#11-coordinator-nodes">11. Coordinator Nodes</a></li>
+  <li><a href="#12-durability">12. Durability</a></li>
+  <li><a href="#13-cluster-size-limit">13. Cluster Size Limit</a></li>
+  <li><a href="#14-adding-nodes-to-the-cluster">14. Adding Nodes to Cluster</a></li>
+  <li><a href="#15-replacing-a-failed-node">15. Replacing Failed Node</a></li>
+  <li><a href="#16-removing-nodes-from-the-cluster">16. Removing Nodes from Cluster</a></li>
+  <li><a href="#17-datacenter-clusters">17. Datacenter Clusters</a></li>
+  <li><a href="#18-monitoring-nodes">18. Monitoring Nodes</a></li>
+  <li><a href="#19-interference-with-database-servers">19. Interference with Database Servers</a></li>
+  <li><a href="#20-aws-instance-types-for-database-servers-clients">20. AWS Instance Types allowed </a></li>
+  <li><a href="#21-cloudformation-effectiveness">21. CloudFormation Effectiveness</a></li>
+  <li><a href="#22-backup-restore">22. Backup/Restore</a></li>
+  <li><a href="#23-deployment-strategy">23. Deployment Strategy</a></li>
+  <li><a href="#24-known-bugs-issues">24. Known Bugs/Issues</a></li>
+  <li><a href="#25-limits">25. Limits</a></li>
+  <li><a href="#26-security-issues">26. Security Issues</a></li>
+  <li><a href="#27-costs">27. Costs</a></li>
+  <li><a href="#28-support-and-license">28. Support and License</a></li>
+  <li><a href="#29-benchmarks">29. Benchmarks</a></li>
+  <li><a href="#30-why-are-we-closed-source">30. Why are we closed source?</a></li>
+</ul>
 
 
 ## 1. Apache Cassandra features not implemented
