@@ -86,7 +86,7 @@ NOTE: Depending upon the use case MV can perform better or Secondary index can p
   - **5.f.4)** SELECT on MV has to be explicitly invoked on the MV (not on the base table).
   - **5.f.5)** IMPORTANT: MV as well as Secondary indexes take up a lot of space, utilize them after carefully examining your queries. The more secondary indexes and MVs you create on a single table the more it will degrade the write performance. (This is true of all other databases as well).
 
-## 6. Transactions are of two kinds (read-only and read-write):
+## 6. Database Transactions (read-only and read-write):
 - **6.a)** Batch of writes
   - **6.a.1)** Can contain a sequence of insert, delete, update queries (no selects).
   - **6.a.2)** IMPORTANT: If one of the writes in the batch fails to apply, it will be skipped and the user will be informed that it was skipped, however, the rest of the batch will be applied. This is not ideal. However, this is a first step that is likely to meet several use cases.
@@ -313,4 +313,26 @@ If you are able to drive enough stress into the system and it presents no signif
 
 - **24.17)** If you delete the server stack to re-create it, you must also delete the client stack and recreate it because the client stack is still referring to the IP addresses of the original server stack. The client stack must always be created after the server stack has been successfully created.
 
-- **24.18)** Please read 6.f) to understand the behavior of write commands.
+- **24.18)** Please read 6.f) to understand the behavior of write commitment and MVCC read-only transactions.
+- **24.19)** Try to avoid utilizing large primary keys (keys that are larger than 1k) as they can degrade performance significantly. Fields that are not contributing to the uniqueness of the record should be placed in the clustering columns, not the primary key, unless they are also a part of the partition key. If large primary keys are utilized, try to order the fields in a way that a small prefix of the keys is likely to be unique to significantly speed up queries. This should be done even for primary keys that are smaller.
+- **24.20)** Occasionally when running scripts, you may encounter an error due to clock skew. This can be fixed with the following command: `sudo date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z"`.
+- **24.21)** Set the AWS region before utilizing any provided tools as follows (utilize your region name): `export AWS_DEFAULT_REGION=us-west-1`.
+- **24.22)** If you issue a stack command and the tool reports that the stack is not known, you can try the suggestion in 24.20).
+- **24.23)** Do not perform `yum update -y` on the EC2 server/client instances without having a product update patch applied. Applying `yum update -y` on instances can alter libraries and break dependencies, which can break the product functionality.
+- **24.24)** As noted in points 24.1) and 24.2), server node failure degrades performance, so it is important to bring nodes back online as soon as possible.
+- **24.25)** Occasionally core files could be created on the servers. If these are not due to a deterministic issue, you can remove them with provided commands. Otherwise, you can set up a support case and provide the support bundle which contains the cores.
+- **24.26)** Each individual record in the database at the moment should be less than 1MB in size. This limitation can be removed if users require it.
+- **24.27)** Please take note of point 3.f.2) above about Materialized Views.
+- **24.28)** Please read point 22) above for another limitation.
+- **24.29)** Sometimes error responses from query execution can be vague. This needs improvement.
+- **24.30)** For larger instances like i3.8xlarge, i3.16xlarge, etc., please allow a few minutes for the server stack to initialize the large shared memory segments. Locking (mlock) large shared memory segments can take a long time.
+- **24.31)** Please note point 19) above and do NOT attach to server docker containers.
+- **24.32)** If the parameters you provided failed to satisfy the CFT (Cloud Formation Template), you can check the templates `peachydb_template.json` and others in the AWS console.
+- **24.33)** Range-selects, range-deletes, range-updates should be used sparingly as they will degrade performance depending on how much data is impacted. Similarly, each secondary index, MV added to a table will degrade the performance of writes proportionately.
+- **24.34)** The per-partition limit on select queries currently does nothing and should not be utilized.
+- **24.35)** In a large database whose size is much larger than available RAM, the read and write performance is limited by the I/O performance of the instance. Performance measurement should consider steady-state performance, where the database size has reached some point of stability.
+- **24.36)** At the moment, the leader responds to a client on a write query when 'enough' number of member nodes have applied the write to cover all the 'partition keys' involved.
+- **24.37)** Please try to avoid doing multiple large operations concurrently, such as altering cluster configuration by add/remove/substitute of nodes together with dropping a table, etc. Multiple resource-intensive operations can severely degrade performance.
+- **24.38)** Larger clusters are better handled by larger AWS instances since they have more vCPUs to handle more load.
+- **24.39)** Write queries have completely different latency behavior compared to read queries. It may be better to separate client threads that issue write queries from those that issue read queries.
+- **24.40)** The number of client threads you can effectively utilize is also determined by whether your workload is primarily I/O bound or CPU bound.
