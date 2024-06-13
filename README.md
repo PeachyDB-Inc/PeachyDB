@@ -269,3 +269,48 @@ If you are able to drive enough stress into the system and it presents no signif
 
 - **23.o)** As a first step write a simple test with all the schema and queries with variables bound to the queries. Make sure that there are no syntax errors and variable are bound correctly to the right parameters/positions. Once a simple test works then start to utilize stress test to load data and perform queries.
 
+## 24. Known Bugs/Issues
+
+- **24.1)** If multiple nodes are dead or cannot communicate with the leader, then the leader will not be able to perform some GC tasks and write performance will severely degrade. Currently, a single node failure is tolerated but multiple simultaneous failures will cause write timeouts. It is prudent for the user to set up monitoring to check the status of the cluster every few minutes to ensure everything is working.
+
+- **24.2)** Even if a single node fails, we will reduce write throughput to allow that node to join quickly once it comes back online. If the node is too far behind in the journals, we have no option but to snapshot the database again, which is not a very desirable possibility for a large database.
+
+- **24.3)** When a node is being added or substituted in a cluster, the write throughput will be reduced to allow such nodes to catch up with the leader when they come online. If we do not reduce write throughput, by the time a large database has been snapshotted, it will already be too far behind compared to available logs and we will not be able to join the cluster. Thus, adding or substituting nodes is preferably done during times of lower activity.
+
+- **24.4)** Another known issue is described in 3.1.f.
+
+- **24.5)** Currently, all AWS EC2 instances (servers as well as clients) must be on the same Subnet and same VPC. In the AWS console, please ensure that the Subnet allows communication with all instances within the subnet, VPC. This is a requirement; otherwise, the product will not work. We will improve upon this limitation later.
+
+- **24.6)** Currently, all server AWS EC2 instances have to be of the same AWS instance type.
+
+- **24.7)** Currently, nodes can be added, removed, or substituted from the cluster only one at a time. We are aware of this limitation and we have to improve upon it.
+
+- **24.8)** Before adding more nodes to a cluster, make sure that the existing cluster at least has some representative data to determine how to repartition data. Otherwise, if you add nodes to a cluster with no data, it may not be able to make an effective partitioning decision and generate an imbalanced cluster. Instead of adding nodes to a cluster with no data, simply delete the cluster and recreate it with more nodes.
+
+- **24.9)** As mentioned before, if you want to replace an instance, always utilize the Substitute command. Do not utilize (Remove node + Add node). Using Remove + Add can cause clusters to become imbalanced. We discourage users from utilizing the Remove node command as much as possible. It is utilized only in the rare circumstance of the user attempting to downscale a cluster if the cluster is very underutilized and they do not expect its utilization to grow.
+
+- **24.10)** At the moment, the number of coordinator nodes is fixed at the time of cluster creation. It cannot be changed later on. We have to address this limitation. For larger clusters, it is better to have at least 5 or 7 coordinator nodes. For very small clusters, 3 coordinator nodes should be fine.
+
+- **24.11)** In order for an add/remove/substitute operation to complete, all nodes have to be online. This may be a little too restrictive; we will have to improve upon this. Please keep an eye on cluster status during this time and make sure all nodes are up.
+
+- **24.12)** The cluster_tool should NOT be utilized by multiple users simultaneously. It is most likely going to fail.
+
+- **24.13)** If the client receives a timeout on a write query, this does not indicate that the query did not get executed. This might indicate some other problem. It may be that the leader failed over or the network was bad. If the client reissues the write query, it may get applied a second time and result in errors. If the write transaction is not idempotent and it is important to the user not to execute the write a second time, then they may have to issue a read query to determine if the write succeeded. However, note that due to the MVCC nature of read-only queries, it is possible that the read returns older data.
+
+- **24.14)** Please do NOT make schema changes during adding/removing/substituting nodes in the cluster as this can significantly degrade the performance of the cluster configuration change. Making cluster configuration changes while adding a Materialized View is not allowed and vice-versa.
+
+- **24.15)** Currently, all the instances in an AWS stack for peachydb server/client stack have to be either On-Demand instances or all have to be Spot Instances; there cannot be a mix and match. The choice made at the time of creation of the stack remains in effect until the stack is deleted.
+
+- **24.16)** We utilize AWS Placement Groups (PG) to avoid correlated AWS Hardware failures in production clusters.
+  - **24.16.1)** AWS documentation states that occasionally this strategy may not be able to allocate an EC2 instance in a placement partition.
+  - **24.16.2)** For experimental clusters, using placement groups is optional, but do it ONLY for experimental clusters and ONLY if you are unable to utilize placement groups. Even for experimental clusters, try to utilize placement groups as that is the test for how a production cluster will behave (using PGs is the default behavior).
+  - **24.16.3)** For production clusters, AWS Placement Groups must ALWAYS be turned on. Otherwise, correlated multiple instance hardware failures can lead to data loss. According to AWS, hardware failures are quite common, and we must work with the expectation that hardware will fail.
+  - **24.16.4)** The choice to utilize Placement Groups can only be made at the point of cluster creation; after that, it cannot be altered.
+  - **24.16.5)** Even with placement groups utilized, the probability of correlated hardware failures will go down but cannot be reduced to zero. This is because AWS algorithms for evenly distributing instances among partitions are 'best effort'. It is still possible that hardware failures can lead to multiple instance failures which might lead to data loss, even though the odds of this happening should be reduced.
+  - **24.16.6)** As suggested elsewhere, in the event of failure, do check the AWS console for anything else that may be wrong.
+  - **24.16.7)** Due to the above, plan expanding clusters in advance; don't wait for the cluster capacity to reach the brink before attempting to expand the cluster. If you get an insufficient capacity error, you can try speaking to AWS to check that your AWS account limits have not been reached, retry the operation with fewer instances, wait a few minutes and retry the operation, or try a different availability zone.
+  - **24.16.8)** Partition placement groups could possibly result in lower network throughput than Cluster placement groups. But we cannot utilize cluster placement groups because they do not offer correlated failure safety.
+
+- **24.17)** If you delete the server stack to re-create it, you must also delete the client stack and recreate it because the client stack is still referring to the IP addresses of the original server stack. The client stack must always be created after the server stack has been successfully created.
+
+- **24.18)** Please read 6.f) to understand the behavior of write commands.
