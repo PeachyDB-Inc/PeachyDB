@@ -10,7 +10,7 @@ PeachyDB is a horizontally scalable database intended to overcome the shortcomin
 <ul>
   <li><a href="#1-apache-cassandra-features-not-implemented">1. Apache Cassandra features not implemented</a></li>
   <li><a href="#2-only-c-client-available">2. Clients Available</a></li>
-  <li><a href="#3-materialized-views-mv-and-secondary-indexes-behave-similarly-to-apache-cassandra">3. Materialized Views (MV) and Secondary Indexes</a></li>
+  <li><a href="#3-materialized-views-mv-and-secondary-indexes-si">3. Materialized Views (MV) and Secondary Indexes (SI)</a></li>
   <li><a href="#4-insert-delete-update">4. INSERT, DELETE, UPDATE</a></li>
   <li><a href="#5-select">5. SELECT</a></li>
   <li><a href="#6-database-transactions-read-only-and-read-write">6. Database Transactions </a></li>
@@ -58,7 +58,8 @@ Examples provide a clear explanation of how to utilize a client to drive load to
 - **2.c)** Partition key, primary key, clustering key have the same meaning as in Apache Cassandra.
 - **2.d)** 'table_options' of CQL for creating Tables, Materialized views are ignored.
 
-## 3. Materialized Views (MV) and Secondary Indexes behave similarly to Apache Cassandra
+## 3. Materialized Views (MV) and Secondary Indexes (SI)
+MV and SI behave similarly to Apache Cassandra with some differences noted below.
 - **3.a)** MV is the same as the base table, with possibly a different partition key and clustering key than the base table (the clustering key is likely different from the base table, else there are very few reasons to create the MV).
   
 - **3.b)** MV partition key, primary key are subject to the same requirements as Cassandra.
