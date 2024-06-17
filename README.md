@@ -395,7 +395,7 @@ If you are able to drive enough stress into the system and it presents no signif
 - **24.53)** Before adding/removing/substituting a node in a cluster, please make sure that all the nodes in the cluster are live (with the exception of substitute). Otherwise, the operation will get stuck communicating with dead nodes.
 - **24.54)** Immediately after a cluster configuration change (add/remove node), it is expected that performance will degrade temporarily because older vnodes are being purged from nodes where they are no longer needed. This task is delayed until the add/remove completes so that the data can still be served in the interim. If a cluster configuration change has just completed and some vnodes are to be removed from a node, then if an additional cluster configuration change is invoked which adds back some of those vnodes, it will be stalled until vnode_gc completes removal of those vnodes. This should only happen in node removal.
 
-- **24.55)** Instead of specifying `uuid()`, you have to specify `fnuuid()` in queries when obtaining a UUID. `uuid()` cannot be utilized as a part of the partition key; otherwise, you will not be able to query the table since the client has no track of UUID.
+- **24.55)** Instead of specifying `uuid()`, you have to specify `fnuuid()` in queries when obtaining a UUID. Also, `uuid()` cannot be utilized as a part of the partition key; otherwise, you will not be able to query the table since the client has no track of UUID.
 
 - **24.56)** All components of the partition key must be generated at the client and provided with the query; this appears to be a requirement in Cassandra as well.
 
