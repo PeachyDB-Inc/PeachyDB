@@ -390,12 +390,19 @@ If you are able to drive enough stress into the system and it presents no signif
 
 - **24.16)** We utilize AWS Placement Groups (PG) to avoid correlated AWS Hardware failures in production clusters.
   - **24.16.1)** AWS documentation states that occasionally this strategy may not be able to allocate an EC2 instance in a placement partition.
+
   - **24.16.2)** For experimental clusters, using placement groups is optional, but do it ONLY for experimental clusters and ONLY if you are unable to utilize placement groups. Even for experimental clusters, try to utilize placement groups as that is the test for how a production cluster will behave (using PGs is the default behavior).
+
   - **24.16.3)** For production clusters, AWS Placement Groups must ALWAYS be turned on. Otherwise, correlated multiple instance hardware failures can lead to data loss. According to AWS, hardware failures are quite common, and we must work with the expectation that hardware will fail.
+
   - **24.16.4)** The choice to utilize Placement Groups can only be made at the point of cluster creation; after that, it cannot be altered.
+
   - **24.16.5)** Even with placement groups utilized, the probability of correlated hardware failures will go down but cannot be reduced to zero. This is because AWS algorithms for evenly distributing instances among partitions are 'best effort'. It is still possible that hardware failures can lead to multiple instance failures which might lead to data loss, even though the odds of this happening should be reduced.
+
   - **24.16.6)** As suggested elsewhere, in the event of failure, do check the AWS console for anything else that may be wrong.
+
   - **24.16.7)** Due to the above, plan expanding clusters in advance; don't wait for the cluster capacity to reach the brink before attempting to expand the cluster. If you get an insufficient capacity error, you can try speaking to AWS to check that your AWS account limits have not been reached, retry the operation with fewer instances, wait a few minutes and retry the operation, or try a different availability zone.
+
   - **24.16.8)** Partition placement groups could possibly result in lower network throughput than Cluster placement groups. But we cannot utilize cluster placement groups because they do not offer correlated failure safety.
 
 - **24.17)** If you delete the server stack to re-create it, you must also delete the client stack and recreate it because the client stack is still referring to the IP addresses of the original server stack. The client stack must always be created after the server stack has been successfully created.
