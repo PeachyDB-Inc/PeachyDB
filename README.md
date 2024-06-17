@@ -441,12 +441,19 @@ New users will be offered a 1-month free trial offer. During this time, your AWS
 Why do we charge a software license fee at all?
 
 - **27.a)** We offer a product that should outperform and outscale Cassandra.
+
 - **27.b)** We have a simplified consistency model to significantly reduce application development costs.
+
 - **27.c)** We have virtually zero administration costs.
+  
 - **27.d)** We avoid the severe pathologies related to data modifications that alternatives have and we also allow more options on write transactions.
+  
 - **27.e)** The products that do charge a software license are more expensive than ours.
+  
 - **27.f)** Please try other products and then compare for yourself; you will find our product to be easier to work with and have lower costs.
+  
 - **27.g)** This is just a start; we plan to make this much more useful, both in terms of performance and very large and significant features, and a whole slew of associated products and technologies, and also address aforementioned limitations and community feature requests.
+  
 - **27.h)** How do we provide this service without having some way to fund the development?
 
 ## 28. Support and License
