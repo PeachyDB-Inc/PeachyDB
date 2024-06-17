@@ -85,7 +85,7 @@ Examples provide a clear explanation of how to utilize a client to drive load to
 
 - **3.l)** Secondary index on user-defined-type is not supported because there is no natural sort order of user-defined-type. This is the same as Apache Cassandra.
 
-## 4. INSERT, DELETE, UPDATE behavior
+## 4. INSERT, DELETE, UPDATE
 Insert, Delete, Update work differently from Apache Cassandra.
 - **4.a)** Unlike Apache Cassandra INSERT is an INSERT not an UPSERT, if the primary key conflicts with an existing object INSERT will fail.
 
@@ -130,7 +130,7 @@ Insert, Delete, Update work differently from Apache Cassandra.
 
 - **4.j)** A DATEMSK environment variable points to the DATEMSK file, which allows the following formats (%A, %T,%F, %FT%T). We will allow replacing this file later on.
 
-## 5. SELECT behavior
+## 5. SELECT
 Select works under similar constraints as Apache Cassandra
 - **5.a)** SELECT query that has WHERE clause conditions restricting all the partition key constraints can perform better than others because they can be sent to specific nodes.
 
