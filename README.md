@@ -11,8 +11,8 @@ PeachyDB is a horizontally scalable database intended to overcome the shortcomin
   <li><a href="#1-apache-cassandra-features-not-implemented">1. Apache Cassandra features not implemented</a></li>
   <li><a href="#2-only-c-client-available">2. Clients Available</a></li>
   <li><a href="#3-materialized-views-mv-and-secondary-indexes-behave-similarly-to-apache-cassandra">3. Materialized Views (MV) and Secondary Indexes</a></li>
-  <li><a href="#4-insert-delete-update-behavior">4. INSERT, DELETE, UPDATE behavior</a></li>
-  <li><a href="#5-select-behavior">5. SELECT behavior </a></li>
+  <li><a href="#4-insert-delete-update">4. INSERT, DELETE, UPDATE</a></li>
+  <li><a href="#5-select">5. SELECT</a></li>
   <li><a href="#6-database-transactions-read-only-and-read-write">6. Database Transactions </a></li>
   <li><a href="#7-partition-key">7. Partition Key</a></li>
   <li><a href="#8-schema-changes">8. Schema Changes</a></li>
