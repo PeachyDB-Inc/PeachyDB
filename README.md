@@ -156,7 +156,7 @@ Select works under similar constraints as Apache Cassandra
   - **5.f.5)** **Important**: MV as well as Secondary indexes take up a lot of space, utilize them after carefully examining your queries. The more secondary indexes and MVs you create on a single table the more it will degrade the write performance. (This is true of all other databases as well).
 
 ## 6. Database Transactions (read-only and read-write)
-Transactions can be issued with single query (Insert,Delete,Update or Select) or a batch of queries. Batch of write queries must contain only write queries (no Selects) and Batch of reads must contain only Selects.
+Transactions can be issued with a single query (Insert,Delete,Update or Select) or a batch of queries. Batch of write queries must contain only write queries (no Selects) and Batch of reads must contain only Selects.
 - **6.a)** Batch of writes
   - **6.a.1)** Can contain a sequence of insert, delete, update queries (no selects).
 
