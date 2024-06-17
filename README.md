@@ -11,8 +11,8 @@ PeachyDB is a horizontally scalable database intended to overcome the shortcomin
   <li><a href="#1-apache-cassandra-features-not-implemented">1. Apache Cassandra features not implemented</a></li>
   <li><a href="#2-only-c-client-available">2. Clients Available</a></li>
   <li><a href="#3-materialized-views-mv-and-secondary-indexes-behave-similarly-to-apache-cassandra">3. Materialized Views (MV) and Secondary Indexes</a></li>
-  <li><a href="#4-insert-delete-update-behave-differently-from-apache-cassandra">4. INSERT, DELETE, UPDATE behavior</a></li>
-  <li><a href="#5-select-queries-work-under-similar-constraints-as-apache-cassandra">5. SELECT behavior </a></li>
+  <li><a href="#4-insert-delete-update-behavior">4. INSERT, DELETE, UPDATE behavior</a></li>
+  <li><a href="#5-select-behavior">5. SELECT behavior </a></li>
   <li><a href="#6-database-transactions-read-only-and-read-write">6. Database Transactions </a></li>
   <li><a href="#7-partition-key">7. Partition Key</a></li>
   <li><a href="#8-schema-changes">8. Schema Changes</a></li>
@@ -85,7 +85,8 @@ Examples provide a clear explanation of how to utilize a client to drive load to
 
 - **3.l)** Secondary index on user-defined-type is not supported because there is no natural sort order of user-defined-type. This is the same as Apache Cassandra.
 
-## 4. INSERT, DELETE, UPDATE behave differently from Apache Cassandra
+## 4. INSERT, DELETE, UPDATE behavior
+Insert, Delete, Update work differently from Apache Cassandra.
 - **4.a)** Unlike Apache Cassandra INSERT is an INSERT not an UPSERT, if the primary key conflicts with an existing object INSERT will fail.
 
 - **4.b)** Unlike Apache Cassandra UPDATE is an UPDATE not an UPSERT. So if the underlying item doesn't exist UPDATE will fail.
@@ -129,7 +130,8 @@ Examples provide a clear explanation of how to utilize a client to drive load to
 
 - **4.j)** A DATEMSK environment variable points to the DATEMSK file, which allows the following formats (%A, %T,%F, %FT%T). We will allow replacing this file later on.
 
-## 5. SELECT works under similar constraints as Apache Cassandra
+## 5. SELECT behavior
+Select works under similar constraints as Apache Cassandra
 - **5.a)** SELECT query that has WHERE clause conditions restricting all the partition key constraints can perform better than others because they can be sent to specific nodes.
 
 - **5.b)** SELECT query that has WHERE clause conditions which also restrict some of the primary key columns (in addition to the partition key columns) can perform even better.
