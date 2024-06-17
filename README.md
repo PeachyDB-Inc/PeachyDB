@@ -458,6 +458,7 @@ If you are able to drive enough stress into the system and it presents no signif
 - **24.63)** Complete the currently submitted operation on an AWS stack before submitting another one; otherwise, the behavior can be unpredictable. Any commands issued via the tools provided should not be prematurely terminated with Ctrl-C unless you know what you are doing.
 
 ## 25. Limits
+As with all Databases we have size limits on numerous elements of the database. Some are listed below, its possible that we may missed some important ones, if you notice any one please let us know.
 
 - **25.a)** The maximum query request size, including all serialized parameters, is 320kb. The larger the request, the more time-consuming it will be.
 
