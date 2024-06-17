@@ -60,25 +60,40 @@ Examples provide a clear explanation of how to utilize a client to drive load to
 
 ## 3. Materialized Views (MV) and Secondary Indexes behave similarly to Apache Cassandra
 - **3.a)** MV is the same as the base table, with possibly a different partition key and clustering key than the base table (the clustering key is likely different from the base table, else there are very few reasons to create the MV).
+  
 - **3.b)** MV partition key, primary key are subject to the same requirements as Cassandra.
+
 - **3.c)** UPDATE/DELETE/INSERT cannot be directly invoked on Materialized View, MVs are automatically maintained based upon write queries on the base table.
+
 - **3.d)** SELECT queries can be directly invoked on MV (ONLY THEN will MV be utilized for a SELECT, otherwise not).
+
 - **3.e)** When creating MV, table-options (Compact/Cluster/...) are ignored. Once an MV schema record has been created it can be deleted but it cannot be modified.
+
 - **3.f)** **Important**: At the moment, in order to avoid significant performance penalties we will include all columns of the base table in the MV. For the moment this will cause extra storage to be taken up by the MV. We know this limitation. In the subsequent releases, we plan to address issues surrounding the MV concept.
   - **3.f.1)** There is a known bug that after MV has been created if more fields are added/removed from the base table schema, they do not automatically get added/removed from MV schema, as a result, any subsequent DELETE/UPDATE should not have a WHERE clause or IF clause that refers to the newly added fields, else the MV records may not get deleted/updated.
   - **3.f.2)** **Important**: At the moment any Materialized Views needed must be provided with the initial schema utilizing the CREATE MATERIALIZED VIEW statement. You cannot ADD a materialized view later on in a running product. You can DROP an MV in a running database but you cannot ADD an MV at the moment. We have to work on adding this functionality soon. Also, the product currently does NOT validate that you are not allowed to add MV later on, so you will be able to add it but it will report incorrect results. This is a known issue that we have to resolve.
+
 - **3.g)** For Secondary Index clustering-order specification is ignored (shouldn't matter).
+
 - **3.h)** Secondary Index can only be created on a base table not an MV.
+
 - **3.i)** Secondary Index on each node is created for records that are local to that node.
+
 - **3.j)** Basically 3.i) means that Secondary Index is sharded on the same key as the base table.
+
 - **3.k)** Secondary indexes of numerous kinds on collections are supported.
+
 - **3.l)** Secondary index on user-defined-type is not supported because there is no natural sort order of user-defined-type. This is the same as Apache Cassandra.
 
 ## 4. INSERT, DELETE, UPDATE behave differently from Apache Cassandra
 - **4.a)** Unlike Apache Cassandra INSERT is an INSERT not an UPSERT, if the primary key conflicts with an existing object INSERT will fail.
+
 - **4.b)** Unlike Apache Cassandra UPDATE is an UPDATE not an UPSERT. So if the underlying item doesn't exist UPDATE will fail.
+
 - **4.c)** UPDATE query can modify any columns other than the columns that form the partition key of the base table or columns that form the partition key of any MVs on the base table (this is less restrictive than Apache Cassandra which does not allow modifying any primary key column of the base table).
+
 - **4.d)** If DELETE/UPDATE is part of a write batch then DELETE/UPDATE must also specify all the primary key columns in the WHERE clause exactly. As a part of the write batch, DELETE can delete only one object at a time. UPDATE can update only one object at a time.
+
 - **4.e)** If DELETE/UPDATE is not part of a batch then as explained in 4.f) it can modify multiple objects.
 
 - **4.f)** On user request, we have allowed the possibility of range DELETE (delete which allows deleting a range of objects (or multiple objects) with a single DELETE query. We have also made a similar extension for UPDATE query). However, currently, it has the following limitations:
@@ -100,15 +115,22 @@ Examples provide a clear explanation of how to utilize a client to drive load to
 - **4.g)** The "IF syntax" of DELETE, UPDATE statements has no meaning, simply add all conditions to the WHERE clause of DELETE/UPDATE, it will not incur any additional overhead. There is only one use case for IF syntax. The IF syntax allows expressions involving user-defined-type, whereas WHERE clause grammar in CQL does not allow it. If you have such use case then utilize IF syntax, else place conditions in WHERE clause. It has no implications related to Paxos. **Important**: DO NOT include any primary key constraints in the IF clause, you WILL get errors, place all those constraints in WHERE clause.
 
 - **4.h)** Unlike Apache Cassandra, data modification should not generate severe performance problems, unless the WHERE clause for DELETE/UPDATE does not have enough restrictions on primary key columns and the query ends up scanning large swaths of the database.
+
 - **4.i)** Apache Cassandra will often times truncate timestamp value to milliseconds, we do the same.
+
 - **4.j)** A DATEMSK environment variable points to the DATEMSK file, which allows the following formats (%A, %T,%F, %FT%T). We will allow replacing this file later on.
 
 ## 5. SELECT works under similar constraints as Apache Cassandra
 - **5.a)** SELECT query that has WHERE clause conditions restricting all the partition key constraints can perform better than others because they can be sent to specific nodes.
+
 - **5.b)** SELECT query that has WHERE clause conditions which also restrict some of the primary key columns (in addition to the partition key columns) can perform even better.
+
 - **5.c)** SELECT query can be invoked on Materialized View instead of base table. Such queries can also benefit if partition key of MV is restricted along with any of the other primary key columns.
+
 - **5.d)** SELECT query which does not restrict all of the partition key columns will perform the worst, as the query has to be executed on all nodes that could potentially contain the answer.
+
 - **5.e)** SELECT query that could potentially involve scanning a lot of data has to be marked ALLOW FILTER (just as in Apache Cassandra)
+
 - **5.f)** Occasionally due to networking issues or other causes the SELECT query may timeout or have partial results. In such cases, a flag is set on the query results which can determine if the results were partial or had timed out.
 
 NOTE: Depending upon the use case MV can perform better or Secondary index can perform better. Examine the where clause of your queries to determine which is better.
@@ -126,20 +148,29 @@ NOTE: Depending upon the use case MV can perform better or Secondary index can p
   - **6.a.4)** At the moment, range deletes or range updates are not allowed in a batch of writes, in other words, a delete/update query must specify all the primary key members in the Where clause in order to alter only a single object that matches the primary key.
   - **6.a.5)** The user can specify range DELETE/UPDATE as a separate write txn (NOT as part of a write Batch, where it will be rejected). The functionality is available in a limited form as described above.
   - **6.a.6)** With the exception of unappliable writes being skipped, the batch will be applied as a whole (in other words readers will not see partial results of a batch).
+
 - **6.b)** Batch of read-only transactions - transactions that perform only reads. Currently, such batches which have even one query that has ALLOW-FILTER will not return results that are transactional (We will improve this later). The rest of the transactions will return MVCC (multi-version concurrency control) consistent results. (MVCC is the same as snapshot isolation). MVCC read-only transactions return snapshot isolation consistent results, which can return data which is older than the most recently committed.
 
 - **6.c)** The user can check on the SELECT query results if it was transactional or not.
+
 - **6.d)** Write batch can contain only UPDATE/DELETE/INSERT queries, read batch can contain only SELECTs, also, schema/security-data queries cannot be part of a batch.
+
 - **6.e)** Transactions utilize distributed consensus, as a result, the database will become unavailable for writes if the majority of the coordinator nodes are down. This is the price to pay for consistency. Some of this is mitigated with a larger number of coordinator nodes.
+
 - **6.f)** Write transactions will respond to the client as soon as each statement in the batch has been applied on some node, however, it will not wait for it to be applied on all applicable nodes before responding to the client. Writes are applied only if a quorum of coordinators have received the write txn and marked it as to-be-applied. Thus as soon as the write returns if you submit an MVCC read-only query to obtain the modified data right away you might get older data. That is just the nature of MVCC, it is not guaranteed to return the most recently committed data. This is true of all MVCC implementations.
+
 - **6.g)** Transaction functionality is rather limited, this is because this is a first implementation. We will make it better later.
 
 #### 6.h) Query Timeout
 If a DELETE/UPDATE/INSERT hits a timeout, it could be due to one of the following reasons:
 - **6.h.1)** The server has a lot of load and cannot handle too much write traffic, then write load should be reduced. In such a case, write queries submitted to the coordinator should not be resubmitted because they have been journaled and the cluster will eventually apply them.
+
 - **6.h.2)** The coordinator failed over and a new one got elected. The failover process could take a very short time, typically a few milliseconds. In this case, the write query sent to the coordinator may have to be resubmitted because it may have been lost.
+
 - **6.h.3)** The DELETE/UPDATE query has been specified with a WHERE clause which did not have enough restrictions on it and caused the servers to scan large swaths of the database and eventually caused a timeout. In this case, it is better for the user to re-examine the WHERE clause and add as many restrictions as possible to make it perform in subsequent invocations. NOTE: Primary key column restrictions are useful only if provided in order of primary key columns. If one of the primary key columns is not restricted then any restrictions on the subsequent (in order of primary key) columns will not help much.
+
 - **6.h.4)** Repeatedly submitting the same DELETE/UPDATE query without addressing point 6.h.3) can make the database unavailable for subsequent writes and very significantly degrade performance of reads.
+
 - **6.h.5)** There is also a possibility that due to a software bug the coordinator is hanging indefinitely and it may never respond. In such a situation, we have to investigate the bug. Sometimes restarting the product can help to keep moving on, but sometimes it may not help.
 
 If a SELECT query times out, the causes could again be one of 6.h.1), 6.h.2), 6.h.3). The only difference is that SELECT queries are never journaled. The suggestions to address any issues are similar to the ones in 6.h.1), 6.h.2), 6.h.3).
@@ -147,13 +178,21 @@ If a SELECT query times out, the causes could again be one of 6.h.1), 6.h.2), 6.
 ## 7. Partition Key
 As with Apache Cassandra, choose the partition key very carefully.
 - **7.a)** Partition key is utilized for consistent hashing to distribute data evenly in the nodes in the cluster and a poorly chosen partition key will create hot spots which cannot be fixed. Adding new nodes in the cluster will NOT fix hot spots.
+
 - **7.b)** **Important**: Choose a partition key with high enough cardinality so that it can be distributed somewhat randomly in the cluster. This is true of the base table as well as MVs.
+
 - **7.c)** **Important**: When choosing a partition key be aware that SELECT query performance will be best when partition key equality restrictions are included in the query. This allows the query to be sent to only one node in the cluster, instead of to a lot of nodes that could possibly contain the data. This is true of queries on the base table as well as any MVs as well as queries on Secondary Index. Thus choosing a partition key also directly impacts SELECT performance. This is true of all clustered products including Apache Cassandra. (DELETE/UPDATE that affect multiple objects must also specify the partition key in the WHERE clause).
+
 - **7.d)** **Important**: Just as with Apache Cassandra, once partition key, primary key columns have been chosen for a table they cannot be altered. The table has to be dropped and re-created.
+
 - **7.e)** Partition Key must also be chosen carefully for Materialized View (else it will generate hotspots for MV records). MV partition key must also be of high cardinality.
+
 - **7.f)** It is possible to colocate (on the same cluster node) related records of different tables by utilizing the same partition key for those tables. Currently, this is the only way to guarantee colocation of records of different tables. This will make a batch of SELECT queries on multiple related tables faster. However, you have to once again be careful not to introduce any hotspots. We will improve upon this later.
+
 - **7.g)** NOTE that range-delete, range-update require a WHERE clause which restricts all partition key columns (on the base table as well as MV tables) with equality constraints. This must also be kept in mind when choosing the partition key if your usage requires deleting/updating a range of objects. However, 7.b) is very critical and the cardinality of the partition key has to be high enough to allow uniform distribution in the cluster.
+
 - **7.h)** If you require co-locating multiple records on the same partition then you can choose the same partition key for them, but please make certain that such co-location does not imbalance the cluster by placing too many objects in the same partition. The overall goal is to utilize a high cardinality partition key to distribute objects evenly in the partitions.
+
 - **7.i)** Colocating related items utilizing the same partition key also allows batched writes among them to be more efficient. And as we improve capabilities of write batches this will allow more flexible writes (although this will be available in later releases).
 
 ## 8. Schema Changes
@@ -174,10 +213,15 @@ The number of Coordinator nodes should be at least 3 but it can be more. The onl
 At the moment the product relies on k-safety. This implies that as long as more than k/2 coordinator nodes are alive then the committed transactions are durable. Otherwise, we can lose some most recently committed transactions. (product restart alone should not cause logs to be lost, only power cycle or segfaults, etc. could cause this on a given node, so this should be quite rare). If you are concerned about this and want to tolerate more failures, please increase the number of coordinators to 5 or 7 depending on how big your cluster is. (k = number of coordinator nodes).
 
 - **12.a)** If more than k/2 coordinator nodes are down, write txns cannot be applied and will timeout.
+
 - **12.b)** If non-coordinator nodes which are involved in writes are also down then it can delay the application of transactions.
+
 - **12.c)** It is best to monitor the cluster closely and replace failed nodes as quickly as possible.
+
 - **12.d)** This product chooses consistency over availability for write transactions in the presence of failures.
+
 - **12.e)** During a failover to elect a new leader, pending write transactions that have been committed to the journal but not yet applied will still be applied. However, the client that originated the query will only receive a timeout and will reconnect to a different leader. In this situation, if the client resubmits the same write, then depending on the situation, the client will receive errors.
+
 - **12.f)** As indicated below, utilize AWS partition placement groups to mitigate correlated failures of multiple AWS instances.
 
 ## 13. Cluster Size Limit
