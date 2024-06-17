@@ -453,23 +453,19 @@ Why do we charge a software license fee at all?
 
 We have made every effort to ensure a product of extremely high quality but a few initial hiccups are inevitable.
 
-**28.a)** Customers with support contracts can send an email on the provided address.
+**28.a)** Customers with support contracts can open support issue with Tech support.
 
-**28.b)** Avoid sending a comment unless you have run into a show stopper bug and combine all your questions in one email but please keep it short, and take some time before sending it.
+**28.b)** **Caution**: As indicated in our license, the product is provided as is and we are not responsible for any losses that may occur due to utilizing this product. We will not accept any form of litigation for any issues. To minimize your risk please test your use case thoroughly. You will most likely find the product exceeds your expectations for the use cases it is designed for.
 
-**28.c)** If you do send an email do provide the name of your organization, how many nodes you are utilizing or plan on utilizing, how soon you want to go online, any verifiable information about which AWS user you are. Emails without any contact information on organization etc will be ignored.
+**28.c)** Currently the product is released only on Amazon AWS and is subject to all costs associated with AWS. We will formulate a separate license for allowing users to run product on their private resources later on.
 
-**28.d)** **Caution**: As indicated in our license, the product is provided as is and we are not responsible for any losses that may occur due to utilizing this product. We will not accept any form of litigation for any issues. To minimize your risk please test your use case thoroughly. You will most likely find the product exceeds your expectations for the use cases it is designed for.
+**28.d)** We can not offer customer support to organizations that are providing support on this product to third parties.
 
-**28.e)** Currently the product is released only on Amazon AWS and is subject to all costs associated with AWS. We will formulate a separate license for allowing users to run product on their private resources later on.
+**28.e)** Please test your use case very thoroughly before purchasing any annual reserved instances to minimize any surprises along the way.
 
-**28.f)** We can not offer customer support to organizations that are providing support on this product to third parties.
+**28.f)** If you have run into a critical bug, you can open an issue in Github. Depending upon availability of resources we can get to it.
 
-**28.g)** Please test your use case very thoroughly before purchasing any annual reserved instances to minimize any surprises along the way.
-
-**28.h)** If you have run into a critical bug, you can open an issue in Github. Depending upon availability of resources we can get to it.
-
-**28.i)** Since we are mostly compatible with Cassandra CQL, if you have issues with our current release you can migrate to Cassandra or similar products easily. We hope that this should not be needed.
+**28.g)** Since we are mostly compatible with Cassandra CQL, if you have issues with our current release you can migrate to Cassandra or similar products easily. We hope that this should not be needed.
 
 ## 29. Benchmarks
 
