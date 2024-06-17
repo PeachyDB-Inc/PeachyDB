@@ -2,7 +2,7 @@
 
 PeachyDB is a horizontally scalable database intended to overcome the shortcomings of Apache Cassandra. We are mostly compatible with CQL, differences are noted below. This note contains various issues that a customer should be aware of when utilizing this product. All the commands and examples to run a cluster and drive it with a client are provided in a separate document. Reading this document is a pre-requisite to understanding this product.
 
-**Prerequisite**: Please read Apache Cassandra CQL documentation to understand the below.
+**Prerequisite**: Please read <a href="https://https://cassandra.apache.org/doc/latest/" title="Documentation"> Apache Cassandra CQL documentation </a> to understand the below.
 
 **Product Status**: Beta release.
 
