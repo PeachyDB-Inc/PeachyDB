@@ -469,7 +469,9 @@ We have made every effort to ensure a product of extremely high quality but a fe
 
 **28.h)** Please test your use case very thoroughly before purchasing any annual reserved instances to minimize any surprises along the way.
 
-**28.i)** Since we are mostly compatible with Cassandra CQL, if you have issues with our current release you can migrate to Cassandra or similar products easily. We hope that this should not be needed.
+**28.i)** You can open an issue in Github. Depending upon availability of resources we can get to it.
+
+**28.j)** Since we are mostly compatible with Cassandra CQL, if you have issues with our current release you can migrate to Cassandra or similar products easily. We hope that this should not be needed.
 
 ## 29. Benchmarks
 
