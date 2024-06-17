@@ -70,7 +70,7 @@ Examples provide a clear explanation of how to utilize a client to drive load to
 - **3.g)** For Secondary Index clustering-order specification is ignored (shouldn't matter).
 - **3.h)** Secondary Index can only be created on a base table not an MV.
 - **3.i)** Secondary Index on each node is created for records that are local to that node.
-- **3.j)** Basically 3.d) means that Secondary Index is sharded on the same key as the base table.
+- **3.j)** Basically 3.i) means that Secondary Index is sharded on the same key as the base table.
 - **3.k)** Secondary indexes of numerous kinds on collections are supported.
 - **3.l)** Secondary index on user-defined-type is not supported because there is no natural sort order of user-defined-type. This is the same as Apache Cassandra.
 
