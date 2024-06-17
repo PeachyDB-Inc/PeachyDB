@@ -382,6 +382,7 @@ If you are able to drive enough stress into the system and it presents no signif
 - **23.o)** As a first step write a simple test with all the schema and queries with variables bound to the queries. Make sure that there are no syntax errors and variable are bound correctly to the right parameters/positions. Once a simple test works then start to utilize stress test to load data and perform queries.
 
 ## 24. Known Bugs, Issues
+Below are known Bugs and Issues, we are not going to keep this list updated, but rather rely on other means (such as Github open issues etc) to record new issues.
 
 - **24.1)** If multiple nodes are dead or cannot communicate with the leader, then the leader will not be able to perform some GC tasks and write performance will severely degrade. Currently, a single node failure is tolerated but multiple simultaneous failures will cause write timeouts. It is prudent for the user to set up monitoring to check the status of the cluster every few minutes to ensure everything is working.
 
