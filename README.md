@@ -505,37 +505,37 @@ Why do we charge a software license fee at all?
 
 We have made every effort to ensure a product of extremely high quality but a few initial hiccups are inevitable.
 
-**28.a)** Customers with support contracts can open support issue with Tech support.
+- **28.a)** Customers with support contracts can open support issue with Tech support.
 
-**28.b)** **Caution**: As indicated in our license, the product is provided as is and we are not responsible for any losses that may occur due to utilizing this product. We will not accept any form of litigation for any issues. To minimize your risk please test your use case thoroughly. You will most likely find the product exceeds your expectations for the use cases it is designed for.
+- **28.b)** **Caution**: As indicated in our license, the product is provided as is and we are not responsible for any losses that may occur due to utilizing this product. We will not accept any form of litigation for any issues. To minimize your risk please test your use case thoroughly. You will most likely find the product exceeds your expectations for the use cases it is designed for.
 
-**28.c)** Currently the product is released only on Amazon AWS and is subject to all costs associated with AWS. We will formulate a separate license for allowing users to run product on their private resources later on.
+- **28.c)** Currently the product is released only on Amazon AWS and is subject to all costs associated with AWS. We will formulate a separate license for allowing users to run product on their private resources later on.
 
-**28.d)** We can not offer customer support to organizations that are providing support on this product to third parties.
+- **28.d)** We can not offer customer support to organizations that are providing support on this product to third parties.
 
-**28.e)** Please test your use case very thoroughly before purchasing any annual reserved instances to minimize any surprises along the way.
+- **28.e)** Please test your use case very thoroughly before purchasing any annual reserved instances to minimize any surprises along the way.
 
-**28.f)** If you have run into a critical bug, you can open an issue in Github. Depending upon availability of resources we can get to it.
+- **28.f)** If you have run into a critical bug, you can open an issue in Github. Depending upon availability of resources we can get to it.
 
-**28.g)** Since we are mostly compatible with Cassandra CQL, if you have issues with our current release you can migrate to Cassandra or similar products easily. We hope that this should not be needed.
+- **28.g)** Since we are mostly compatible with Cassandra CQL, if you have issues with our current release you can migrate to Cassandra or similar products easily. We hope that this should not be needed.
 
 ## 29. Benchmarks
 
 What about benchmarks?
 
-**29.a)** Benchmarks can be smoke and mirrors. All vendors contrive them to favor their product.
+- **29.a)** Benchmarks can be smoke and mirrors. All vendors contrive them to favor their product.
 
-**29.b)** Please make your own measurements for your use case.
+- **29.b)** Please make your own measurements for your use case.
 
-**29.c)** We expect to perform better than Cassandra.
+- **29.c)** We expect to perform better than Cassandra.
 
-**29.d)** Subsequent releases will be more focused on performance improvements. Like other products, we have a very long list of improvements that should make us significantly better in every metric compared to our current release and competitive with the best products available out there in performance, scalability and features.
+- **29.d)** Subsequent releases will be more focused on performance improvements. Like other products, we have a very long list of improvements that should make us significantly better in every metric compared to our current release and competitive with the best products available out there in performance, scalability and features.
 
-**29.e)** Note points 5.f.5) and 23.h) above for performance improvement.
+- **29.e)** Note points 5.f.5) and 23.h) above for performance improvement.
 
-**29.f)** Our product also has limitations listed in the sections above. If your use case fits better with the alternatives, it would be better to stick with them. Different products may be optimized better for different situations.
+- **29.f)** Our product also has limitations listed in the sections above. If your use case fits better with the alternatives, it would be better to stick with them. Different products may be optimized better for different situations.
 
-**29.g)** Due to compatibility with Cassandra CQL you can easily migrate to other products if they fit your usage better.
+- **29.g)** Due to compatibility with Cassandra CQL you can easily migrate to other products if they fit your usage better.
 
 ## 30. Why are we closed source?
 
