@@ -386,7 +386,7 @@ If you are able to drive enough stress into the system and it presents no signif
 
 - **24.49)** Occasionally AWS operations performed with scripts can fail; it's best to keep an eye on the AWS console to make sure that the operation went through as expected.
 
-- **24.50)** When the database size exceeds the size of the Page cache, performance will degrade slightly, and when the database size exceeds RAM and SSD I/O is required, then performance will degrade to a greater extent. This is true for all kinds of databases.
+- **24.50)** When the database size exceeds the size of the Database Page Cache size, performance will degrade slightly, and when the database size exceeds RAM and SSD I/O is required, then performance will degrade to a greater extent. This is true for all kinds of databases.
 
 - **24.51)** In schema definition, any user-defined types must be defined before the tables that utilize them. User-defined type arguments are provided in the form of a collection of name-value pairs.
 
