@@ -459,19 +459,17 @@ We have made every effort to ensure a product of extremely high quality but a fe
 
 **28.c)** If you do send an email do provide the name of your organization, how many nodes you are utilizing or plan on utilizing, how soon you want to go online, any verifiable information about which AWS user you are. Emails without any contact information on organization etc will be ignored.
 
-**28.d)** If your emails are too long or too many, they will be ignored. At this point we are very constrained on resources and with the best of intentions we will still not be able to help everyone. (Where applicable, in your email, mention specific points indicated above).
+**28.d)** **Caution**: As indicated in our license, the product is provided as is and we are not responsible for any losses that may occur due to utilizing this product. We will not accept any form of litigation for any issues. To minimize your risk please test your use case thoroughly. You will most likely find the product exceeds your expectations for the use cases it is designed for.
 
-**28.e)** **Caution**: As indicated in our license, the product is provided as is and we are not responsible for any losses that may occur due to utilizing this product. We will not accept any form of litigation for any issues. To minimize your risk please test your use case thoroughly. You will most likely find the product exceeds your expectations for the use cases it is designed for.
+**28.e)** Currently the product is released only on Amazon AWS and is subject to all costs associated with AWS. We will formulate a separate license for allowing users to run product on their private resources later on.
 
-**28.f)** Currently the product is released only on Amazon AWS and is subject to all costs associated with AWS. We will formulate a separate license for allowing users to run product on their private resources later on.
+**28.f)** We can not offer customer support to organizations that are providing support on this product to third parties.
 
-**28.g)** We can not offer customer support to organizations that are providing support on this product to third parties.
+**28.g)** Please test your use case very thoroughly before purchasing any annual reserved instances to minimize any surprises along the way.
 
-**28.h)** Please test your use case very thoroughly before purchasing any annual reserved instances to minimize any surprises along the way.
+**28.h)** If you have run into a critical bug, you can open an issue in Github. Depending upon availability of resources we can get to it.
 
-**28.i)** If you have run into a critical bug, you can open an issue in Github. Depending upon availability of resources we can get to it.
-
-**28.j)** Since we are mostly compatible with Cassandra CQL, if you have issues with our current release you can migrate to Cassandra or similar products easily. We hope that this should not be needed.
+**28.i)** Since we are mostly compatible with Cassandra CQL, if you have issues with our current release you can migrate to Cassandra or similar products easily. We hope that this should not be needed.
 
 ## 29. Benchmarks
 
