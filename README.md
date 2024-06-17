@@ -160,7 +160,7 @@ As with Apache Cassandra, choose the partition key very carefully.
 Try to avoid making too many schema changes in your application at the moment, because the current product has very limited space overhead for that. A schema that contains 500+ tables may not work at the moment.
 
 ## 9. Client Refresh
-Every time you Drop/Add a table, refresh the client. This is an expensive operation and should only be done when a table is added/dropped, never otherwise.
+Every time you Drop/Add a table, refresh the client. This is an expensive operation and should only be done when a table is added/dropped, never otherwise. Client examples provided include this step.
 
 ## 10. Replication Factor
 The industry-standard replication factor of 3 is recommended. This means that the minimum cluster size has to be 3 nodes. The product will not work on fewer nodes. In your storage calculations include replication factor. If your data is 10TB, then with replication factor included overall storage requirement is 30TB. If we include SSD overheads, journaling overheads, versioning overhead, fragmentation overheads, any background tasks merging overheads, etc., then it is safe to have overall storage of about 60TB available through the cluster. Other horizontally scalable databases have similar space overheads.
