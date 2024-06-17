@@ -315,8 +315,8 @@ If you are able to drive enough stress into the system and it presents no signif
 
 - **24.6)** Currently, all server AWS EC2 instances have to be of the same AWS instance type.
 
-- **24.7)** Currently, nodes can be added, removed, or substituted from the cluster only one at a time. We are aware of this limitation and we have to improve upon it.
-
+- **24.7)** Currently, nodes can be added, removed, or substituted from the cluster only one at a time.
+- 
 - **24.8)** Before adding more nodes to a cluster, make sure that the existing cluster at least has some representative data to determine how to repartition data. Otherwise, if you add nodes to a cluster with no data, it may not be able to make an effective partitioning decision and generate an imbalanced cluster. Instead of adding nodes to a cluster with no data, simply delete the cluster and recreate it with more nodes.
 
 - **24.9)** As mentioned before, if you want to replace an instance, always utilize the Substitute command. Do not utilize (Remove node + Add node). Using Remove + Add can cause clusters to become imbalanced. We discourage users from utilizing the Remove node command as much as possible. It is utilized only in the rare circumstance of the user attempting to downscale a cluster if the cluster is very underutilized and they do not expect its utilization to grow.
