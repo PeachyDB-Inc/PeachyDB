@@ -29,9 +29,9 @@ PeachyDB is a horizontally scalable database intended to overcome the shortcomin
   <li><a href="#19-interference-with-database-servers">19. Interference with Database Servers</a></li>
   <li><a href="#20-aws-instance-types-for-database-servers-clients">20. AWS Instance Types allowed </a></li>
   <li><a href="#21-cloudformation-effectiveness">21. CloudFormation Effectiveness</a></li>
-  <li><a href="#22-backup-restore">22. Backup/Restore</a></li>
+  <li><a href="#22-backup-restore">22. Backup,Restore</a></li>
   <li><a href="#23-deployment-strategy">23. Deployment Strategy</a></li>
-  <li><a href="#24-known-bugs-issues">24. Known Bugs/Issues</a></li>
+  <li><a href="#24-known-bugs-issues">24. Known Bugs,Issues</a></li>
   <li><a href="#25-limits">25. Limits</a></li>
   <li><a href="#26-security-issues">26. Security Issues</a></li>
   <li><a href="#27-costs">27. Costs</a></li>
