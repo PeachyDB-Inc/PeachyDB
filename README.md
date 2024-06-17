@@ -235,7 +235,7 @@ Setting up with AWS CloudFormation
 
 The steps to create/delete/modify/describe server/client clusters are documented separately. Please follow the directions carefully, and you should have the clusters running with example tests running in a short period of time.
 
-## 22. Backup/Restore
+## 22. Backup,Restore
 We do not have backup/restore at the moment. The Cluster has a built-in replication factor, which has some fault tolerance. Utilizing AWS Partition Placement Groups can reduce the probability of correlated hardware failures. If there are multiple concurrent hardware failures, it can lead to data loss if all copies of a partition are lost due to the failures. In production clusters, utilizing Partition placement groups is a requirement for this reason. However, note that utilizing Partition Placement groups does not reduce the probability of correlated failures to zero. AWS also indicates that partition placement algorithms are "best effort" and depend upon the availability of instances in the partitions to keep the EC2 instances balanced across partitions. Thus, it is still possible to have correlated failures, although the probability of this happening should be reduced by some degree. It is possible that in some cases it reduces odds of correlated failures very significantly so that in practice data loss does not occur.
 
 (Backup/Restore can also be useful in situations of accidental deletion of data by the user. For accidental user deletion of data, we do not have any built-in mechanism to prevent/revert it. This can be mitigated via customer's application-level strategies).
@@ -301,7 +301,7 @@ If you are able to drive enough stress into the system and it presents no signif
 
 - **23.o)** As a first step write a simple test with all the schema and queries with variables bound to the queries. Make sure that there are no syntax errors and variable are bound correctly to the right parameters/positions. Once a simple test works then start to utilize stress test to load data and perform queries.
 
-## 24. Known Bugs/Issues
+## 24. Known Bugs,Issues
 
 - **24.1)** If multiple nodes are dead or cannot communicate with the leader, then the leader will not be able to perform some GC tasks and write performance will severely degrade. Currently, a single node failure is tolerated but multiple simultaneous failures will cause write timeouts. It is prudent for the user to set up monitoring to check the status of the cluster every few minutes to ensure everything is working.
 
