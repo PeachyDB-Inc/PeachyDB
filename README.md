@@ -436,7 +436,7 @@ If you are able to drive enough stress into the system and it presents no signif
 
 ## 27. Costs
 
-New users will be offered a 1-month free trial offer. During this time, your AWS instances will not incur any software license charges. However, any underlying AWS infrastructure, instances, etc., will still incur AWS costs that will be charged by AWS. Once the 1-month trial period expires, you will be charged a minimal software license fee per AWS instance, in addition to the AWS infrastructure costs. For significant discounts, an annual software license can be purchased.
+New users will be offered a 1-month free trial offer. During this time, your AWS instances will not incur any software license charges. However, any underlying AWS infrastructure, instances, etc., will still incur AWS costs that will be charged by AWS. Once the 1-month trial period expires, you will be charged a minimal software license fee per AWS instance, in addition to the AWS infrastructure costs. For significant discounts, an annual software license can be purchased. (For the initial 1 month it's possible to utilize a minimal 2 node cluster of servers (i3.2xlarge) and client instances utilizing Spot Instances for a cost of less than $1/hour (based upon pricing of these instances currently (6/15/24) in west coast US region), after the initial month prices are as noted in market place, only slightly more expensive and can be further reduced with annual license).
 
 Why do we charge a software license fee at all?
 
