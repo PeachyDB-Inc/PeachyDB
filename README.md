@@ -309,7 +309,7 @@ If you are able to drive enough stress into the system and it presents no signif
 
 - **24.3)** When a node is being added or substituted in a cluster, the write throughput will be reduced to allow such nodes to catch up with the leader when they come online. If we do not reduce write throughput, by the time a large database has been snapshotted, it will already be too far behind compared to available logs and we will not be able to join the cluster. Thus, adding or substituting nodes is preferably done during times of lower activity.
 
-- **24.4)** Another known issue is described in 3.1.f.
+- **24.4)** Known issues related to Materialized Views are described in 3.f.1 and 3.f.2.
 
 - **24.5)** Currently, all AWS EC2 instances (servers as well as clients) must be on the same Subnet and same VPC. In the AWS console, please ensure that the Subnet allows communication with all instances within the subnet, VPC. This is a requirement; otherwise, the product will not work. We will improve upon this limitation later.
 
