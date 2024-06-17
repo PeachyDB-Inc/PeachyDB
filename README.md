@@ -432,11 +432,12 @@ If you are able to drive enough stress into the system and it presents no signif
 ## 26. Security Issues
 
 - **26.a)** Currently, we do not have specific encryption (data at rest, in transit, or field-specific) related features or private networking, etc. We do not have any TLS/SSL-based client and inter-node communication. The current product represents a large attack surface for malicious actors. If this is important to your usage, please check if you have alternate mechanisms in place for cloud security which can provide you security guarantees. (Such issues exist with Cassandra as well, as of the last check. It's possible that there have been improvements since).
+  
 - **26.b)** We have Apache Cassandra specific role-based authentication.
 
 ## 27. Costs
 
-New users will be offered a 1-month free trial offer. During this time, your AWS instances will not incur any software license charges. However, any underlying AWS infrastructure, instances, etc., will still incur AWS costs that will be charged by AWS. Once the 1-month trial period expires, you will be charged a minimal software license fee per AWS instance, in addition to the AWS infrastructure costs. For significant discounts, an annual software license can be purchased. (For the initial 1 month it's possible to utilize a minimal 3 node cluster of servers (i3.2xlarge) and client instances utilizing Spot Instances for a cost of less than $1/hour (based upon pricing of these instances currently (6/15/24) in west coast US region), after the initial month prices are as noted in market place, a bit more expensive and can be further reduced with annual license).
+New users will be offered a 1-month free trial offer. During this time, your AWS instances will not incur any software license charges. However, any underlying AWS infrastructure, instances, etc., will still incur AWS costs that will be charged by AWS. Once the 1-month trial period expires, you will be charged a minimal software license fee per AWS instance, in addition to the AWS infrastructure costs. For significant discounts, an annual software license can be purchased. (For the initial 1 month it's possible to utilize a minimal 3 node cluster of servers (i3.2xlarge) and client instances utilizing Spot Instances for a cost of less than $1/hour (based upon pricing of these instances currently (6/15/24) in west coast US region), after the initial month prices are as noted in market place, a bit more expensive and can be further reduced with annual license. For customers with larger clusters we can try to put together a "bring your own license" to make it more cost effective).
 
 Why do we charge a software license fee at all?
 
