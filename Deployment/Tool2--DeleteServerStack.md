@@ -1,4 +1,4 @@
-# 1. Delete Server Stack
+# 2. Delete Server Stack
 In the main menu, choice '2' is meant for creating a Server Stack. Below is the command sequence to accomplish this.
 
 ```shell
