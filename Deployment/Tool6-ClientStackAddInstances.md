@@ -1,5 +1,5 @@
-# 6. Add one or more instances to Client Stack
-In the main menu, choice '6' is meant for Adding Instances to a Client Stack.
+# 6. Add instances to Client Stack
+In the main menu, choice '6' is meant for Adding one or more AWS EC2 Instances to a Client Stack. Below is the command sequence to accomplish this.
 
 ```shell
 prompt> python3 peachydb_cluster_tool.py
@@ -30,4 +30,13 @@ Client Utilities (4-8):
  9 - Syntax <command#> - syntax for any commands (1 to 8) listed above
  q  - Quit - exit this tool
 
-Enter Choice [1-9, q]:
+Enter Choice [1-9, q]: 6
+
+Client Stack Add Instance Arguments: <client-stack-name> <num-instances> <aws-instance-type>
+
+Enter Arguments: test-client-stack 1 m5.2xlarge
+```
+
+The Client stack does not need to contain homogenous instances. They could be
+of different EC2 Client type instances and could be of different capacities as
+well. Please wait for the command to complete do not hit Ctrl-C.
