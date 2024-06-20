@@ -1,5 +1,5 @@
 # 1. Delete Server Stack
-In the main menu, choice '2' is meant for creating a Server Stack.
+In the main menu, choice '2' is meant for creating a Server Stack. Below is the command sequence to accomplish this.
 
 ```shell
 prompt> python3 peachydb_cluster_tool.py
