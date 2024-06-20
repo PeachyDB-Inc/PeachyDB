@@ -37,6 +37,5 @@ Describe Arguments: <stack-name> [<optional-output-file-name>]
 Enter Arguments: peachydb-teststack
 ```
 
-comments:
 The above will describe the Server Stack instances, and the output can also
 be optionally saved in a file.
