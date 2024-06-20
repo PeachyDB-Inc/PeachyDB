@@ -1,4 +1,4 @@
-# 5. Delete Client Stack
+## 5. Delete Client Stack
 In the main menu, choice '5' is meant for Deleting a Client Stack. Below is the command sequence to accomplish this.
 
 ```shell
