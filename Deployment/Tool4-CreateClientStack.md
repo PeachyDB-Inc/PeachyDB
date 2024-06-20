@@ -1,3 +1,6 @@
+# 1. Create Client Stack
+In the main menu, choice '4' is meant for creating a Client Stack.
+
 ```shell
 prompt> python3 peachydb_cluster_tool.py
 
@@ -27,4 +30,4 @@ Client Utilities (4-8):
  9 - Syntax <command#> - syntax for any commands (1 to 8) listed above
  q  - Quit - exit this tool
 
-Enter Choice [1-9, q]:
+Enter Choice [1-9, q]: 4
