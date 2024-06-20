@@ -28,7 +28,7 @@ num-commit-writes=%ld num-commit-syncs=%ld
 
 - **num-async-iowaits**: Number of times an execution thread waited for i/o issued by a different thread.
 
-- **num-forced-drains**: Dirty buffer ring full and forced to be drained inline with execution thread.
+- **num-forced-drains**: Internal buffer ring full and forced to be drained inline with execution thread. Note that this different from num-dirtyring-drains. It should not happen much at all in a normally running database server.
 
 - **num-prefetched-pages**: Number of pages prefetched by prefetching threads. If prefetching is working properly, it should reduce both `num-sync-io` and `num-async-iowaits`. The goal of prefetching pages is to avoid having running transactions run into i/o waits for pages.
 
