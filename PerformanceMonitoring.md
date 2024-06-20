@@ -1,6 +1,6 @@
 ## Performance Monitoring
 
-In order to figure out any performance related issues, you can obtain a performance bundle from the specific servers. There you will find a file perf.peachdb.messglog. This file contains some statistics on the database operation. Below is the explanation of numerous counters available.
+In order to figure out any performance related issues, you can obtain a performance bundle from the specific servers. There you will find a file perf.peachdb.messglog. This file contains some statistics on the database operation. Below is the explanation of numerous counters available. When collecting stats from any of the servers note that the stats are reported every 10 minutes (as of this writing, but you easily check from the log file if it has been made more frequent), so there is not much to be gained by collecting stats more frequently and it will only add additional burden on the servers to keep returning these files to the user.
 
 ## Database Buffer Pool Stats
 
