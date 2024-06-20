@@ -1,3 +1,6 @@
+# 1. Delete Server Stack
+In the main menu, choice '3' is meant for creating a Server Stack.
+
 ```shell
 prompt> python3 peachydb_cluster_tool.py
 
@@ -27,4 +30,13 @@ Client Utilities (4-8):
  9 - Syntax <command#> - syntax for any commands (1 to 8) listed above
  q  - Quit - exit this tool
 
-Enter Choice [1-9, q]:
+Enter Choice [1-9, q]: 3
+
+Describe Arguments: <stack-name> [<optional-output-file-name>]
+
+Enter Arguments: peachydb-teststack
+```shell
+
+comments:
+The above will describe the Server Stack instances, and the output can also
+be optionally saved in a file.
