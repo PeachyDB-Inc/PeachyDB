@@ -1,5 +1,5 @@
 # 3. Describe Server Stack
-In the main menu, choice '3' is meant for Describing AWS EC2 Instances in a Server Stack. Below is the command sequence to accomplish this.
+In the main menu, choice '3' is meant for Describing AWS EC2 Instances in a Server Stack. Describing the Stack also determines the state of each EC2 Instance (running/stopped/terminated). Below is the command sequence to accomplish this.
 
 ```shell
 prompt> python3 peachydb_cluster_tool.py
@@ -37,5 +37,4 @@ Describe Arguments: <stack-name> [<optional-output-file-name>]
 Enter Arguments: peachydb-teststack
 ```
 
-The above will describe the Server Stack instances, and the output can also
-be optionally saved in a file.
+The above will describe the Server Stack instances, and the output can also be optionally saved in a file.
