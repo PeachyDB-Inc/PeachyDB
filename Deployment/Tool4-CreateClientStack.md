@@ -1,5 +1,6 @@
 # 4. Create Client Stack
 In the main menu, choice '4' is meant for creating a Client Stack. Below is the command sequence to accomplish this
+***IMPORTANT::*** Client stack should be created only after the Server Stack has been successfully created because Clients need server configuration files which are only generated after the Server Stack has been successfully created.
 
 ```shell
 prompt> python3 peachydb_cluster_tool.py
