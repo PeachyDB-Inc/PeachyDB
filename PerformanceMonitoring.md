@@ -110,6 +110,7 @@ TID:%d READ debug-counts num-rdqs=%ld num-ro-cons=%ld num-wr-cons=%ld exec-call=
 - **rpc-callback**: (Explanation needed)
 
 If you see this line immediately after the line above:
+
 TID:%d p:%ld%% e:%ld%% s:%ld%% c:%ld%%
 
 ### It Represents:
