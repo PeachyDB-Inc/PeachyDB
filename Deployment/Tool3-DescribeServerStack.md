@@ -1,4 +1,4 @@
-# 3. Describe Server Stack
+## 3. Describe Server Stack
 In the main menu, choice '3' is meant for Describing AWS EC2 Instances in a Server Stack. Describing the Stack also determines the state of each EC2 Instance (running/stopped/terminated). Below is the command sequence to accomplish this.
 
 ```shell
