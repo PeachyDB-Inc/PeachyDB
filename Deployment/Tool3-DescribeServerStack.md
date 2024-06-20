@@ -1,5 +1,5 @@
-# 1. Delete Server Stack
-In the main menu, choice '3' is meant for creating a Server Stack.
+# 3. Describe Server Stack
+In the main menu, choice '3' is meant for Describing AWS EC2 Instances in a Server Stack. Below is the command sequence to accomplish this.
 
 ```shell
 prompt> python3 peachydb_cluster_tool.py
