@@ -1,4 +1,4 @@
-# 6. Add instances to Client Stack
+## 6. Add instances to Client Stack
 In the main menu, choice '6' is meant for Adding one or more AWS EC2 Instances to a Client Stack. Below is the command sequence to accomplish this.
 
 ```shell
