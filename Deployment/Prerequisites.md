@@ -26,7 +26,9 @@ The main tool to manage Server/Client stacks in AWS is peachydb_cluster_tool.py
    prompt> export AWS_DEFAULT_REGION=us-west-2a
    
 2. Adjust any clock skew on the Instance with the command indicated:
-prompt> sudo date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z"
+
+   ```shell
+   prompt> sudo date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z"
 
  (NOTE:: occasionally if you find that the peachydb_cluster_tool reports
   "stack with provided name does not exist", this can also happen due to clock
