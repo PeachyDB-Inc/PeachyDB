@@ -1,5 +1,5 @@
 # 8. Describe Client Stack
-In the main menu, choice '8' is meant for describe the AWS EC2 Instances in the Client Stack. Below steps can accomplish this.
+In the main menu, choice '8' is meant to describe the AWS EC2 Instances in the Client Stack. Below steps can accomplish this.
 
 ```shell
 prompt> python3 peachydb_cluster_tool.py
