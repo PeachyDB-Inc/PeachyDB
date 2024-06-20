@@ -1,3 +1,6 @@
+# 8. Describe Client Stack
+In the main menu, choice '8' is meant for describe the AWS EC2 Instances in the Client Stack.
+
 ```shell
 prompt> python3 peachydb_cluster_tool.py
 
