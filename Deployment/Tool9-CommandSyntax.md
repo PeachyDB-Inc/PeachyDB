@@ -1,5 +1,6 @@
 # 9.  Syntax <command#>
-In the main menu, choice '9' is meant do display the syntax of all the commands 1 through 9 and meaning of parameters to the commands.
+In the main menu, choice '9' is meant do display the syntax of all the commands 1 through 8 and meaning of parameters to the commands.
+Below is a command sequence to display all meanings of parameters of all the commands 1 through 8.
 
 ```shell
 prompt> python3 peachydb_cluster_tool.py
