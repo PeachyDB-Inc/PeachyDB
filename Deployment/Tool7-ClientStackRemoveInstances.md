@@ -1,3 +1,6 @@
+# 7. Remove Instances from Client Stack
+In the main menu, choice '7' is meant for removing one or more AWS EC2 Instances from the Client Stack
+
 ```shell
 prompt> python3 peachydb_cluster_tool.py
 
