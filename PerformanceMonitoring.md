@@ -70,7 +70,7 @@ If you see the line of the following form immediately after the line above:
 
 TID:%d p:%ld%% e:%ld%% s:%ld%% c:%ld%%
 
-### It Represents:
+It Represents:
 
 - **TID**: Writer thread id.
 - **p**: Parse time.
@@ -113,7 +113,7 @@ If you see the following line immediately after the line above:
 
 TID:%d p:%ld%% e:%ld%% s:%ld%% c:%ld%%
 
-### It Represents:
+It Represents:
 
 - **TID**: Reader thread id.
 - **p**: Parse time.
@@ -132,7 +132,7 @@ If you see a line of the following form in the performance log:
 TID:%d CONSOLIDATOR debug-counts num-mssgs=%ld exec=%ld%% wr=%ld%%
 
 
-### Explanation of Terms:
+It Represents:
 
 - **TID**: Consolidator thread id.
 - **num-mssgs**: Number of messages/packets handled by the consolidator thread.
