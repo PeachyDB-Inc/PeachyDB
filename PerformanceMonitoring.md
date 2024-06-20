@@ -87,9 +87,9 @@ TID:%d READ debug-counts num-rdqs=%ld num-ro-cons=%ld num-wr-cons=%ld exec-call=
 
 - **num-rdqs**: Number of read transactions executed by the reader thread.
 
-- **num-ro-cons**: Number of distributed read-only query result consolidations performed by this thread.
+- **num-ro-cons**: Number of distributed read-only query result message consolidations performed by this thread.
 
-- **num-wr-cons**: Number of distributed write query results consolidations performed by this thread. Yes, it is possible for the consolidation of results task of a write transaction to be undertaken by a reader thread.
+- **num-wr-cons**: Number of distributed write query result message consolidations performed by this thread. Yes, it is possible for the consolidation of results task of a write transaction to be undertaken by a reader thread.
 
 - **exec-call**: (Explanation needed)
 
