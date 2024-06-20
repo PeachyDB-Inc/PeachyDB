@@ -10,11 +10,11 @@ Please utilize ONLY peachydb_cluster_tool.py for creating/deleting/updating Peac
 Add/Remove/Substitute nodes without peachydb_cluster_tool.py, the cluster will become unusable.
 
 Prerequisites:
- "- Create an AWS EC2 Key Pair"
- "- Create an S3 bucket with write permissions for cluster config files"
- "- Create a Security Group to utilize for instances"
- "- Create a VPC, Subnet to utilize for instances"
- "- In AWS Console enable all traffic WITHIN the Subnet, VPC"
+ - Create an AWS EC2 Key Pair
+ - Create an S3 bucket with write permissions for cluster config files
+ - Create a Security Group to utilize for instances
+ - Create a VPC, Subnet to utilize for instances
+ - In AWS Console enable all traffic WITHIN the Subnet, VPC
 ALL servers and clients of a cluster must utilize the same Subnet and VPC
 Have you met the pre-requisites? [y/n]: y
 
