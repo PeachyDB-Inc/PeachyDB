@@ -1,3 +1,6 @@
+# 6. Add one or more instances to Client Stack
+In the main menu, choice '6' is meant for Adding Instances to a Client Stack.
+
 ```shell
 prompt> python3 peachydb_cluster_tool.py
 
