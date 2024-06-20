@@ -71,13 +71,13 @@ TID:%d p:%ld%% e:%ld%% s:%ld%% c:%ld%%
 - **e**: Exec time.
 - **s**: Serialize time.
 - **c**: Commit time.
-### Commit Time in Write Transactions
 
 In these stats, the **commit time** is the most crucial figure. For a write transaction, commit time should not significantly increase over a period. If commit time is growing, it may indicate issues with trickle frequency tuning and bugs in write commit overhead management.
 
 ## Read Transaction Stats
 
 If you see a line of the form in the performance log:
+
 TID:%d READ debug-counts num-rdqs=%ld num-ro-cons=%ld num-wr-cons=%ld exec-call=%d%% relay=%ld%% ro-resp=%ld%% wr-resp=%ld%% rpc-callback=%ld%%
 
 
@@ -118,6 +118,7 @@ Typically, for a reader thread, these stats are not of much interest but have be
 Separate threads can be dedicated to the consolidation of distributed write transaction responses.
 
 If you see a line of the form in the performance log:
+
 TID:%d CONSOLIDATOR debug-counts num-mssgs=%ld exec=%ld%% wr=%ld%%
 
 
