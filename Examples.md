@@ -9,7 +9,9 @@ This is a stress test for the client and is meant to stress test various scenari
 
 If you run the command `peachdb_client_cqldb` you get the following Usage:
 
-“Usage: peachdb_client_cqldb <unique_client_id in range [0,255]> [–no-fibers] unique_client_id is a client_id that has not been utilized so far on this or any other client –no-fibers - (optional) if provided, utilize threads instead of fibers”
+“Usage: peachdb_client_cqldb <unique_client_id in range [0,255]> [–no-fibers]
+unique_client_id is a client_id that has not been utilized so far on this or any other client
+–no-fibers - (optional) if provided, utilize threads instead of fibers”
 
 
 Each time the client `peachdb_client_cqldb` is executed a different `<unique_client_id>`
