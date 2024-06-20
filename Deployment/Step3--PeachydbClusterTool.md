@@ -6,8 +6,8 @@ Each Server/Client stack contains a parent stack which is a shell that contains 
 ```shell
 prompt> python3 peachydb_cluster_tool.py
 
-Please utilize ONLY peachydb_cluster_tool.py for creating/deleting/updating PeachyDB clusters. DO NOT Add/Remove/Substitute nodes without
-peachydb_cluster_tool.py, the cluster will become unusable.
+Please utilize ONLY peachydb_cluster_tool.py for creating/deleting/updating PeachyDB clusters. DO NOT
+Add/Remove/Substitute nodes without peachydb_cluster_tool.py, the cluster will become unusable.
 
 Prerequisites:
  "- Create an AWS EC2 Key Pair"
