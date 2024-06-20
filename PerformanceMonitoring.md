@@ -48,7 +48,7 @@ num-commit-writes=%ld num-commit-syncs=%ld
 
 ## Write Transaction Stats
 
-If you see a line of the form in the performance log:
+If you see a line of the following form in the performance log:
 
 TID:%d WRITE debug-counts num-wrqs=%ld flushwr=%d exec-call=%ld%% rpc-wait=%ld%% rpc-total=%ld%% rpc-callback=%ld%%
 
@@ -66,7 +66,7 @@ TID:%d WRITE debug-counts num-wrqs=%ld flushwr=%d exec-call=%ld%% rpc-wait=%ld%%
 - **rpc-total**: Percentage of time that was spent in the execution.
 - **rpc-callback**: Percentage of time spent in execution callback.
 
-If you see this line immediately after the line above:
+If you see the line of the following form immediately after the line above:
 
 TID:%d p:%ld%% e:%ld%% s:%ld%% c:%ld%%
 
@@ -82,7 +82,7 @@ In these stats, the **commit time** is the most crucial figure. For a write tran
 
 ## Read Transaction Stats
 
-If you see a line of the form in the performance log:
+If you see a line of the following form in the performance log:
 
 TID:%d READ debug-counts num-rdqs=%ld num-ro-cons=%ld num-wr-cons=%ld exec-call=%d%% relay=%ld%% ro-resp=%ld%% wr-resp=%ld%% rpc-callback=%ld%%
 
@@ -109,7 +109,7 @@ TID:%d READ debug-counts num-rdqs=%ld num-ro-cons=%ld num-wr-cons=%ld exec-call=
 
 - **rpc-callback**: (Explanation needed)
 
-If you see this line immediately after the line above:
+If you see the following line immediately after the line above:
 
 TID:%d p:%ld%% e:%ld%% s:%ld%% c:%ld%%
 
@@ -127,7 +127,7 @@ Typically, for a reader thread, these stats are not of much interest but have be
 
 Separate threads can be dedicated to the consolidation of distributed write transaction responses.
 
-If you see a line of the form in the performance log:
+If you see a line of the following form in the performance log:
 
 TID:%d CONSOLIDATOR debug-counts num-mssgs=%ld exec=%ld%% wr=%ld%%
 
