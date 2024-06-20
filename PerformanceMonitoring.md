@@ -1,3 +1,7 @@
+## Performance Monitoring
+
+In order to figure out any performance related issues, you can obtain a performance bundle from the specific servers. There you will find a file perf.peachdb.messglog. This file contains some statistics on the database operation. Below is the explanation of numerous counters available.
+
 ## Database Buffer Pool Stats
 
 If you see lines of the following form in the performance log:
