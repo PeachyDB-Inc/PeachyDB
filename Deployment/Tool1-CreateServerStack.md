@@ -37,7 +37,8 @@ Create Stack Arguments: aws-key-pair-name=<name> s3-bucket-name=<name> stack-nam
 
 Enter Arguments: aws-key-pair-name=user-choice-key-pair-uswest1 s3-bucket-name=peachydb-test-bucket stack-name=peachydb-teststack security-group-id=sg-2cc5c28c subnet-id=subnet-34233d12 aws-instance-type=i3.2xlarge number-of-instances=3 number-of-coordinators=3 ssh-location=03.102.20.36/32 spot-instance=1
 
-comments:
+```
+
 The above command will create a server stack in the us-west-2a region (as set above in the
 environment variable). We are utilizing i3.2xlarge instances, total count is 3 and all 3 are
 co-ordinator nodes. We are utilizing Spot Instances in this example.
