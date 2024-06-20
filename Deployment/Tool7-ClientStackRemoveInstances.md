@@ -1,8 +1,7 @@
 # 7. Remove Instances from Client Stack
 In the main menu, choice '7' is meant for removing one or more AWS EC2 Instances from the Client Stack. 
 In order to remove EC2 instances from a Client stack you have to determine the AWS Instance Ids of the instances.
-This is done by following steps in Describe Client Stack. Once the Instance ids to be removed are available we do
-the following.
+This is done by following steps in <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Tool8-DescribeClientStack.md" title="Documentation"> Describe Client Stack</a>. Once the Instance ids to be removed are determined we can utilize them as in example below to remove the those EC2 Instances from the Client Stack.
 
 ```shell
 prompt> python3 peachydb_cluster_tool.py
