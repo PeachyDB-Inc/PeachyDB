@@ -1,6 +1,6 @@
 # Examples
 
-Below is the explanation of the examples that are available with the clients.
+Below is an explanation of the examples that are available with the clients.
 
 ## Test 1
 `peachdb_client_cqldb.cpp`
