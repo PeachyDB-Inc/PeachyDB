@@ -40,8 +40,9 @@ Enter Server Stack name: peachydb-teststack
  WARNING:: Deleting the stack will delete all of the data, the operation can not be undone
 Do you want to proceed (y/n)? y
 Really? Please type the word "delete" to continue: delete
+```
 
-comments:
+
 Please wait for the command to finish execution, do not Ctrl-C it. This operation can take
 some time to complete. Just to be double sure keep an eye on the Cloudformation Console to make
 sure that everything is deleted. 
