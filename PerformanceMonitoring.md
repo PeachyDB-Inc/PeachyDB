@@ -7,7 +7,9 @@ In order to figure out any performance related issues, you can obtain a performa
 If you see lines of the following form in the performance log:
 
 Cache Stats:
+
 num-hits=%ld num-misses=%ld
+
 num-evictions=%ld num-dirty-page-evictions=%ld num-admission-evictions=%ld num-admission-dirty-evictions=%ld num-sync-io=%ld
 num-async-iowaits=%ld num-hash-gcent=%ld num-hash-delent=%ld num-hash-chain-steps=%ld num-forced-drains=%ld
 num-prefetched-pages=%ld num-trickle-calls=%ld num-trickle-writes=%ldnum-trickle-syncs=%ld num-dirtyring-drains=%ld
