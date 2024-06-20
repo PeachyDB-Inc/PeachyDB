@@ -97,6 +97,8 @@ TID:%d READ debug-counts num-rdqs=%ld num-ro-cons=%ld num-wr-cons=%ld exec-call=
 
 - **num-wr-cons**: Number of distributed write query result message consolidations performed by this thread. Yes, it is possible for the consolidation of results task of a write transaction to be undertaken by a reader thread.
 
+### Breakdown of Execution Time:
+
 - **exec-call**: (Explanation needed)
 
 - **relay**: (Explanation needed)
