@@ -40,7 +40,7 @@ The following files contain the schema for the client drivers:
 - `./peachdb_testfiles/peach.schema`
 - `./peachdb_testfiles/peach.security`
 
-One approach to deployment is as follows:
+### Deployment Approach:
 
 1. Start off with a run of `peachdb_client_cqldb` and to get a basic understanding
    of behavior and get a baseline.
