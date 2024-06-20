@@ -1,5 +1,5 @@
-# 1. Delete Client Stack
-In the main menu, choice '5' is meant for creating a Server Stack.
+# 5. Delete Client Stack
+In the main menu, choice '5' is meant for Deleting a Client Stack. Below is the command sequence to accomplish this.
 
 ```shell
 prompt> python3 peachydb_cluster_tool.py
@@ -31,3 +31,16 @@ Client Utilities (4-8):
  q  - Quit - exit this tool
 
 Enter Choice [1-9, q]: 5
+
+Delete Client Stack Arguments: <client-stack-name>
+
+Enter Client Stack name: peachydb-teststack
+
+ WARNING:: Deleting the stack will release all stack EC2 instances, the operation can not be undone
+Do you want to proceed (y/n)? y
+Really? Please type the word "delete" to continue: delete
+```
+
+Please wait for the command to finish execution, do not Ctrl-C it.
+Just to be double sure keep an eye on the Cloudformation Console to make sure that
+everything is deleted.
