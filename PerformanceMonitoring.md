@@ -65,6 +65,7 @@ TID:%d WRITE debug-counts num-wrqs=%ld flushwr=%d exec-call=%ld%% rpc-wait=%ld%%
 - **rpc-callback**: Percentage of time spent in execution callback.
 
 If you see this line immediately after the line above:
+
 TID:%d p:%ld%% e:%ld%% s:%ld%% c:%ld%%
 
 ### It Represents:
@@ -113,6 +114,7 @@ TID:%d p:%ld%% e:%ld%% s:%ld%% c:%ld%%
 - **p**: Parse time.
 - **e**: Exec time.
 - **s**: Serialize time.
+- **c**: Commit time.
 
 Typically, for a reader thread, these stats are not of much interest but have been provided just in case there are any anomalies due to bugs.
 
