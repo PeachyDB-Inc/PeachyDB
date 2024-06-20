@@ -35,7 +35,6 @@ Enter Choice [1-9, q]: 3
 Describe Arguments: <stack-name> [<optional-output-file-name>]
 
 Enter Arguments: peachydb-teststack
-
 ```shell
 
 comments:
