@@ -1,6 +1,6 @@
 # Examples
 
-Below is an explanation of the examples that are available with the clients.
+Below is an explanation of the examples that are available with the clients. Once Server and Client Stack have been created, the user can invoke these tests on the Client EC2 Instances.
 
 ## Test 1
 `peachdb_client_cqldb.cpp`
@@ -18,7 +18,9 @@ Each time the client `peachdb_client_cqldb` is executed a different `<unique_cli
 must be provided, this is because data stored in the database utilizes this id in
 the primary key and if the same unique id is utilized repeatedly then all the data
 will be duplicate of data written into the database in the previous invocation of
-the client and all writes will fail.
+the client and all writes will fail. If multiple Client Instances are being utilized then each
+one must utilize a different unique_client_id. No unique_client_id must be utilized a second
+time in running this test on any Client Instance. This is just the way the test is designed.
 
 Other parameters are self-explanatory.
 
