@@ -3,7 +3,7 @@ In this sub directory you will find the pre-requisites and tools to get going wi
 
 1. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Step1--Prerequisites.md" title="prereq">Pre-requisites</a> - This document explains the prerequisites to be able to run the commands for the PeachyDB Stacks.
 
-2. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Step2--ControlUnit.md" title="control-unit"> Monitor Instance</a> - This is an AWS EC2 Instance that can be started with the peachyDB AMI to serve as a command center to manage PeachyDB stacks and to gather statistics, storage utilization and performance monitoring. This is the EC2 Instance on which you will execute the commands 3 through 12 below to manage PeachyDB Server/Client Stacks. The only exception is modifying existing PeachyDB Server Stack which requires special handing which is described below in 13.
+2. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Step2--ControlUnit.md" title="control-unit"> Monitor Instance</a> - This is an AWS EC2 Instance that can be started with the peachyDB AMI to serve as a command center to manage PeachyDB stacks and to gather statistics, storage utilization and performance monitoring. This is the EC2 Instance on which you will execute the commands 3 through 12 below to manage PeachyDB Server/Client Stacks. The only exception is modifying existing PeachyDB Server Stack which requires special handing which is described below in 13) below. Client Examples as indicated in 14) below are meant to be run on EC2 Instances in the Client Stack.
 
 3. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Step3--PeachydbClusterTool.md" title="peachydb cluster tool">Peachydb Cluster Tool</a> -- peachydb_cluster_tool.py is the main tool to manage PeachyDB Server/Client Stack
 
@@ -26,3 +26,5 @@ In this sub directory you will find the pre-requisites and tools to get going wi
 12. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Tool9-CommandSyntax.md" title="syntax commands">Syntax for any of the above commands</a> -- explain syntax and arguments for each of the peachydb_cluster_tool.py commands. Although the commands themselves are quite explanatory.
 
 13. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Tools-ModifyServerStack.md" title="modify server stack">Modify Server Stack</a> -- a different tool has to be utilized to add/remove/substitute AWS EC2 Instances in the PeachyDB Server Stack.
+
+14. <a href="https://github.com/akseg73/PeachyDB/blob/main/ClientExamples.md" title="client examples"> Client Driver Examples</a> -- explains how to utilize clients to driver load onto servers. These examples are meant to be executed on the AWS EC2 Instances which are part of the Client Stack.
