@@ -384,6 +384,8 @@ If you are able to drive enough stress into the system and it presents no signif
 
 - **23.o)** As a first step write a simple test with all the schema and queries with variables bound to the queries. Make sure that there are no syntax errors and variable are bound correctly to the right parameters/positions. Once a simple test works then start to utilize stress test to load data and perform queries.
 
+- **23.p)** The tools to utilize for deployment of Server and Client Stacks are located here. And examples of client to drive load on Servers are located here.
+
 ## 24. Known Bugs, Issues
 Below are known Bugs and Issues, we are not going to keep this list updated, but rather rely on other means (such as Github open issues etc) to record new issues.
 
