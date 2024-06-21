@@ -1,7 +1,7 @@
 ## Server and Client Stack Utility
 The utility `peachydb_cluster_tool.py` has been provided to manage server/client stacks in AWS. Below are the commands to perform the basic functions in the server/client stacks.
 
-Each Server/Client stack contains a parent stack which is a shell that contains the nested stacks which contain the actual EC2 instances in the stack. Each nested stack can contain at most 5 EC2 instances with their associated resources. This allows the parent stack to instantiate multiple nested stacks to allow the stacks to contain a lot of server/client resources.
+Each Server/Client stack contains a parent stack which is a shell that contains the nested stacks which contain the actual EC2 instances in the stack. Each nested stack can contain at most 5 EC2 instances with their associated resources. This allows the parent stack to instantiate multiple nested stacks to allow the stacks to contain a lot of server/client resources. These parent and nested stacks are visible in the AWS CloudFormation Console.
 
 ```shell
 prompt> python3 peachydb_cluster_tool.py
