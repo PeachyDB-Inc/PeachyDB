@@ -59,7 +59,7 @@ Client Driver <a href="https://github.com/akseg73/PeachyDB/blob/main/ClientExamp
 
 - **2.c)** Partition key, primary key, clustering key have the same meaning as in Apache Cassandra.
 
-- **2.d)** 'table_options' of CQL for creating Tables, Materialized views are ignored as they have no meaning.
+- **2.d)** 'table_options' of CQL for creating Tables, Materialized views are ignored as they have no meaning in our case.
 
 ## 3. Materialized Views (MV) and Secondary Indexes (SI)
 MV and SI behave similarly to Apache Cassandra with some differences noted below.
