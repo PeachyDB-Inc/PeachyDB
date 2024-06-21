@@ -10,7 +10,7 @@ Before you can start utilizing the product, the following requirements have to b
 
 - Create an IAM role profile stack. This is created only once and thereafter all the stacks refer to this. This is done so that the user does not have to repeatedly spend minutes creating the role profile with every single stack creation. This introduces an additional pre-requisite but the subsequent savings of time for all the future stack creation makes it worthwhile.
 
-### Before running the utility, do the following:
+### Before running the peachydb_cluster_tool, do the following:
 1. Set the AWS region variable as follows, utilize the region that you are utilizing, in this example, it is `us-west-2a`:
 
    ```shell
