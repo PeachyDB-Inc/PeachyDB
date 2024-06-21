@@ -10,15 +10,6 @@ Before you can start utilizing the product, the following requirements have to b
 
 - Create an IAM role profile; this is created only once and thereafter all the stacks refer to this. This is done so that the user does not have to repeatedly spend minutes creating the role profile with every single stack creation. This introduces an additional pre-requisite but the subsequent savings of time for all the future stack creation makes it worthwhile.
 
-**NOTE:**
-The main tool to manage Server/Client stacks in AWS is peachydb_cluster_tool.py
-
-1. In all the commands, the user input to the peachydb_cluster_tool is <span style="background-color: #90EE90">highlighted in green</span>, the rest of the text is printed by the tool.
-
-2. In all documents in deployment section '...' is utilized to indicate output from the tool was not displayed in this document.
-
-3. Any section marked "comments:" is not output from the tool but comments provided in this document to understand the output or related issues.
-
 ### Before running the utility, do the following:
 1. Set the AWS region variable as follows, utilize the region that you are utilizing, in this example, it is `us-west-2a`:
 
