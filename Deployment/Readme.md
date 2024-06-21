@@ -1,28 +1,28 @@
 ## Deployment
 In this sub directory you will the pre-requisites and tools to get going with PeachyDB Server and Client Stacks and start running a client driver in less than 10 minutes (Once the prerequisites have been completed).
 
-1. Pre-requisites - This document explains the prerequisites to be able to run the commands for the PeachyDB Stacks.
+1. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Step1--Prerequisites.md" title="prereq">Pre-requisites</a> - This document explains the prerequisites to be able to run the commands for the PeachyDB Stacks.
 
-2. Monitor Instance - This is an AWS EC2 Instance that can be started with the peachyDB AMI to serve as a command center to manager PeachyDB stacks and to gather statistics, storage utilization and performance monitoring.
+2. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Step2--ControlUnit.md" title="control-unit"> Monitor Instance</a> - This is an AWS EC2 Instance that can be started with the peachyDB AMI to serve as a command center to manager PeachyDB stacks and to gather statistics, storage utilization and performance monitoring.
 
-3. Peachydb Cluster Tool -- peachydb_cluster_tool.py is the main tool to manage PeachyDB Server/Client Stack
+3. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Step3--PeachydbClusterTool.md" title="peachydb cluster tool">Peachydb Cluster Tool</a> -- peachydb_cluster_tool.py is the main tool to manage PeachyDB Server/Client Stack
 
-4. Create Server stack --  how to create PeachyDB Server Stack
+4. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Tool1-CreateServerStack.md" title="create server stack">Create Server stack</a> --  how to create PeachyDB Server Stack
 
-5. Delete Server stack - - how to delete PeachyDB Server Stack
+5. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Tool2-DeleteServerStack.md" title="delete server stack">Delete Server stack</a> -- how to delete PeachyDB Server Stack
 
-6. Describe Server stack -- how to describe PeachyDB Server Stack
+6. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Tool3-DescribeServerStack.md" title="describe server stack">Describe Server stack</a> -- how to describe PeachyDB Server Stack
 
-7. Create Client Stack -- how to create PeachyDB Client Stack
+7. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Tool4-CreateClientStack.md" title="create client stack">Create Client Stack</a> -- how to create PeachyDB Client Stack
 
-8. Delete Client Stack -- how to delete PeachyDB Client Stack
+8. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Tool5-DeleteClientStack.md" title="delete client stack">Delete Client Stack</a> -- how to delete PeachyDB Client Stack
 
-9. Add one or more EC2 Instances to Client Stack -- how to Add one or more instances to Client Stack
+9. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Tool6-ClientStackAddInstances.md" title="add client instances">Add one or more EC2 Instances to Client Stack</a> -- how to Add one or more instances to Client Stack
 
-10. Remove one or more EC2 Instances from Client Stack -- how to Remove one of more instances from client Stack
+10. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Tool7-ClientStackRemoveInstances.md" title="remove client instances">Remove one or more EC2 Instances from Client Stack</a> -- how to Remove one of more instances from client Stack
 
-11. Describe Client Stack -- how to describe PeachyDB Client Stack
+11. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Tool8-DescribeClientStack.md" title="describe client stack">Describe Client Stack</a> -- how to describe PeachyDB Client Stack
 
-12. Syntax for any of the above commands -- explain syntax and arguments for each of the peachydb_cluster_tool.py commands. Although the commands themselves are quite explanatory.
+12. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Tool9-CommandSyntax.md" title="syntax commands">Syntax for any of the above commands</a> -- explain syntax and arguments for each of the peachydb_cluster_tool.py commands. Although the commands themselves are quite explanatory.
 
-13. Modify Server Stack -- a different tool has to be utilized to add/remove/substitute AWS EC2 Instances in the PeachyDB Server Stack.
+13. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Tools-ModifyServerStack.md" title="modify server stack">Modify Server Stack</a> -- a different tool has to be utilized to add/remove/substitute AWS EC2 Instances in the PeachyDB Server Stack.
