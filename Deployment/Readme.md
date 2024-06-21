@@ -27,6 +27,7 @@ After 1) and 2) above we are now ready to issue commands 3) through 12) to manag
 
 12. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Tool9-CommandSyntax.md" title="syntax commands">Syntax for any of the above commands</a> -- explain syntax and arguments for each of the peachydb_cluster_tool.py commands. Although the commands themselves are quite explanatory.
 
+Modifying an existing PeachyDB Server Stack requires its own unique command tools which are described here in 13).
 13. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Tools-ModifyServerStack.md" title="modify server stack">Modify Server Stack</a> -- a different tool has to be utilized to add/remove/substitute AWS EC2 Instances in the PeachyDB Server Stack.
 
 Once a Client stack has been created, the user can ssh into the Client EC2 Instances and perform 14) below to run Client driver.
