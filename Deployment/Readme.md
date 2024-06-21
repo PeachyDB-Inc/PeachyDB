@@ -5,7 +5,7 @@ In this sub directory you will find the pre-requisites and tools to get going wi
 
 2. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Step2--ControlUnit.md" title="control-unit"> Monitor Instance</a> - This step must be undertaken right after the prerequisites have been completed. This is an AWS EC2 Instance that can be started with the peachyDB AMI to serve as a command center to manage PeachyDB stacks and to gather statistics, storage utilization and performance monitoring. This is the EC2 Instance on which you will execute the commands 3 through 12 below to manage PeachyDB Server/Client Stacks. The only exception is modifying existing PeachyDB Server Stack which requires special handing which is described below in 13) below. Client Examples as indicated in 14) below are meant to be run on EC2 Instances in the Client Stack.
 
-After 1) and 2) above we are now ready to issue commands 3) through 12) to manage PeachyDB Server and Client Stacks. <br>
+After 1) and 2) above we are now ready to issue commands 3) through 12) to manage PeachyDB Server and Client Stacks. These commands are executed on the Monitor Instance obtained in step 2) above.<br>
 
 3. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Step3--PeachydbClusterTool.md" title="peachydb cluster tool">Peachydb Cluster Tool</a> -- peachydb_cluster_tool.py is the main tool to manage PeachyDB Server/Client Stack
 
