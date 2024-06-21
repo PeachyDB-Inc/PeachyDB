@@ -1,5 +1,5 @@
 ## Deployment
-In this sub directory you will the pre-requisites and tools to get going with PeachyDB Server and Client Stacks and start running a client driver in less than 10 minutes (Once the prerequisites have been completed).
+In this sub directory you will the pre-requisites and tools to get going with PeachyDB Server and Client Stacks and start running a client driver in less than 10 minutes (Once the prerequisites have been completed). Below are handy links to the above documents.
 
 1. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Step1--Prerequisites.md" title="prereq">Pre-requisites</a> - This document explains the prerequisites to be able to run the commands for the PeachyDB Stacks.
 
