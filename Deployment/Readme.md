@@ -1,5 +1,5 @@
 ## Deployment
-In this sub directory you will the pre-requisites and tools to get going with PeachyDB Server and Client Stacks and start running a client driver in less than 10 minutes (Once the prerequisites have been completed). Below are handy links to the above documents.
+In this sub directory you will the pre-requisites and tools to get going with PeachyDB Server and Client Stacks and start running a client driver in less than 10 minutes (Once the prerequisites have been completed). Below are handy links to the above documents. As explained in <a href="https://github.com/akseg73/PeachyDB/tree/main?tab=readme-ov-file#27-costs" title="costs"> costs</a>, it is possible to start off with a minimal cluster for less than $0.85/hour (based on costs in us-west-2 region and based upon availability of Spot Instances for Server and Client stacks).
 
 1. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Step1--Prerequisites.md" title="prereq">Pre-requisites</a> - This document explains the prerequisites to be able to run the commands for the PeachyDB Stacks.
 
