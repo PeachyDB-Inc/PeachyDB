@@ -1,5 +1,5 @@
 ## 1. Create Server Stack
-In the main menu, choice '1' is meant for creating a Server Stack. Below is the command sequence to accomplish this. The arguments provided to create the Server Stack are a little verbose so its write them in a file and then copy paste the arguments onto the prompt as indicated below.
+In the main menu, choice '1' is meant for creating a Server Stack. Below is the command sequence to accomplish this. The arguments provided to create the Server Stack are a little too verbose so its best to write them in a file and then copy paste the arguments onto the prompt as indicated below.
 
 ```shell
 prompt> python3 peachydb_cluster_tool.py
