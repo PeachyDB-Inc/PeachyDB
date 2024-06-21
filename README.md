@@ -52,7 +52,7 @@ PeachyDB is a horizontally scalable database intended to overcome the shortcomin
 - Any data encryption features are not available.
 
 ## 2. Only C++ client available 
-Examples provide a clear explanation of how to utilize a client to drive load to servers.
+<a href="https://github.com/akseg73/PeachyDB/blob/main/ClientExamples.md" title="Documentation"> Examples</a> provide a clear explanation of how to utilize a client to drive load to servers.
 - **2.a)** User-defined-type, collection-types are supported.
 
 - **2.b)** A primary key column of a Base Table or a Materialized View cannot be of type user-defined-type, or a collection-type. This is the same as Apache Cassandra (up to the most recent versions of CQL, if this has changed since please open a case).
