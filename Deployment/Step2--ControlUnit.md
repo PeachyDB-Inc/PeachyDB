@@ -3,4 +3,4 @@ This is the first step in deployment of Severs and Client Stacks. Obtain a contr
 
 1) Execute Server/Client Stack management commands
 
-2) Utilize background scripts to monitor the server (Instance failure, utilization, core dumps, performance problems).
+2) Utilize background scripts to monitor the Server Stack (Instance failure, utilization, core dumps, performance problems).
