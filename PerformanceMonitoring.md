@@ -4,7 +4,7 @@ In order to figure out any performance related issues, you can obtain a performa
 
 ## Database Buffer Pool Stats
 
-Databae Cache stats can be seen in lines of the following form in the performance log:
+Database Cache stats can be seen in lines of the following form in the performance log:
 
 Cache Stats:<br>
 num-hits=%ld num-misses=%ld<br>
