@@ -578,7 +578,7 @@ What about benchmarks?
 
 - **29.c)** We expect to perform better than Cassandra.
 
-- **29.d)** Subsequent releases will be more focused on performance improvements. Like other products, we have a very long list of improvements that should make us significantly better in every metric compared to our current release and competitive with the best products available out there in performance, scalability and features.
+- **29.d)** Subsequent releases will be more focused on performance improvements. Like other products, we have a very long list of improvements that should make us significantly better in every metric compared to our current release and competitive with the best products available out there in performance, latency, scalability and features.
 
 - **29.e)** Note points 5.f.5) and 23.h) above for performance improvement.
 
