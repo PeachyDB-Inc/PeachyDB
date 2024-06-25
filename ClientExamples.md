@@ -38,23 +38,16 @@ The following files contain the schema for the client drivers:
 
 ### Deployment Approach:
 
-1. Start off with a run of `peachdb_client_cqldb` and to get a basic understanding
-   of behavior and get a baseline.
+1. Start off with a run of `peachdb_client_cqldb` to get a basic understanding of behavior and get a baseline.
 2. Replace the schema files indicated above with your own schema.
 3. Replace the client driver function with your own queries.
-4. Possibly utilize separate client driver threads/fibers for read queries and write queries.
-  This may or may not make much difference with respect to code readibility and performance
-  issues investigation.
-5. Note that each invocation of `peachdb_client_cqldb` will reload the schema and
-   return errors in reloading the schema since all the schema records are present.
+4. Possibly utilize separate client driver threads/fibers for read queries and write queries. This may or may not make much difference with respect to code readibility and performance issues investigation.
+5. Note that each invocation of `peachdb_client_cqldb` will reload the schema and return errors in reloading the schema since all the schema records are present.
    This should not hinder the test.
-6. The numerous important aspects of running the test are described in the test,
-   it would be better to carefully read through the comments to understand the issues.
+6. The numerous important aspects of running the test are described in the test, it would be better to carefully read through the comments to understand the issues.
 
 ## Test 2
 `peachdb_client_udt.cpp`
 
-This test is specifically provided to explain how to submit and extract UDTs
-(user-defined types) when submitting queries and unpacking the responses for
-the queries. The test is fairly detailed and self-explanatory. It is not meant
-to be a stress test.
+This test is specifically provided to explain how to submit and extract UDTs (user-defined types) when submitting queries and unpacking the responses for
+the queries. The test is fairly detailed and self-explanatory. It is not meant to be a stress test.
