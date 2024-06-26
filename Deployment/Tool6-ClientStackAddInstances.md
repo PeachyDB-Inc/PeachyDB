@@ -34,7 +34,7 @@ Enter Choice [1-9, q]: 6
 
 Client Stack Add Instance Arguments: <client-stack-name> <num-instances> <aws-instance-type>
 
-Enter Arguments: test-client-stack 1 m5.2xlarge
+Enter Arguments: peachydb-test-client-stack 1 m5.2xlarge
 ```
 
 The Client stack does not need to contain homogenous instances. They could be
