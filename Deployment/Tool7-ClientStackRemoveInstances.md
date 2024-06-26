@@ -36,7 +36,7 @@ Enter Choice [1-9, q]: 7
 
 Client Remove Arguments: <client-stack-name> <aws-instance-id>+
 
-Enter Arguments: test-client-stack i-0b22a22eec53b9321 i-0c42a24ffd36c8242
+Enter Arguments: peachydb-test-client-stack i-0b22a22eec53b9321 i-0c42a24ffd36c8242
 ```
 
 Multiple aws-instance-ids can be provided in a single command. Please wait
