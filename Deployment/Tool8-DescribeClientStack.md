@@ -34,7 +34,7 @@ Enter Choice [1-9, q]: 8
 
 Describe Arguments: <stack-name> [<optional-output-file-name>]
 
-Enter Arguments: test-client-stack
+Enter Arguments: peachydb-test-client-stack
 ```
 The above will describe the Client Stack instances, and the output can also
 be optionally saved in a file.
