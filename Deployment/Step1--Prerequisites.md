@@ -1,7 +1,7 @@
 ## Pre-requisites
 Before you can start utilizing the product, the following requirements have to be met:
 - Create an AWS EC2 Key Pair
-- Create an S3 bucket with write permissions for cluster config files, in keeping with AWS requirements the bucket must have a name with prefix peachydb. This bucket will contain configuration files of the AWS Cloudformation Stacks, which are needed by AWS Server as well as Client EC2 Instances.
+- Create an S3 bucket with write permissions for cluster config files, in keeping with AWS requirements the bucket must have a name with prefix 'peachydb_'. This bucket will contain configuration files of the AWS Cloudformation Stacks, which are needed by AWS Server as well as Client EC2 Instances.
 - Create a Security Group to utilize for instances
 - Create a VPC and Subnet to utilize for instances
 - In the AWS Console, enable all traffic **WITHIN** the Subnet, VPC
