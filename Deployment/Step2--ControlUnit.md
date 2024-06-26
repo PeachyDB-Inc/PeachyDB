@@ -6,7 +6,8 @@ This is the first step in deployment of Severs and Client Stacks. Obtain a contr
 2) Utilize background scripts to monitor the Server Stack (Instance failure, utilization, core dumps, performance problems).
 
 ### Pre-requisite for running peachydb_cluster_tool
-On the Control Monitor EC2 Instance you have to execute the following commands, before doing anything else.
+On the Control Monitor EC2 Instance you have to execute the following commands, before doing anything else. These commands must also
+be executed on any client EC2 Instance that needs to run the cluster tool.
 
 1. Set the AWS region variable as follows, utilize the region that you are utilizing, in this example, it is `us-west-2a`:
 
