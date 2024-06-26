@@ -60,7 +60,7 @@ TID:%d WRITE debug-counts num-wrqs=%ld flushwr=%d exec-call=%ld%% rpc-wait=%ld%%
 
 - **exec-calls**: Percentage of time spent in execution.
   - `exec-call = rpc-wait + rpc-total`
-- **rpc-wait**: Percentage of time spent waiting on distributed consensus. This should be as low as possible. Typically, if the transactions are CPU bound and there are enough outstanding writes, `rpc-wait` is low. To reduce `rpc-wait`, increase the number of threads issuing write transactions, as long as there are no write timeouts. This metric is crucial to determine if enough write client threads are being utilized.
+- **rpc-wait**: Percentage of time spent waiting on distributed consensus. This should be as low as possible. Typically, if the transactions are CPU bound and there are enough outstanding writes, `rpc-wait` is low. To reduce `rpc-wait`, increase the number of threads issuing write transactions, as long as there are no write timeouts. This metric is crucial to determine if enough write client threads are being utilized. This is the most important metric to determine if the CPU is being fully utilized for writes or its waiting on consensus. Overburdening a weak EC2 Client Instance with too many threads might indicate performance issues on the client as well.
 - **rpc-total**: Percentage of time that was spent in the execution.
 - **rpc-callback**: Percentage of time spent in execution callback.
 
