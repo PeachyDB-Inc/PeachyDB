@@ -34,7 +34,7 @@ Enter Choice [1-9, q]: 5
 
 Delete Client Stack Arguments: <client-stack-name>
 
-Enter Client Stack name: peachydb-teststack
+Enter Client Stack name: peachydb-test-client-stack
 
  WARNING:: Deleting the stack will release all stack EC2 instances, the operation can not be undone
 Do you want to proceed (y/n)? y
