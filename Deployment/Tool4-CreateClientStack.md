@@ -36,7 +36,7 @@ Enter Choice [1-9, q]: 4
 
 Client Create Stack Arguments: aws-key-pair-name=<key-pair-name> s3-bucket-name=<bucket-name> peachydb-stack-name=<stack-name> client-stack-name=<name> security-group-id=<sgroup-id> subnet-id=<subnetid> aws-instance-type=<instance-type> number-of-instances=<num> ssh-location=<ssh-location> spot-instance=[1/0]
 
-Enter Arguments: aws-key-pair-name=user-choice-key-pair-uswest1 s3-bucket-name=peachydb-test-bucket peachydb-stack-name=peachydb-teststack client-stack-name=test-client-stack security-group-id=sg-2cc5c28c subnet-id=subnet-34233d12 aws-instance-type=m5.xlarge number-of-instances=1 ssh-location=03.102.20.36/32 spot-instance=1
+Enter Arguments: aws-key-pair-name=user-choice-key-pair-uswest1 s3-bucket-name=peachydb-test-bucket peachydb-stack-name=peachydb-teststack client-stack-name=peachydb-test-client-stack security-group-id=sg-2cc5c28c subnet-id=subnet-34233d12 aws-instance-type=m5.xlarge number-of-instances=1 ssh-location=03.102.20.36/32 spot-instance=1
 
 ```
 As indicated the above Client stack is created with a single m5.xlarge instance with an EC2
