@@ -2,7 +2,7 @@
 
 Below is an explanation of the examples that are available with the clients. Once Server and Client Stack have been created, the user can invoke these tests on the Client EC2 Instances.
 
-**IMPORTANT:** Each AWS EC2 Instance must run only a single client program. Multiple Client executables running on a single AWS EC2 Instance is not supported and it could lead to any kinds of issues.
+**IMPORTANT:** Each AWS EC2 Instance must run only a single client executable. Multiple Client executables running on a single AWS EC2 Instance is not supported and it could lead to any kinds of issues.
 
 ## Test 1
 `peachdb_client_cqldb.cpp`
