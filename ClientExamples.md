@@ -47,7 +47,7 @@ The following files contain the schema for the client drivers:
 3. Replace the client driver function with your own queries.
 4. Possibly utilize separate client driver threads/fibers for read queries and write queries. This may or may not make much difference with respect to code readibility and performance issues investigation.
 5. Note that each invocation of `peachdb_client_cqldb` will reload the schema and return errors in reloading the schema since all the schema records are present.
-   This should not hinder the test.
+   This should not hinder the test. You can also alter the test to not reload the schema for each run.
 6. The numerous important aspects of running the test are described in the test, it would be better to carefully read through the comments to understand the issues.
 
 ## Test 2
