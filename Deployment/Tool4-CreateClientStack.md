@@ -41,4 +41,4 @@ Enter Arguments: aws-key-pair-name=user-choice-key-pair-uswest1 s3-bucket-name=p
 ```
 As indicated the above Client stack is created with a single m5.xlarge instance with an EC2
 Spot Instance. The server stack refered to by the client stack is indicated.
-Please wait for the command to finish execution, do not Ctrl-C it.
+Please wait for the command to finish execution, do not Ctrl-C it, it might take a few minutes to create the stack, keep an eye on the CloudFormation Console, if it is taking too long most likely its because SpotInstances are not available, the above command can be tried without Spot Instances.
