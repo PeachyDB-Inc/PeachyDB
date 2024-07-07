@@ -443,6 +443,7 @@ Below are known Bugs and Issues, we are not going to keep this list updated, but
 - **24.20)** Occasionally when running scripts, you may encounter an error due to clock skew. This can be fixed with the following command:
    `sudo date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z"`.
 - **24.21)** Set the AWS region before utilizing any provided tools as follows (utilize your region name):
+  
    `export AWS_DEFAULT_REGION=us-west-1`.
 - **24.22)** If you issue a stack command and the tool reports that the stack is not known, this may be due to clock skew, you can try the suggestion in 24.20).
 - **24.23)** Do not perform `yum update -y` on the EC2 server/client instances without having a product update patch applied. Applying `yum update -y` on instances can alter libraries and break dependencies, which can break the product functionality.
