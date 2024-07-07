@@ -51,7 +51,7 @@ The following files contain the schema for the client drivers:
 6. Note that each invocation of `peachdb_client_cqldb` will reload the schema and return errors in reloading the schema since all the schema records are present.
    This should not hinder the test. You can also alter the test to not reload the schema for each run.
 7. The numerous important aspects of running the test are described in the test, it would be better to carefully read through the comments to understand the issues.
-8. Refere to <a href="https://github.com/akseg73/PeachyDB/tree/main?tab=readme-ov-file#23-deployment-strategy">23. Deployment Strategy</a> for subsequent steps.
+8. Refere to <a href="https://github.com/akseg73/PeachyDB/tree/main?tab=readme-ov-file#23-deployment-strategy">Deployment Strategy</a> for subsequent steps.
 
 ## Test 2
 `peachdb_client_udt.cpp`
