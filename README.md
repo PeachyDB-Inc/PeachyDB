@@ -455,7 +455,7 @@ Below are known Bugs and Issues, we are not going to keep this list updated, but
 - **24.28)** Please read point 22) above for another limitation.
 - **24.29)** Sometimes error responses from query execution can be vague. This needs improvement.
 - **24.30)** For larger instances like i3.8xlarge, i3.16xlarge, etc., please allow a few minutes for the server stack to initialize the large shared memory segments. Locking (mlock) large shared memory segments can take a long time.
-- **24.31)** Please note point 19) above and do NOT attach to server docker containers.
+- **24.31)** Please note point 19) above and do NOT interfere with server Ec2 Instances.
 - **24.32)** If the parameters you provided failed to satisfy the CFT (Cloud Formation Template), you can check the templates `peachydb_template.json` and others in the AWS console.
 - **24.33)** Range-selects, range-deletes, range-updates should be used sparingly as they will degrade performance depending on how much data is impacted. Similarly, each secondary index, MV added to a table will degrade the performance of writes proportionately.
 - **24.34)** The per-partition limit on select queries currently does nothing and should not be utilized.
@@ -465,7 +465,7 @@ Below are known Bugs and Issues, we are not going to keep this list updated, but
 - **24.38)** Larger clusters are better handled by larger AWS instances since they have more vCPUs to handle more load.
 - **24.39)** Write queries have completely different latency behavior compared to read queries. It may be better to separate client threads that issue write queries from those that issue read queries.
 - **24.40)** The number of client threads you can effectively utilize is also determined by whether your workload is primarily I/O bound or CPU bound.
-- **24.41)** If you overload a small AWS client instance with too many threads, the threads will start thrashing locally and severely degrade the performance of the client. Follow the guidelines provided with the example to avoid such a situation. To check CPU utilization on the client, 'escape' from the docker client container (Ctrl-p, Ctrl-q), run `top` to check the AWS instance kind and determine how many vCPUs are available. Additionally, hit Ctrl-C to the client and check the transaction throughput; if it is not high enough per thread and any support bundles from the servers also indicate that the servers are not hitting high throughput, then there may be a need for multiple client machines with fewer threads.
+- **24.41)** If you overload a small AWS client instance with too many threads, the threads will start thrashing locally and severely degrade the performance of the client. Follow the guidelines provided with the example to avoid such a situation. To check CPU utilization on the client, run `top` to check the AWS instance kind and determine how many vCPUs are available. Additionally, hit Ctrl-C to the client and check the transaction throughput; if it is not high enough per thread and any support bundles from the servers also indicate that the servers are not hitting high throughput, then there may be a need for multiple client machines with fewer threads.
 
 - **24.42)** If your query performance has degraded, it is most likely due to some node not being online. One way to check this is to keep track of QPS, and if you see a significant degradation, check if the members are all online or if something else is going on with some node. Query timeouts can also happen when the leader node restarts, electing a new leader.
 
@@ -504,7 +504,7 @@ Below are known Bugs and Issues, we are not going to keep this list updated, but
 
 - **24.60)** Adding nodes to the server/client stack will retain the property `SpotInstance` utilized for creating the original stack. If the original stack was created with spot instances, the newly added instance will also be a spot instance.
 
-- **24.61)** Occasionally, a cluster configuration change appears to be stuck, and AWS does add/remove/substitute the node, but the node refuses to come online or join the cluster. This can happen if some aspect of AWS infrastructure did not get set up in a timely manner. If "docker container ls" on the new node shows no container running, errors in `/var/log/peachy.errors` can be correlated with `setup_cluster_config.py`. Repair can involve running a repair script.
+- **24.61)** Occasionally, a cluster configuration change appears to be stuck, and AWS does add/remove/substitute the node, but the node refuses to come online or join the cluster. This can happen if some aspect of AWS infrastructure did not get set up in a timely manner. If "ps -elf |grep -i server" on the new node shows database server not running, errors in `/var/log/peachy.errors` can be correlated with `setup_cluster_config.py`. Repair can involve running a repair script.
 
 - **24.62)** We have measured and confirmed with AWS an issue regarding ephemeral SSD performance attached to i3/i3en instances. The performance of I/O on the ephemeral storage can vary a lot depending on the other processes running in other instances associated with the same physical resources. This has been addressed to some extent in our layer.
 
