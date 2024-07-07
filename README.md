@@ -517,7 +517,7 @@ As with all Databases we have size limits on numerous elements of the database. 
 
 - **25.b)** If all the clients submit a combined more than 1k large queries at a given instant, then some of them may get rejected. A large query is any query which is serialized in more than 1300 bytes.
 
-- **25.c)** Each collection (list, set, map) is limited in size to 64kb.
+- **25.c)** Each collection (list, set, map) is limited in size to 64kb. This limit is imposed by the 2 byte offset representation for these structures. We can alleviate the issue if users request it.
 
 - **25.d)** Currently, each record (primary key, clustering columns) should be less than 1mb. This is an artificial limitation related to replication, which we can later remove. We have not tested records that are that large; the actual limit may be a little smaller due to numerous buffer sizes utilized. This can be later ameliorated on customer request.
 - **25.e)** By default, the maximum query response size returned by servers is 1mb.
