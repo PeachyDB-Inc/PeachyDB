@@ -42,7 +42,7 @@ The following files contain the schema for the client drivers:
 
 ### Deployment Approach:
 
-1. Create a Server Stack with the smallest supported AWS Ec2 Spot Instances and once completed create a Client Stack with a single cheapest Ec2 Spot Instance.
+1. Create a Server Stack of 3 cheapest supported AWS Instances and once successfully created, create a Client stack containing a single cheapest supported Client EC2 Instance
 2. ssh into the client
 3. Start off with a run of `peachdb_client_cqldb` to get a basic understanding of behavior and get a baseline.
 4. Replace the schema files indicated above with your own schema.
