@@ -130,7 +130,7 @@ Insert, Delete, Update work differently from Apache Cassandra.
 
 - **4.g)** The "IF syntax" of DELETE, UPDATE statements has no meaning, simply add all conditions to the WHERE clause of DELETE/UPDATE, it will not incur any additional overhead. There is only one use case for IF syntax. The IF syntax allows expressions involving user-defined-type, whereas WHERE clause grammar in CQL does not allow it. If you have such use case then utilize IF syntax, else place conditions in WHERE clause. It has no implications related to Paxos. **Important**: DO NOT include any primary key constraints in the IF clause, you WILL get errors, place all those constraints in WHERE clause.
 
-- **4.h)** Unlike Apache Cassandra, data modification should not generate severe performance problems, unless the WHERE clause for DELETE/UPDATE does not have enough restrictions on primary key columns and the query ends up scanning large swaths of the database.
+- **4.h)** Data modification should not generate severe performance problems, unless the WHERE clause for DELETE/UPDATE does not have enough restrictions on primary key columns and the query ends up scanning large swaths of the database.
 
 - **4.i)** Apache Cassandra will often times truncate timestamp value to milliseconds, we do the same.
 
