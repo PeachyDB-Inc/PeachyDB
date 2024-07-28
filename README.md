@@ -89,6 +89,7 @@ MV and SI behave similarly to Apache Cassandra with some differences noted below
 - **3.k)** Secondary indexes of numerous kinds on collections are supported.
 
 - **3.l)** Secondary index on user-defined-type is not supported because there is no natural sort order of user-defined-type. This is the same as Apache Cassandra.
+- **3.m)** If MV has the same partition key as the base table, please carefully evaluate if you need MV at all, would SI suffice?
 
 ## 4. INSERT, DELETE, UPDATE
 Insert, Delete, Update work differently from Apache Cassandra.
