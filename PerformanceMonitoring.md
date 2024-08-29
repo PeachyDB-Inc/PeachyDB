@@ -130,7 +130,10 @@ It Represents:
 - **exec**: (Explanation needed)
 - **wr**: (Explanation needed)
 
-
+## Client Performance
+The client is typically multi-threaded. It would be good to track the CPU utilization on the client to see if the threads are pegged on CPU.
+If they are, this may be because the client is spending a lot of time preparing/disgesting queries. If this is the case, it may be better to
+add additional AWS client instances and drive more load.
 
 
 
