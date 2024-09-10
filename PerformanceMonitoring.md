@@ -139,7 +139,8 @@ add additional AWS client instances to drive more load to the database servers.
 throughput = parallelism/latency
 
 If latency of query response increases due to database page i/o, then you may have to increase the client threads to improve throughput.
-This can help so long as the database storage offers improved performance with greater parallelism.
+This can help so long as the database storage offers improved performance with greater parallelism. Such issues exist with all databases.
+
 
 
 
