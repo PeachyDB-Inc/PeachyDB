@@ -135,7 +135,7 @@ The client is typically multi-threaded. It would be good to track the CPU utiliz
 If they are, this may be because the client is spending a lot of time preparing/disgesting queries. If this is the case, it may be better to
 add additional AWS client instances to drive more load to the database servers.
 
-# Tuning Clent Threads
+### Tuning Clent Threads
 throughput = pareallelism/latency
 If latency of query response increases due to database page i/o, then you may have to increase the client threads to improve throughput.
 This can help so long as the database storage can offer improved performance with greater parallelism.
