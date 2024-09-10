@@ -136,9 +136,9 @@ If they are, this may be because the client is spending a lot of time preparing/
 add additional AWS client instances to drive more load to the database servers.
 
 ### Tuning Clent Threads
-throughput = pareallelism/latency
+throughput = parallelism/latency
 If latency of query response increases due to database page i/o, then you may have to increase the client threads to improve throughput.
-This can help so long as the database storage can offer improved performance with greater parallelism.
+This can help so long as the database storage offers improved performance with greater parallelism.
 
 
 
