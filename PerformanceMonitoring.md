@@ -138,11 +138,12 @@ add additional AWS client instances to drive more load to the database servers.
 ### Tuning Client Threads
 throughput = parallelism/latency
 
-If latency of query response increases due to database page i/o, then you may have to increase the client threads to improve throughput.
-This can help so long as the database storage offers improved performance with greater parallelism. Such issues exist in other databases
-as well, when i/o becomes a prime factor in throughput. One way to deal with this is to keep a pool of client threads/fibers and depending
-upon the latency observed potentially increase the number of active fibers if the other performance counters indicate that the CPU is idling
-while the queries are waiting on i/o. As the database far exceeds the size of available RAM, latency is bound to be impacted due to storage i/o.
+If latency of query response increases due to database page i/o, then you may have to increase the number of client threads to improve
+throughput. This can help so long as the database storage offers improved performance with greater parallelism. Such issues exist in other
+databases as well, when i/o becomes a prime factor in throughput. One way to deal with this is to keep a pool of client threads/fibers and
+depending upon the latency observed potentially increase the number of active fibers if the other performance counters indicate that the CPU
+is idling while the queries are waiting on i/o. As the database far exceeds the size of available RAM, latency is bound to be impacted due to
+storage i/o. This is why as data gets loaded the write throughput will degrade linearly unless more parallelism is introduced.
 
 
 
