@@ -134,8 +134,9 @@ It Represents:
 The client is typically multi-threaded. It would be good to track the CPU utilization on the client with 'top' in a separate shell to see if the
 threads are pegged on CPU. If they are, this may be because the client is spending a lot of time preparing/disgesting queries. If queries are
 fixed and known in advance (with possibly different arguments passed on each invocation) then the query statements can be parsed once outside
-the execution loop and thereafter be reset prior to each invocation to provide different parameters/arguments. If the client is pegged on CPU,
-it may be better to add additional AWS client instances to drive more load to the database servers.
+the execution loop and thereafter be reset prior to each invocation to provide different parameters/arguments. If the client still has high CPU
+utilization, it may be better to add additional AWS client instances to drive more load to the database servers if the database servers are not
+incurring high enough CPU usage and more performance is needed.
 
 ### Tuning Client Threads
 throughput = parallelism/latency
