@@ -135,8 +135,7 @@ The client is typically multi-threaded. It would be good to track the CPU utiliz
 if the threads are pegged on CPU. If they are, this may be because the client is spending a lot of time preparing/disgesting queries. If queries
 are fixed and known in advance (with possibly different arguments passed on each invocation) then the query statements can be parsed once outside
 the execution loop and thereafter be reset prior to each invocation to provide different parameters/arguments. If the client still has high CPU
-utilization, it may be better to add additional AWS client instances to drive more load to the database servers if the database servers CPUs
-are underutilized and more performance is needed.
+utilization, it may be better to add additional AWS client instances to drive more load to underutilized database servers.
 
 ### Tuning Client Threads
 throughput = parallelism/latency
