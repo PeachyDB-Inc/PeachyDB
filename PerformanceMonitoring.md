@@ -131,22 +131,25 @@ It Represents:
 - **wr**: (Explanation needed)
 
 ## Client Performance
-The client is multi-threaded. During testing phase, you can track CPU utilization on the client with 'top' in a separate shell to see if the threads
-are pegged on CPU. If they are, this may be because the client is spending a lot of time preparing/disgesting queries. If queries are fixed and known
-in advance (with possibly different arguments passed on each invocation) then the query statements can be prepared once outside the execution loop and
-thereafter be reset prior to each invocation to provide different parameters/arguments for the next execution. This has been measured to make a
-difference of 25% or more on client CPU utilization. If the client still has high CPU utilization, it may be better to add additional AWS client
-instances to drive more load to under utilized database servers.
+- The client is multi-threaded.
+- During testing phase, utilize 'top' in a separate shell to monitor CPU utilization on the client machine.
+- If CPU is 100% or close, it may be because the client is spending a lot of time preparing/disgesting queries. If queries are fixed and known
+ in advance (with possibly different arguments passed on each invocation) then the query statements can be prepared once outside the execution loop and
+ thereafter be reset prior to each invocation to provide different parameters/arguments for the next execution. This has been measured to make a
+ difference of 25% or more on client CPU utilization.
+- If the client still has high CPU utilization, it may be better to add additional AWS client instances to drive more load to under utilized database
+ servers.
 
 ### Tuning Client Threads
 throughput = parallelism/latency
 
-If latency of query response increases due to database page i/o, then you may have to increase the number of client threads to improve
-throughput. This can help so long as the database storage offers improved performance with greater parallelism. Such issues exist in other
-databases as well, when i/o becomes a prime factor in throughput. One way to deal with this is to keep a pool of client threads/fibers and
-depending upon the latency observed potentially increase the number of active fibers if the other performance counters indicate that the CPU
-is idling while the queries are waiting on i/o. As the database far exceeds the size of available RAM, latency is bound to be impacted due to
-storage i/o. This is why as data gets loaded the write throughput will degrade linearly unless more parallelism is introduced.
+- If latency of query response increases due to database page i/o, then you may have to increase the number of client threads to improve
+ throughput. This can help so long as the database storage offers improved performance with greater parallelism. Such issues exist in other
+ databases as well, when i/o becomes a prime factor in throughput.
+- One way to deal with this is to keep a pool of client threads/fibers and depending upon the latency observed potentially increase the number
+ of active fibers if the other performance counters indicate that the CPU is idling while the queries are waiting on i/o. As the database far
+ exceeds the size of available RAM, latency is bound to be impacted due to storage i/o. This is why as data gets loaded the write throughput
+ will degrade linearly unless more parallelism is introduced.
 
 
 
