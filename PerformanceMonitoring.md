@@ -138,8 +138,8 @@ It Represents:
  thereafter be reset prior to each invocation to provide different parameters/arguments for the next execution.
 - Having too many threads on a single client can also cause too many context switches between the threads and the overall CPU utilization may not
 improve much.
-- If the client still has high CPU utilization, it may be better to add additional AWS client instances to drive more load to under utilized database
- servers.
+- If the client still has high CPU utilization or the additional number of threads/fibers doesn't appear to improve query throughput on the client, it
+may be better to add additional AWS client instances to drive more load to under utilized database servers.
 
 ### Tuning Client Threads
 throughput = parallelism/latency
