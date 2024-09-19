@@ -135,7 +135,7 @@ The client is multi-threaded. During testing phase, you can track CPU utilizatio
 are pegged on CPU. If they are, this may be because the client is spending a lot of time preparing/disgesting queries. If queries are fixed and known
 in advance (with possibly different arguments passed on each invocation) then the query statements can be prepared once outside the execution loop and
 thereafter be reset prior to each invocation to provide different parameters/arguments for the next execution. This has been measured to make a
-difference of 20%-25% on client CPU utilization improvement. If the client still has high CPU utilization, it may be better to add additional AWS
+difference of 25% or more on client CPU utilization improvement. If the client still has high CPU utilization, it may be better to add additional AWS
 client instances to drive more load to under utilized database servers.
 
 ### Tuning Client Threads
