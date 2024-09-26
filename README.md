@@ -388,7 +388,7 @@ If you are able to drive enough stress into the system and it presents no signif
 - **23.p)** The tools to utilize for deployment of Server and Client Stacks are located <a href="https://github.com/akseg73/PeachyDB/tree/main/Deployment" title="Documentation">here</a>. Examples of client drivers are located <a href="https://github.com/akseg73/PeachyDB/blob/main/ClientExamples.md" title="Documentation"> here</a>. Database Server Performance monitoring is explained <a href="https://github.com/akseg73/PeachyDB/blob/main/PerformanceMonitoring.md" title="perfmon"> here </a>.
 
 ## 24. Known Bugs, Issues
-Below are known Bugs and Issues, we are not going to keep this list updated, but rather rely on other means (such as Github open issues etc) to record new issues.
+Below are known Bugs and Issues, we are not going to keep this list updated, but rather rely on other means (such as Github open issues (which we have recently started utilizing for tracking bugs), etc) to record new issues.
 
 - **24.1)** If multiple nodes are dead or cannot communicate with the leader, then the leader will not be able to perform some GC tasks and write performance will severely degrade. Currently, a single node failure is tolerated but multiple simultaneous failures will cause write timeouts. It is prudent for the user to set up monitoring to check the status of the cluster every few minutes to ensure everything is working.
 
