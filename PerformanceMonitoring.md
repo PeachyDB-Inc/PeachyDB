@@ -135,7 +135,7 @@ It Represents:
 - During testing phase, utilize 'top' in a separate shell to monitor CPU utilization on the client machine.
 - If CPU is 100% or close, it may be because the client is spending a lot of time preparing/disgesting queries. If queries are fixed and known
  in advance (with possibly different arguments passed on each invocation) then the query statements can be prepared once outside the execution loop and
- thereafter be reset prior to each invocation to provide different parameters/arguments for the next execution.
+ thereafter be reset prior to each invocation to provide different parameters/arguments for the next execution. Client driver examples provide explanation of how this is done.
 - Having too many threads on a single client can also cause too many context switches between the threads and the overall CPU utilization may not
 improve much.
 - If the client still has high CPU utilization or the additional number of threads/fibers doesn't appear to improve query throughput on the client, it
