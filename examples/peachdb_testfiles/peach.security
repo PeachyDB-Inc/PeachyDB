@@ -1,0 +1,17 @@
+-- this file peach.security contains security related queries.
+-- add roles, grant roles, grant permissions, list roles, perms
+-- security queries have to be performed without an explicit
+-- transaction, as the transaction is auto created
+-- this file is lifted from cql/test/test1/
+
+CREATE ROLE admin1 WITH SUPERUSER=true;
+CREATE ROLE admin2 WITH PASSWORD='kdhkf' AND LOGIN=true;
+CREATE ROLE admin3 WITH PASSWORD='cjlcjls' AND LOGIN=false;
+CREATE ROLE admin4 WITH SUPERUSER=true;
+ALTER ROLE admin3 WITH SUPERUSER=true;
+ALTER ROLE admin3 WITH SUPERUSER=false;
+GRANT admin4 TO admin2;
+GRANT admin4 TO admin1;
+GRANT SELECT ON ALL KEYSPACES TO admin1;
+GRANT MODIFY ON ALL KEYSPACES TO admin1;
+GRANT MODIFY ON TABLE school.Department TO admin1;

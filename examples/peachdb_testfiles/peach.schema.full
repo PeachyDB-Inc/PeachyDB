@@ -1,0 +1,36 @@
+--table testkeyspace.test_table1 is created for testing a variety of queries
+--and indexing. this table is meant to test a variety of queries on different
+--indexes. this file is lifted from cql/test/test1/
+
+CREATE KEYSPACE testkeyspace WITH
+   REPLICATION = { 'class': 'SimpleStrategy', 'replication_factor': 3};
+
+CREATE TABLE testkeyspace.test_table1 (
+  field1      text,
+  field2      text,
+  field3      int,
+  field4      time,
+  field5      inet,
+  field6      inet,
+  description text,
+  listfield   LIST<text>,
+  setfield    SET<text>,
+  mapfield    MAP<text, text>,
+  PRIMARY KEY(field1, field2, field3, field4)
+);
+
+CREATE INDEX test_table1_listind ON testkeyspace.test_table1 (listfield);
+CREATE INDEX test_table1_setind ON testkeyspace.test_table1 (setfield);
+CREATE INDEX test_table1_mkind ON testkeyspace.test_table1 (KEYS(mapfield));
+CREATE INDEX test_table1_mvind ON testkeyspace.test_table1 (VALUES(mapfield));
+CREATE INDEX test_table1_ment ON testkeyspace.test_table1 (ENTRIES(mapfield));
+CREATE INDEX test_table1_mfull ON testkeyspace.test_table1 (FULL(mapfield));
+CREATE INDEX test_table1_int ON testkeyspace.test_table1 (field3);
+CREATE INDEX test_table1_inet ON testkeyspace.test_table1 (field5);
+
+CREATE MATERIALIZED VIEW testkeyspace.test_table1_by_field3
+AS SELECT field1, field2, field3, field4, listfield, setfield, mapfield
+FROM testkeyspace.test_table1
+WHERE field1 IS NOT NULL AND field2 IS NOT NULL AND field3 IS NOT NULL
+ AND field4 IS NOT NULL
+PRIMARY KEY (field2, field1, field3, field4);

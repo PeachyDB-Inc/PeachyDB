@@ -1,0 +1,38 @@
+-- in this file you can list the queries of interest, any lines that are
+-- comments have to begin with '--' at the very start of the line.
+-- each query must end in a ';'
+-- in the below queries the value of property field1 is meant to be provided by
+-- the caller via a bind param field1_param, the caller must set this value to
+-- the one for the first record inserted in peach.data
+
+UPDATE testkeyspace.test_table1 SET listfield = ['todo', 'when'] + listfield WHERE field1 = :field1_param AND field2 = 'def';
+UPDATE testkeyspace.test_table1 SET listfield = listfield + ['todo', 'when'] WHERE field1 = :field1_param AND field2 = 'def';
+DELETE FROM testkeyspace.test_table1 WHERE field1 = :field1_param AND field2 = 'def' AND field3 = 30 AND field4 = '10:03:43';
+INSERT INTO testkeyspace.test_table1
+(field1, field2, field3, field4, field5, field6, listfield)
+VALUES (:field1_param, 'def', 30, '10:03:43', '10.0.0.2', '10.0.0.2', ['hihi', 'what the', 'heck']);
+UPDATE testkeyspace.test_table1 SET listfield = ['todo', 'when'] + listfield WHERE field1 = :field1_param AND field2 = 'def' AND field3 = 30 AND field4 = '10:03:43';
+UPDATE testkeyspace.test_table1 SET listfield = listfield + ['todo', 'when'] WHERE field1 = :field1_param AND field2 = 'def' AND field3 = 30 AND field4 = '10:03:43';
+UPDATE testkeyspace.test_table1 SET listfield = listfield - ['todo', 'when'] WHERE field1 = :field1_param AND field2 = 'def' AND field3 = 30 AND field4 = '10:03:43';
+UPDATE testkeyspace.test_table1 SET listfield[2] = ['todo', 'when'] WHERE field1 = :field1_param AND field2 = 'def' AND field3 = 30 AND field4 = '10:03:43';
+DELETE listfield[2] FROM testkeyspace.test_table1 WHERE field1 = :field1_param AND field2 = 'def' AND field3 = 30 AND field4 = '10:03:43';
+UPDATE testkeyspace.test_table1 SET listfield = listfield + ['todo', 'when'] WHERE field1 = :field1_param AND field2 = 'def' AND field3 = 30 AND field4 = '10:03:43';
+UPDATE testkeyspace.test_table1 SET setfield = setfield + {'todo', 'when'} WHERE field1 = :field1_param AND field2 = 'def' AND field3 = 30 AND field4 = '10:03:43';
+UPDATE testkeyspace.test_table1 SET setfield = setfield - {'todo', 'when'} WHERE field1 = :field1_param AND field2 = 'def' AND field3 = 30 AND field4 = '10:03:43';
+UPDATE testkeyspace.test_table1 SET setfield = setfield + {'todo', 'when'} WHERE field1 = :field1_param AND field2 = 'def' AND field3 = 30 AND field4 = '10:03:43';
+UPDATE testkeyspace.test_table1 SET setfield = {} WHERE field1 = :field1_param AND field2 = 'def' AND field3 = 30 AND field4 = '10:03:43';
+UPDATE testkeyspace.test_table1 SET setfield = setfield + {'todo', 'when'} WHERE field1 = :field1_param AND field2 = 'def' AND field3 = 30 AND field4 = '10:03:43';
+UPDATE testkeyspace.test_table1 SET mapfield = mapfield + {'k1': 'todo', 'k2': 'when'} WHERE field1 = :field1_param AND field2 = 'def' AND field3 = 30 AND field4 = '10:03:43';
+UPDATE testkeyspace.test_table1 SET mapfield = mapfield + {'k3': 'todo', 'k4': 'when'} WHERE field1 = :field1_param AND field2 = 'def' AND field3 = 30 AND field4 = '10:03:43';
+DELETE mapfield['k1'] FROM testkeyspace.test_table1 WHERE field1 = :field1_param AND field2 = 'def' AND field3 = 30 AND field4 = '10:03:43' IF EXISTS;
+UPDATE testkeyspace.test_table1 SET mapfield = mapfield + {'k5': 'violets', 'k6': 'are blue'} WHERE field1 = :field1_param AND field2 = 'def' AND field3 = 30 AND field4 = '10:03:43' IF field2 = 'def';
+DELETE mapfield['k2'] FROM testkeyspace.test_table1 WHERE field1 = :field1_param AND field2 = 'def' AND field3 = 30 AND field4 = '10:03:43';
+UPDATE testkeyspace.test_table1 SET mapfield = mapfield - {'k3', 'k4'} WHERE field1 = :field1_param AND field2 = 'def' AND field3 = 30 AND field4 = '10:03:43';
+UPDATE testkeyspace.test_table1 SET mapfield = mapfield + {'k1': 'todo', 'k2': 'when'} WHERE field1 = :field1_param AND field2 = 'def' AND field3 = 30 AND field4 = '10:03:43';
+UPDATE testkeyspace.test_table1 SET mapfield = mapfield - {'k1', 'k2'} WHERE field1 = :field1_param AND field2 = 'def' AND field3 = 30 AND field4 = '10:03:43';
+UPDATE testkeyspace.test_table1 SET mapfield = mapfield + {'k1': 'todo', 'k2': 'when'} WHERE field1 = :field1_param AND field2 = 'def' AND field3 = 30 AND field4 = '10:03:43';
+UPDATE testkeyspace.test_table1 SET mapfield = mapfield + {'k3': 'todo', 'k4': 'when'} WHERE field1 = :field1_param AND field2 = 'def' AND field3 = 30 AND field4 = '10:03:43' IF EXISTS;
+DELETE FROM testkeyspace.test_table1 WHERE field1 = :field1_param AND field2 = 'def' AND field3 = 30 AND field4 = '10:03:43';
+INSERT INTO testkeyspace.test_table1
+(field1, field2, field3, field4, field5, field6, listfield)
+VALUES (:field1_param, 'def', 30, '10:03:43', '10.0.0.2', '10.0.0.2', ['hihi', 'what the', 'heck']);

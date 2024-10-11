@@ -1,0 +1,20 @@
+--table testkeyspace.test_table1 is created for testing a variety of queries
+--and indexing. this table is meant to test a variety of queries on different
+--indexes. this file is lifted from cql/test/test1/
+
+CREATE KEYSPACE testkeyspace WITH
+   REPLICATION = { 'class': 'SimpleStrategy', 'replication_factor': 3};
+
+CREATE TABLE testkeyspace.test_table1 (
+  field1      text,
+  field2      text,
+  field3      int,
+  field4      time,
+  field5      inet,
+  field6      inet,
+  description text,
+  listfield   LIST<text>,
+  setfield    SET<text>,
+  mapfield    MAP<text, text>,
+  PRIMARY KEY(field1, field2, field3, field4)
+);
