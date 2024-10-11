@@ -2,7 +2,7 @@
 
 Below is an explanation of the examples that are available with the clients. Once Server and Client Stack have been created, the user can invoke these tests on the Client EC2 Instances.
 
-**IMPORTANT:** Each AWS EC2 Instance must run only a single client driver. Multiple Client drivers running on a single AWS EC2 Instance is not supported and it could lead to all kinds of issues. The Client driver can be multi-threaded.
+**IMPORTANT:** Each AWS EC2 Instance must run only a single client driver. Multiple Client drivers running on a single AWS EC2 Instance is not supported and it could lead to all kinds of issues. The Client driver is multi-threaded.
 
 ## Test 1
 `peachdb_client_cqldb.cpp`
