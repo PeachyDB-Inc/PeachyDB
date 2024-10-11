@@ -28,7 +28,7 @@ different use cases. Below is an explanation of these:
 1. `custom_driver_thread` - primarily meant for insert performance testing
 2. `custom_update_driver_thread` - stress tests update
 3. `custom_large_requests_driver_thread` - stress test large client RPC requests (such requests which require more than 1300 bytes to encode). This is useful when submitting batch requests containing multiple queries to the servers.
-4. `custom_mixload_driver_thread` - this is the stress test utilized most often to test a variety of different reads/writes and combinations thereof. This is the test example that the customers should utilize and modify for their own usage. However, it would be better to separate the read driver from the write driver for better assesment of performance. This test was designed for stress tests, not necessariy for performance measurements.
+4. `custom_mixload_driver_thread` - this is the stress test utilized most often to test a variety of different reads/writes and combinations thereof. This is the test example that the customers should utilize and modify for their own usage. However, it would be better to separate the read threads from the write threads for better assesment of performance. This test was designed for stress tests, not necessariy for performance measurements.
 
 Most of the code has detailed comments to explain every aspect of the test.
 
