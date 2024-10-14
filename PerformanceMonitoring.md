@@ -139,7 +139,7 @@ It Represents:
 - Having too many threads on a single client can also cause too many context switches between the threads and the overall CPU utilization may not
 improve much.
 - If the client still has high CPU utilization or the additional number of threads/fibers doesn't appear to improve query throughput on the client, it
-may be better to add additional AWS client instances to drive more load to under utilized database servers.
+may be better to add additional AWS client instances or stronger instances to drive more load to under utilized database servers. Please confirm from the server stats that the servers still have untilized CPU cycles and adding more client threads can help.
 
 ### Tuning Client Threads
 throughput = parallelism/latency
@@ -151,10 +151,6 @@ throughput = parallelism/latency
  of active fibers if the other performance counters indicate that the CPU is idling while the queries are waiting on i/o. As the database far
  exceeds the size of available RAM, latency is bound to be impacted due to storage i/o. This is why as data gets loaded the write throughput
  will degrade linearly unless more parallelism is introduced.
-- ___NOTE___: If increasing the client threads does not improve database server CPU utilization (particularly noticeable when the data is still served from cache), then most likely the AWS instance utilized for the database server stack is not strong enough and does not have enough compute resources to run the database query execution threads without context switching. Utilizing a stronger instance can make a difference. This situation can be observed when the client threads are increased but the server CPU utilization for the write threads (from the counters available above) remains the same and is no where close to the maximum capability of the vCPU threads.
-
-
-
 
 
 
