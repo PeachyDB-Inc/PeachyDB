@@ -132,7 +132,7 @@ It Represents:
 
 ## Client Performance
 - The client is multi-threaded.
-- During testing phase, utilize 'top' in a separate shell to monitor CPU utilization on the client machine.
+- During testing phase, utilize 'top' in a separate shell to monitor CPU utilization on the client machine. Or you can also utilize mpstat.
 - If CPU is 100% or close, it may be because the client is spending a lot of time preparing/disgesting queries. If queries are fixed and known
  in advance (with possibly different arguments passed on each invocation) then the query statements can be prepared once outside the execution loop and
  thereafter be reset prior to each invocation to provide different parameters/arguments for the next execution. Client driver examples provide explanation of how this is done.
@@ -151,6 +151,7 @@ throughput = parallelism/latency
  of active fibers if the other performance counters indicate that the CPU is idling while the queries are waiting on i/o. As the database far
  exceeds the size of available RAM, latency is bound to be impacted due to storage i/o. This is why as data gets loaded the write throughput
  will degrade linearly unless more parallelism is introduced.
+- when adding additional clients, always confirm from server stats that the CPUs are underutilized by writers/readers.
 
 
 
