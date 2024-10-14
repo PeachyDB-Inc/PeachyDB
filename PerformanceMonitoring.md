@@ -151,7 +151,7 @@ throughput = parallelism/latency
  of active fibers if the other performance counters indicate that the CPU is idling while the queries are waiting on i/o. As the database far
  exceeds the size of available RAM, latency is bound to be impacted due to storage i/o. This is why as data gets loaded the write throughput
  will degrade linearly unless more parallelism is introduced.
-- when adding additional clients, always confirm from server stats that the CPUs are underutilized by writers/readers.
+- When adding additional clients, always confirm from server stats that the CPUs are underutilized by writers/readers.
 
 
 
