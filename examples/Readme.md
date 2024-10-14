@@ -28,7 +28,7 @@ different use cases. Below is an explanation of these:
 1. `custom_driver_thread` - primarily meant for insert performance testing
 2. `custom_update_driver_thread` - stress tests update
 3. `custom_large_requests_driver_thread` - stress test large client RPC requests (such requests which require more than 1300 bytes to encode). This is useful when submitting batch requests containing multiple queries to the servers.
-4. `custom_mixload_driver_thread` - this is the stress test utilized most often to test a variety of different reads/writes and combinations thereof. This is the test example that the customers should utilize and modify for their own usage. However, it would be better to separate the read threads from the write threads for better assesment of performance. This test was designed for stress tests, not necessariy for performance measurements.
+4. `custom_mixload_driver_thread` - this is the stress test utilized most often to test a variety of different reads/writes and combinations thereof. This is the test example that the customers should utilize and modify for their own usage. However, it would be better to separate the read threads from the write threads for better assesment of performance. This test was designed for stress tests, not necessariy for performance measurements. ___NOTE:___This driver utilizes dynamic queries which are repeatedly prepared in a loop and can severely degrade performance of the driver. If queries are known in advance then the example of custom_driver_thread should be utilized to prepare the queries once outside of the loop and then repeatedly reset them with new parameter values within the loop.
 
 Most of the code has detailed comments to explain every aspect of the test.
 
@@ -48,7 +48,7 @@ The following files contain the schema for the client drivers:
 7. Note that each invocation of `peachdb_client_cqldb` will reload the schema and return errors in reloading the schema since all the schema records are present.
    This should not hinder the test. You can also alter the test to not reload the schema for each run.
 8. The numerous important aspects of running the test are described in the test, it would be better to carefully read through the comments to understand the issues.
-9. The test utilizes fibers by default, this requires understanding of co-operative scheduling. If your code requires blocking calls which you are unable to turn into co-operative scheduling calls, utilizing fibers, the test can be run with threads instead.
+9. The test utilizes fibers by default, this requires understanding of co-operative scheduling. If your code requires blocking calls which you are unable to turn into co-operative scheduling calls, utilizing fibers, the test can be run with threads instead. Although uilizing fiber friendly co-operative scheduling yield API is preferable as fibers perform better.
 10. Refer to <a href="https://github.com/akseg73/PeachyDB/tree/main?tab=readme-ov-file#23-deployment-strategy">Deployment Strategy</a> for subsequent steps.
 
 ## Test 2
