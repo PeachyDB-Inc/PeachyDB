@@ -106,9 +106,9 @@ __check_resubmit_write(cqldb::statement& stat)
      //submitted to the server then we can try something more drastic such as issuing
      //a query against the database.
      //
-     //Hopefully the answer will indicate what happened. The reason for 'hopefully'
-     //is that due to snapshot isolation it is possible that reads will return
-     //data that is not most recently committed. Maybe non-snapshot isolation
+     //Hopefully the response to the query will indicate what happened. The reason for
+     //'hopefully' is that due to snapshot isolation it is possible that reads will
+     //return data that is not most recently committed. Maybe non-snapshot isolation
      //request will work better in this case. For the moment we will do the
      //safer thing and not resubmit the request
      cout << "Unknown Status of Timedout WRITE request,"
