@@ -102,15 +102,17 @@ __check_resubmit_write(cqldb::statement& stat)
      //
      //It may also happen due to uncommon timing issues. For such cases perhaps
      //we should retry status checking a few times, with 100 miliseconds sleep in
-     //between? When it is reasonably certain that the prior query was simply not
-     //submitted to the server then we can try something more drastic such as issuing
-     //a query against the database.
+     //between? When the status returned remains unknown, we may have no option
+     //but to submit a query against the database to determine if the data is
+     //actually present or not. This is where the customer has to provide
+     //a query to check if the data is present in the database or not.
      //
-     //Hopefully the response to the query will indicate what happened. The reason for
-     //'hopefully' is that due to snapshot isolation it is possible that reads will
-     //return data that is not most recently committed. Maybe non-snapshot isolation
-     //request will work better in this case. For the moment we will do the
-     //safer thing and not resubmit the request
+     //Hopefully the response to the query will indicate what happened. The reason
+     //for 'hopefully' is that due to snapshot isolation it is possible that reads
+     //will return data that is not most recently committed. Maybe non-snapshot
+     //isolation request will work better in this case. For this test we will do
+     //the safer thing and not resubmit the request
+     //
      cout << "Unknown Status of Timedout WRITE request,"
           << " should we do something about it?" << endl;
      break;
