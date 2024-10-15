@@ -49,7 +49,7 @@ The following files contain the schema for the client drivers:
 7. Note that each invocation of `peachdb_client_cqldb` will reload the schema and return errors in reloading the schema since all the schema records are present.
    This should not hinder the test. You can also alter the test to not reload the schema for each run.
 8. The numerous important aspects of running the test are described in the test, it would be better to carefully read through the comments to understand the issues.
-9. The test utilizes fibers by default, this requires understanding of co-operative scheduling. If your code requires blocking calls which you are unable to turn into co-operative scheduling calls, utilizing fibers, the test can be run with threads instead. Although uilizing fiber friendly co-operative scheduling yield(), or conditional wait API is preferable as fibers perform better.
+9. The test utilizes fibers by default, this requires understanding of co-operative scheduling. If your code requires blocking calls which you are unable to turn into co-operative scheduling calls, utilizing fibers, the test can be run with threads instead. Although uilizing fiber friendly co-operative scheduling API is preferable as fibers perform better.
 10. Refer to <a href="https://github.com/akseg73/PeachyDB/tree/main?tab=readme-ov-file#23-deployment-strategy">Deployment Strategy</a> for subsequent steps.
 
 ## Test 2
