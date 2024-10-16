@@ -142,6 +142,7 @@ improve much.
 may be better to add additional AWS client instances or stronger instances to drive more load to under utilized database servers. Please confirm from the server stats that the servers still have untilized CPU cycles and adding more client threads can help.
 - By default, if the client has n vCPUs then the client will run (n-1) threads with 8 fibers per thread. 1 vCPU is reserved for the kernel. Having too many fibers is not likely to help if each client thread is spending a lot of time in query parsing or in other computationaly intensive tasks.
 It has been observed that if the client threads are doing too much work then having fewer fibers per thread and having more AWS client instances can improve server CPU utilization.
+- If the CPUs on the client are underutilized such as determined by mpstat, most likely this is because the fibers/threads are spending that time waiting on response packets from the servers rather than doing any processing.
 - Boost c++ fibers perform better than threads for client driver so long as co-operative scheduling is respected. A quick review of this can be obtained at <a href="https://boost.org/doc/libs/1_85_0/libs/fiber/doc/html/index.html">boost c++ fibers </a>. It requires understanding of a few basic concepts which can be useful regardless of our product. If you are unable to utilize Boost fibers, then threads can be utilized.
 
 ### Tuning Client Threads
