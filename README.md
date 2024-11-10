@@ -237,7 +237,7 @@ At the moment, the replication factor should not be less than 3. We will work la
 The number of Coordinator nodes should be at least 3 but it can be more. The only downside to having more coordinator nodes is that it will increase the journal replication load by a little bit. But it should not matter too much. Choose enough to tolerate failures. At the moment the number of coordinators is chosen when creating a cluster and thereafter it cannot be altered.
 
 ## 12. Durability
-At the moment the product relies on k-safety. This implies that as long as more than k/2 coordinator nodes are alive then the committed transactions are durable. Otherwise, we can lose some most recently committed transactions. (product restart alone should not cause logs to be lost, only power cycle or segfaults, etc. could cause this on a given node, so this should be quite rare). If you are concerned about this and want to tolerate more failures, please increase the number of coordinators to 5 or 7 depending on how big your cluster is. (k = number of coordinator nodes).
+At the moment the product relies on k-safety. This implies that as long as more than k/2 coordinator nodes are alive then the committed transactions are durable. Otherwise, we can lose some of the most recently committed transactions. (product restart alone should not cause logs to be lost, only power cycle or segfaults, etc. could cause this on a given node, so this should be quite rare). If you are concerned about this and want to tolerate more failures, please increase the number of coordinators to 5 or 7 depending on how big your cluster is. (k = number of coordinator nodes).
 
 - **12.a)** If more than k/2 coordinator nodes are down, write txns cannot be applied and will timeout.
 
