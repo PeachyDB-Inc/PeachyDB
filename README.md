@@ -593,4 +593,4 @@ What about benchmarks?
 
 ## 30. Why are we closed source?
 
-At the moment we want the user to focus only on their application and not depend upon specifics of our product which are most likely to be overhauled in subsequent releases. We want to minimize the effort users have to undertake to interact with the product. We have to revisit this later.
+At the moment we want the user to focus only on their application and not depend upon implementation specifics of our product which could be significantly altered in subsequent releases. We want to minimize the effort users have to undertake to interact with the product. We have to revisit this later.
