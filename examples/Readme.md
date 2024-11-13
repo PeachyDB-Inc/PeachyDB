@@ -50,7 +50,8 @@ The following files contain the schema for the client drivers:
    This should not hinder the test. You can also alter the test to not reload the schema for each run.
 8. The numerous important aspects of running the test are described in the test, it would be better to carefully read through the comments to understand the issues.
 9. The test utilizes fibers by default, this requires understanding of co-operative scheduling. If your code requires blocking calls which you are unable to turn into co-operative scheduling calls, utilizing fibers, the test can be run with threads instead. Although uilizing fiber friendly co-operative scheduling API (<a href="https://boost.org/doc/libs/1_85_0/libs/fiber/doc/html/index.html">boost c++ fibers </a>) is preferable as fibers perform better.
-10. Refer to <a href="https://github.com/akseg73/PeachyDB/tree/main?tab=readme-ov-file#23-deployment-strategy">Deployment Strategy</a> for subsequent steps.
+10. To modify the number of driver fibers alter max_fibers in the test, but do so only with CPU usage data availability and if it is even making any difference.
+11. Refer to <a href="https://github.com/akseg73/PeachyDB/tree/main?tab=readme-ov-file#23-deployment-strategy">Deployment Strategy</a> for subsequent steps.
 
 ## Test 2
 `peachdb_client_udt.cpp`
