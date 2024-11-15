@@ -76,7 +76,7 @@ It Represents:
 - **s**: Serialize time.
 - **c**: Commit time.
 
-In these stats, the **commit time** is the most crucial figure. For a write transaction, commit time should not significantly increase over a period. If commit time is growing, it may indicate issues with trickle frequency tuning and bugs in write commit overhead management.
+In these stats, the **commit time** is the most crucial figure. For a write transaction, commit time should not significantly increase over a period. If commit time is growing, it may indicate issues with trickle frequency tuning and bugs in write commit overhead management. The statistics are reported in performance log every 10 minutes and the percentages of CPU utilization are for the 10 minute window, if the servers were idle for some part of the window then the percentages will indicate lower CPU utilization. Please read note below about issue #18.
 
 ## Read Transaction Stats
 
@@ -112,7 +112,7 @@ It Represents:
 - **s**: Serialize time.
 - **c**: Commit time.
 
-Typically, for a reader thread, these stats are not of much interest but have been provided just in case there are any anomalies due to bugs.
+Typically, for a reader thread, these stats are not of much interest but have been provided just in case there are any anomalies due to bugs. The statistics are reported in performance log every 10 minutes and the percentages of CPU utilization are for the 10 minute window, if the servers were idle for some part of the window then the percentages will indicate lower CPU utilization. Please read note below about issue #18.
 
 ## Write Consolidator Stats
 
@@ -129,6 +129,8 @@ It Represents:
 - **num-mssgs**: Number of messages/packets handled by the consolidator thread.
 - **exec**: (Explanation needed)
 - **wr**: (Explanation needed)
+
+The statistics are reported in performance log every 10 minutes and the percentages of CPU utilization are for the 10 minute window, if the servers were idle for some part of the window then the percentages will indicate lower CPU utilization. Please read note below about issue #18.
 
 ## Client Performance
 - The client is multi-threaded.
