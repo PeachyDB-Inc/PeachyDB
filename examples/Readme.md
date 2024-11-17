@@ -40,18 +40,19 @@ The following files contain the schema for the client drivers:
 
 ### Deployment Approach:
 
-1. Create a Server Stack of 3 smallest supported AWS Instances and once successfully created, create a Client stack containing a single smallest supported Client EC2 Instance
-2. ssh into the client
-3. Start off with a run of `peachdb_client_cqldb` to get a basic understanding of behavior and get a baseline.
-4. Replace the schema files indicated above with your own schema.
-5. Replace the client driver function with your own queries.
-6. Try to utilize separate client driver threads/fibers for read queries and write queries. Since the write throughput is based upon completely different critera to read throughput, this will make it easier to investigate performance issues. Recompile the client with the script provided.
-7. Note that each invocation of `peachdb_client_cqldb` will reload the schema and return errors in reloading the schema since all the schema records are present.
+1. Please read through the peachdb_client_cqldb.cpp completely as the numerous comments and details explain how the client works.
+2. Create a Server Stack of 3 smallest supported AWS Instances and once successfully created, create a Client stack containing a single smallest supported Client EC2 Instance
+3. ssh into the client
+4. Start off with a run of `peachdb_client_cqldb` to get a basic understanding of behavior and get a baseline.
+5. Replace the schema files indicated above with your own schema.
+6. Replace the client driver function with your own queries.
+7. Try to utilize separate client driver threads/fibers for read queries and write queries. Since the write throughput is based upon completely different critera to read throughput, this will make it easier to investigate performance issues. Recompile the client with the script provided.
+8. Note that each invocation of `peachdb_client_cqldb` will reload the schema and return errors in reloading the schema since all the schema records are present.
    This should not hinder the test. You can also alter the test to not reload the schema for each run.
-8. The numerous important aspects of running the test are described in the test, it would be better to carefully read through the comments to understand the issues.
-9. The test utilizes fibers by default, this requires understanding of co-operative scheduling. If your code requires blocking calls which you are unable to turn into co-operative scheduling calls, utilizing fibers, the test can be run with threads instead. Although uilizing fiber friendly co-operative scheduling API (<a href="https://boost.org/doc/libs/1_85_0/libs/fiber/doc/html/index.html">boost c++ fibers </a>) is preferable as fibers perform better.
-10. To modify the number of driver fibers follow the suggestion in the test, but do so only with CPU usage data availability and if it is even making any difference.
-11. Refer to <a href="https://github.com/akseg73/PeachyDB/tree/main?tab=readme-ov-file#23-deployment-strategy">Deployment Strategy</a> for subsequent steps.
+9. The numerous important aspects of running the test are described in the test, it would be better to carefully read through the comments to understand the issues.
+10. The test utilizes fibers by default, this requires understanding of co-operative scheduling. If your code requires blocking calls which you are unable to turn into co-operative scheduling calls, utilizing fibers, the test can be run with threads instead. Although uilizing fiber friendly co-operative scheduling API (<a href="https://boost.org/doc/libs/1_85_0/libs/fiber/doc/html/index.html">boost c++ fibers </a>) is preferable as fibers perform better.
+11. To modify the number of driver fibers follow the suggestion in the test, but do so only with CPU usage data availability and if it is even making any difference.
+12. Refer to <a href="https://github.com/akseg73/PeachyDB/tree/main?tab=readme-ov-file#23-deployment-strategy">Deployment Strategy</a> for subsequent steps.
 
 ## Test 2
 `peachdb_client_udt.cpp`
