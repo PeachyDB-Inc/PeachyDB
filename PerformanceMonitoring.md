@@ -155,4 +155,4 @@ throughput = parallelism/latency
  throughput. This can help so long as the database storage offers improved performance with greater parallelism. Such issues exist in other
  databases as well, when i/o becomes a prime factor in throughput.
 - In performance statistics look for "Cache Stats::", if you find that there are a lot of cache misses and there are a lot of waits on i/o pages as well we prefetching of pages, this indicates that i/o is playing a role in latency.
-- One way to deal with this is to utilize a larger number of client threads/fibers than the initial need might indicate and as the server suffers greater latency due to i/o the extra threads/fibers will offer the parallelism needed to prop the throughput.
+- One way to deal with this is to utilize a larger number of client threads/fibers than the initial need might indicate and as the server suffers greater latency due to i/o the extra threads/fibers will offer the parallelism needed to prop the throughput. Another possibility is to increase the number of fibers later on when i/o related latency effects are observed.
