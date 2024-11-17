@@ -1,5 +1,7 @@
-/* peachydb_client_cqldb.cpp
+/**
  * Copyright(c) 2021 PeachyDB inc
+ *
+ * peachydb_client_cqldb.cpp
  */
 
 #include <stdio.h>
@@ -1952,24 +1954,28 @@ int
 launch_client_threads_with_fibers(int client_id)
 {
   int rc=0, i;
-  int max_threads, max_fibers, num, firstid, fiber_count;
+  int max_threads, suggested_fibers, max_fibers, num, firstid, fiber_count;
   std::thread* all_threads;
 
-  //NOTE:: max_threads, max_fibers are suggestions, depending upon the observed
-  //performance of the client more threads and fibers can be created
+  //NOTE:: max_threads, suggested_fibers are suggestions, depending upon the
+  //observed performance of the client more threads and fibers can be created
   //
-  cqldb::session::client_max_threads(&max_threads, &max_fibers);
+  cqldb::session::client_max_threads(&max_threads, &suggested_fibers, &max_fibers);
   //for virtual environment, for testing purposes only
   //max_threads = 1;
-  //max_fibers = 8;
+  //suggested_fibers = 8;
 
-  if(max_fibers < max_threads) {
+  if(suggested_fibers < max_threads) {
     rc = -1;
     goto err;
   }
-  cout << "Launching Threads#:" << max_threads << " and fibers#:" << max_fibers << endl;
-  num = max_fibers/max_threads;
-  fiber_count = max_fibers;
+
+  //NOTE:: fiber_count can be set some other value instead of suggested_fibers
+  //so long as it is <= max_fibers
+  //
+  cout << "Launching Threads#:" << max_threads << " and fibers#:" << suggested_fibers << endl;
+  num = suggested_fibers/max_threads;
+  fiber_count = suggested_fibers;
   firstid = 0;
 
   all_threads = new std::thread[max_threads];
@@ -2005,16 +2011,19 @@ int
 launch_client_threads_without_fibers(int client_id)
 {
   int rc=0, i;
-  int max_threads, max_fibers, num;
+  int max_threads, suggested_fibers, max_fibers, num;
   std::thread* all_threads;
 
-  //NOTE:: max_threads, max_fibers are suggestions, depending upon the observed
-  //performance of the client more threads and fibers can be created
+  //NOTE:: max_threads, suggested_fibers, are suggestions, depending upon the
+  //observed performance of the client more threads and fibers can be created
   //
-  cqldb::session::client_max_threads(&max_threads, &max_fibers);
+  cqldb::session::client_max_threads(&max_threads, &suggested_fibers, &max_fibers);
 
+  //NOTE:: max_threads can be set some other value instead of suggested_fibers
+  //so long as it is <= max_fibers
+  //
   //create threads as opposed to fibers
-  max_threads = max_fibers;
+  max_threads = suggested_fibers;
 
   all_threads = new std::thread[max_threads];
  
@@ -2057,15 +2066,16 @@ main(int argc, const char *argv[])
 {
   int use_fibers = 1;
 
-  /* NOTE:: the default is to utilize fibers for the client, utilizing fibers can allow
-   * possibly 24% higher throughput (with some measurements, your results may differ).
-   * However utilizing fibers requires co-operative scheduling. You can not make any blocking
-   * calls in the fibers and you have to explicitly invoke boost::this_fiber::wait_for() or
-   * boost::this_fiber::yield() instead of blocking calls to ensure that other fibers get a
-   * chance to execute. If you make blocking i/o calls in fibers you will hang the thread
-   * running that fiber. If you do not want to deal with co-operative scheduling then you
-   * can provide --no-fibers to this test and then it will utilize only threads, in which
-   * you can make blocking calls.
+  /* NOTE:: the default is to utilize boost::fibers for the client, utilizing fibers
+   * can allow possibly 24% higher throughput (with some measurements, your results
+   * may differ). However utilizing fibers requires co-operative scheduling. You can
+   * not make any blocking calls in the fibers and you have to explicitly invoke
+   * boost::this_fiber::wait_for() or boost::this_fiber::yield() instead of blocking
+   * calls to ensure that other fibers get a chance to execute. If you make blocking
+   * i/o calls in fibers you will hang the thread running that fiber. If you do not
+   * want to deal with co-operative scheduling then you can provide --no-fibers to
+   * this test and then it will utilize only threads, in which you can make blocking
+   * calls.
    */
 
   if(argc!=2 && argc!=3) {
