@@ -149,18 +149,8 @@ It has been observed that if the client threads are doing too much work then hav
 - __IMPORTANT:__ When figuring out the %CPU utilization from the server stats please note that the statistics reported are averages per 10 minute time window. If in this time window the CPU was idle 50% of the time, and later subjected to a lot of queries then the CPU will report 50% CPU utilization. Thus when figuring out CPU utilization it is important to make certain that the client was sending load during the whole time window. This can often imply that the very first reading of statistics is to be ignored because for some part of that time window the servers were idle. Please refer to Issue [18](https://github.com/akseg73/PeachyDB/issues/18).
 
 ### Tuning Client Threads
-throughput = parallelism/latency
-
 - If latency of query response increases due to database page i/o, then you may have to increase the number of client threads to improve
  throughput. This can help so long as the database storage offers improved performance with greater parallelism. Such issues exist in other
  databases as well, when i/o becomes a prime factor in throughput.
 - In performance statistics look for "Cache Stats::", if you find that there are a lot of cache misses and there are a lot of waits on i/o pages as well we prefetching of pages, this indicates that i/o is playing a role in latency.
-- One way to deal with this is to keep a pool of client threads/fibers and depending upon the latency observed potentially increase the number
- of active fibers if the other performance counters indicate that the CPU is idling while the queries are waiting on i/o. As the database far
- exceeds the size of available RAM, latency is bound to be impacted due to storage i/o. This is why as data gets loaded the write throughput
- will degrade linearly unless more parallelism is introduced.
-
-
-
-
-
+- One way to deal with this is to utilize a larger number of client threads/fibers than the initial need might indicate and as the server suffers greater latency due to i/o the extra threads/fibers will offer the parallelism needed to prop the throughput.
