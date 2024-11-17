@@ -40,7 +40,7 @@ The following files contain the schema for the client drivers:
 
 ### Deployment Approach:
 
-1. Please read through the peachdb_client_cqldb.cpp completely as the numerous comments and details explain how the client works.
+1. Please read through the file peachdb_client_cqldb.cpp completely as the numerous comments and details explain how the client works.
 2. Create a Server Stack of 3 smallest supported AWS Instances and once successfully created, create a Client stack containing a single smallest supported Client EC2 Instance
 3. ssh into the client
 4. Start off with a run of `peachdb_client_cqldb` to get a basic understanding of behavior and get a baseline.
