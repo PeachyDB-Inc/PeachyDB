@@ -17,7 +17,7 @@ be executed on any client EC2 Instance that needs to run the cluster tool.
 2. Adjust any clock skew on the Instance with the command indicated:
 
    ```shell
-   prompt> sudo date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z"
+   prompt> sudo ntpdate pool.ntp.org
 
  (NOTE:: occasionally if you find that the peachydb_cluster_tool reports
   "stack with provided name does not exist", this can also happen due to clock
