@@ -441,7 +441,7 @@ Below are known Bugs and Issues, we are not going to keep this list updated, but
 
 - **24.18)** Please read 6.f) to understand the behavior of write commitment and MVCC read-only transactions.
 - **24.19)** Try to avoid utilizing large primary keys (keys that are larger than 1k) as they can degrade performance significantly. Fields that are not contributing to the uniqueness of the record should be placed in the clustering columns, not the primary key, unless they are also a part of the partition key. If large primary keys are utilized, try to order the fields in a way that a small prefix of the keys is likely to be unique to significantly speed up queries. This should be done even for primary keys that are smaller.
-- **24.20)** Occasionally when running scripts, you may encounter an error due to clock skew. This can be fixed with the following command:
+- **24.20)** Occasionally when running scripts with AWS commands, you may encounter an error due to clock skew. This can be fixed with the following command:
 
    `ntpdate pool.ntp.org`.
 - **24.21)** Set the AWS region before utilizing any provided tools as follows (utilize your region name):
