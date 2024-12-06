@@ -514,7 +514,7 @@ Below are known Bugs and Issues, we are not going to keep this list updated, but
 ## 25. Limits
 As with all Databases we have size limits on numerous elements of the database. Some are listed below, its possible that we may have missed some important ones, if you notice any please let us know.
 
-- **25.a)** The maximum query request size, including all serialized parameters, is 320kb. The larger the request, the more time-consuming it will be. Please also be mindfull of how many of these you want to submit at a time, the servers have RAM limits, too many such queries which are too large can potentially cause swapping on the server. For eg 1000 such queries each of which is 320k will consume 320MB on the server, depending upon the usage this can stress the server.
+- **25.a)** The maximum query request size, including all serialized parameters, is 320kb. The larger the request, the more time-consuming it will be. Please also be mindfull of how many of these you want to submit at a time, the servers have RAM limits, a very large number of simultaneous large queries can potentially cause memory swapping on the server.
 
 - **25.b)** If all the clients submit a combined more than 1k large queries at a given instant, then some of them may get rejected. A large query is any query which is serialized in more than 1300 bytes.
 
