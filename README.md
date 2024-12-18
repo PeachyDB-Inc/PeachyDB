@@ -547,7 +547,7 @@ Why do we charge a software license fee at all?
   
 - **27.d)** We avoid the severe pathologies related to data modifications that alternatives have and we also allow more options on write transactions.
   
-- **27.e)** The products that do charge a software license are much more expensive than ours.
+- **27.e)** The products that do charge a software license are more expensive than ours.
   
 - **27.f)** Please try other products and then compare for yourself; you will find our product to be easier to work with and have lower costs.
   
