@@ -585,7 +585,7 @@ What about benchmarks?
 
 - **29.d)** Subsequent releases will be more focused on performance improvements. Like other products, we have a very long list of improvements that should make us significantly better in every metric compared to our current release and competitive with the best products available out there in performance, latency, scalability and features.
 
-- **29.e)** Note points 5.f.5) and 23.h) above for performance improvement.
+- **29.e)** Note points 5.f.5) and 23.h) above, among others, for performance improvement.
 
 - **29.f)** Our product also has limitations listed in the sections above. If your use case fits better with the alternatives, it would be better to stick with them. Different products may be optimized better for different situations.
 
