@@ -43,6 +43,4 @@ Really? Please type the word "delete" to continue: delete
 ```
 
 
-Please wait for the command to finish execution, do not Ctrl-C it. This operation can take
-some time to complete. Just to be double sure keep an eye on the Cloudformation Console to make
-sure that everything is deleted. 
+Please wait for the command to finish execution, do not Ctrl-C it (hitting Ctrl-C will not cancel the command, it has already been submitted to AWS and it has to be allowed to complete). This operation can take some time to complete. Just to be double sure keep an eye on the Cloudformation Console to make sure that everything is deleted. 
