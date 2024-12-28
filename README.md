@@ -333,7 +333,7 @@ We utilize AWS CloudFormation templates to create AWS stacks to deploy our datab
 
   - **23.a.4)** Test all your usage queries to make sure everything works. This is crucial to avoid any surprises or bugs in production. This is extremely important at this stage of our product (BETA release), and we expect at least some hiccups.
 
-  - **23.a.5)** The tool to determine storage utilization on nodes in the cluster is explained in the file that contains all the commands.
+  - **23.a.5)** Storage utilization on nodes in the cluster can be obtained with the commands provided.
 
 If you are able to drive enough stress into the system and it presents no significant issues, you can utilize a production cluster consisting of more powerful EC2 instances. Thoroughly testing your use case scenario will minimize any risks in deployment.
 
