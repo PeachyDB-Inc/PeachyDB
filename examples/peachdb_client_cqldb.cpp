@@ -36,6 +36,12 @@ typedef struct __client_thrd_arg__ {
 const char* g_fiber_tag = "Fiber:";
 const char* g_thread_tag = "Thread:";
 
+static int g_num_active_fibers=0;
+
+#define __START_FIBER (__sync_fetch_and_add(&g_num_active_fibers, 1))
+#define __LEAVE_FIBER (__sync_fetch_and_sub(&g_num_active_fibers, 1))
+#define __NUM_FIBERS  (__sync_fetch_and_add(&g_num_active_fibers, 0))
+
 /*
  * __check_resubmit_write
  * if a write query timed out it may be because:
@@ -238,6 +244,7 @@ custom_driver_thread(client_thrd_arg_t arg)
   int thrd_id = arg.thrd_id;
   const char* debug_tag = (fiber_id==-1)? g_thread_tag: g_fiber_tag;
   int debug_id = (fiber_id==-1)? thrd_id: fiber_id;
+  uint64_t packets_sent, packets_recvd, packets_dropped;
 
   const char* insert_qstr = "INSERT INTO testkeyspace.test_table1 (field1, field2, field3, field4, field5, field6, description, listfield, setfield, mapfield) VALUES (:fld1, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
   const char* update_qstr = "UPDATE testkeyspace.test_table1 SET listfield = ['todo', 'when'] + listfield WHERE field1 =? AND field2 =?";
@@ -246,6 +253,7 @@ custom_driver_thread(client_thrd_arg_t arg)
 
   //per thread initialization
   fast_randseed();
+  __START_FIBER;
 
   try {
     //session must be created before invoking the driver
@@ -402,7 +410,12 @@ custom_driver_thread(client_thrd_arg_t arg)
       *******/
 
       if(i%1000==0) {
-        cout << debug_tag << debug_id << " iter data load: " << i << endl;
+        cout << debug_tag << debug_id << " iter data load: " << i
+             << " num-fibers:" << __NUM_FIBERS;
+
+        cqldb_session.packet_stats(&packets_sent, &packets_recvd, &packets_dropped);
+        cout << " sent:" << packets_sent << " recvd:" << packets_recvd
+             << " dropped:" << packets_dropped << endl;
       }
     }
     cout << debug_tag << debug_id << " done with data load" << endl;
@@ -564,6 +577,7 @@ custom_driver_thread(client_thrd_arg_t arg)
     goto done;
   }
 done:
+  __LEAVE_FIBER;
   return;
 }
 
@@ -592,6 +606,7 @@ custom_update_driver_thread(client_thrd_arg_t arg)
   int thrd_id = arg.thrd_id;
   const char* debug_tag = (fiber_id==-1)? g_thread_tag: g_fiber_tag;
   int debug_id = (fiber_id==-1)? thrd_id: fiber_id;
+  uint64_t packets_sent, packets_recvd, packets_dropped;
 
   const char* insert_qstr = "INSERT INTO testkeyspace.test_table1 (field1, field2, field3, field4, field5, field6, description, listfield, setfield, mapfield) VALUES (:fld1, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
   const char* even_update_qstr = "UPDATE testkeyspace.test_table1 SET listfield = ['todo', 'when'] WHERE field1 =? AND field2 =?";
@@ -600,6 +615,7 @@ custom_update_driver_thread(client_thrd_arg_t arg)
 
   //per thread initialization
   fast_randseed();
+  __START_FIBER;
 
   try {
     //session must be created before invoking the driver
@@ -705,7 +721,11 @@ custom_update_driver_thread(client_thrd_arg_t arg)
       insert_stat.reset(); //release statement resources, else memory leaks/corruption
 
       if(i%1000==0) {
-        cout << debug_tag << debug_id << " iter update driver: " << i << endl;
+        cout << debug_tag << debug_id << " iter update driver: " << i 
+             << " num-fibers:" << __NUM_FIBERS;
+        cqldb_session.packet_stats(&packets_sent, &packets_recvd, &packets_dropped);
+        cout << " sent:" << packets_sent << " recvd:" << packets_recvd
+             << " dropped:" << packets_dropped << endl;
       }
     }
     cout << debug_tag << debug_id << " done with data load" << endl;
@@ -735,6 +755,7 @@ custom_update_driver_thread(client_thrd_arg_t arg)
     goto done;
   }
 done:
+  __LEAVE_FIBER;
   return;
 }
 
@@ -756,6 +777,7 @@ custom_large_requests_driver_thread(client_thrd_arg_t arg)
   int thrd_id = arg.thrd_id;
   const char* debug_tag = (fiber_id==-1)? g_thread_tag: g_fiber_tag;
   int debug_id = (fiber_id==-1)? thrd_id: fiber_id;
+  uint64_t packets_sent, packets_recvd, packets_dropped;
 
 #define __MAXLEN  (20)
 #define __NUM_SEL (20)
@@ -779,6 +801,7 @@ custom_large_requests_driver_thread(client_thrd_arg_t arg)
 
   //per thread initialization
   fast_randseed();
+  __START_FIBER;
 
   try {
     //session must be created before invoking the driver
@@ -940,11 +963,14 @@ custom_large_requests_driver_thread(client_thrd_arg_t arg)
       //always reset current statment before moving onto the next
       stat.reset(); //release statement resources, else memory leaks/corruption
 
-      if(i%10==0) {
+      if(i%1000==0) {
         /* notice that for stats queries within a read/write batch are counted individually
          * so a single batch of 4 selects is counted as 4 queries */
         cout << debug_tag << debug_id << " mixed RW/RD iter#:" << i
-             << " select:" << sel_stats << endl;
+             << " select:" << sel_stats << " num-fibers:" << __NUM_FIBERS;
+        cqldb_session.packet_stats(&packets_sent, &packets_recvd, &packets_dropped);
+        cout << " sent:" << packets_sent << " recvd:" << packets_recvd
+             << " dropped:" << packets_dropped << endl;
       }
 
       if(select_count==__NUM_SEL) {
@@ -1069,6 +1095,7 @@ custom_large_requests_driver_thread(client_thrd_arg_t arg)
     goto done;
   }
 done:
+  __LEAVE_FIBER;
   return;
 }
 
@@ -1091,6 +1118,7 @@ custom_mixload_driver_thread(client_thrd_arg_t arg)
   int test_range_quries = arg.test_range_queries;
   const char* debug_tag = (fiber_id==-1)? g_thread_tag: g_fiber_tag;
   int debug_id = (fiber_id==-1)? thrd_id: fiber_id;
+  uint64_t packets_sent, packets_recvd, packets_dropped;
 
 #define __MAXLEN  (20)
 #define __NUM_UPD (12)
@@ -1146,6 +1174,7 @@ custom_mixload_driver_thread(client_thrd_arg_t arg)
 
   //per thread initialization
   fast_randseed();
+  __START_FIBER;
 
   try {
     //session must be created before invoking the driver
@@ -1363,7 +1392,11 @@ custom_mixload_driver_thread(client_thrd_arg_t arg)
         cout << debug_tag << debug_id << " mixed RW/RD iter#:" << i
              << " select:" << sel_stats << " update:" << upd_stats
              << " delete:" << del_stats << " range-select:" << range_selects
-             << " range-del:" << range_deletes << endl;
+             << " range-del:" << range_deletes 
+             << " NUM-FIBERS:" << __NUM_FIBERS;
+        cqldb_session.packet_stats(&packets_sent, &packets_recvd, &packets_dropped);
+        cout << " sent:" << packets_sent << " recvd:" << packets_recvd
+             << " dropped:" << packets_dropped << endl;
       }
       /* randomly decide if the value is going to be looked up */
       looked_up = 0;
@@ -1671,6 +1704,7 @@ custom_mixload_driver_thread(client_thrd_arg_t arg)
     goto done;
   }
 done:
+  __LEAVE_FIBER;
   if(range_test_f1) {
     for(int k=0; k<DISTINCT_VALS_THRESH; k++) {
       free(range_test_f1[k]);
@@ -1702,6 +1736,7 @@ peachtest_driver_thread(client_thrd_arg_t arg)
   int thrd_id = arg.thrd_id;
   const char* debug_tag = (fiber_id==-1)? g_thread_tag: g_fiber_tag;
   int debug_id = (fiber_id==-1)? thrd_id: fiber_id;
+  uint64_t packets_sent, packets_recvd, packets_dropped;
 
   //remember the field1 value for the first few records
 #define __FIRST_FEW 5
@@ -1720,6 +1755,7 @@ peachtest_driver_thread(client_thrd_arg_t arg)
 
   //per thread initialization
   fast_randseed();
+  __START_FIBER;
 
   try {
     //session must be created before invoking the driver
@@ -1791,7 +1827,11 @@ peachtest_driver_thread(client_thrd_arg_t arg)
 
       i++;
       if(i%1000==0) {
-        cout << debug_tag << debug_id << " iter # for peachdb_testfile writes/selects: " << i << endl;
+        cout << debug_tag << debug_id << " iter # for peachdb_testfile writes/selects: "
+             << i << " NUM-FIBERS:" << __NUM_FIBERS;
+        cqldb_session.packet_stats(&packets_sent, &packets_recvd, &packets_dropped);
+        cout << " sent:" << packets_sent << " recvd:" << packets_recvd
+             << " dropped:" << packets_dropped << endl;
       }
 
       //statement is created in a try catch block so that when the block
@@ -1896,6 +1936,7 @@ peachtest_driver_thread(client_thrd_arg_t arg)
     goto done;
   }
 done:
+  __LEAVE_FIBER;
   fclose(fp_dataq);
   fp_dataq = NULL;
   fclose(fp_selq);
@@ -1956,6 +1997,7 @@ launch_client_threads_with_fibers(int client_id)
   int rc=0, i;
   int max_threads, suggested_fibers, max_fibers, num, firstid, fiber_count;
   std::thread* all_threads;
+  cpu_set_t cpuset;
 
   //NOTE:: max_threads, suggested_fibers are suggestions, depending upon the
   //observed performance of the client more threads and fibers can be created
@@ -1986,13 +2028,22 @@ launch_client_threads_with_fibers(int client_id)
   //NOTE:: schema must be loaded only once before running any client threads
   peachtest_setup_schema(0);
 
-  //launch client threads
+  //launch client threads, do NOT launch more threads than max_threads
   for(i=0; i<max_threads; i++) {
     assert(fiber_count);
     all_threads[i] = std::thread(launch_client_thread_fibers, client_id, i, num, firstid);
     num = (fiber_count>num)? num: (fiber_count);
     fiber_count -= num;
     firstid +=num;
+
+    //distribute the threads uniformly amongst available vCPUs
+    CPU_ZERO(&cpuset);
+    CPU_SET(i, &cpuset);
+    int rc = pthread_setaffinity_np(all_threads[i].native_handle(),
+                                    sizeof(cpu_set_t), &cpuset);
+    if(rc != 0) {
+      std::cerr << "Error calling pthread_setaffinity_np: " << rc << "\n";
+    }
   }
 
   //join client threads
@@ -2013,11 +2064,16 @@ launch_client_threads_without_fibers(int client_id)
   int rc=0, i;
   int max_threads, suggested_fibers, max_fibers, num;
   std::thread* all_threads;
+  cpu_set_t cpuset;
+  int cpu_count=0;
 
   //NOTE:: max_threads, suggested_fibers, are suggestions, depending upon the
   //observed performance of the client more threads and fibers can be created
   //
   cqldb::session::client_max_threads(&max_threads, &suggested_fibers, &max_fibers);
+
+  //max_threads is set to the vCPU count in cloud instances
+  cpu_count = max_threads;
 
   //NOTE:: max_threads can be set some other value instead of suggested_fibers
   //so long as it is <= max_fibers
@@ -2052,6 +2108,15 @@ launch_client_threads_without_fibers(int client_id)
     all_threads[i] = std::thread(custom_mixload_driver_thread, arg);
     //all_threads[i] = std::thread(custom_large_requests_driver_thread, arg);
     //all_threads[i] = std::thread(peachtest_driver_thread, arg);
+
+    //distribute the threads among available CPUs.
+    CPU_ZERO(&cpuset);
+    CPU_SET((i%cpu_count), &cpuset);
+    int rc = pthread_setaffinity_np(all_threads[i].native_handle(),
+                                    sizeof(cpu_set_t), &cpuset);
+    if(rc != 0) {
+      std::cerr << "Error calling pthread_setaffinity_np: " << rc << "\n";
+    }
   }
   //join client threads
   for(i=0; i<max_threads; i++) {
