@@ -554,7 +554,7 @@ Why do we charge a software license fee at all?
   
 - **27.f)** Please try other products and then compare for yourself; you will find our product to be easier to work with and have lower costs.
   
-- **27.g)** This is just a start; we plan to make this much more useful, both in terms of performance and very large and significant features, and additional associated products and technologies, and also address aforementioned limitations and community feature requests.
+- **27.g)** This is just a start; we plan to make this much more useful, both in terms of performance and very large and significant features, and several additional associated products and technologies, and also address aforementioned limitations and community feature requests.
   
 - **27.h)** How do we provide this service without having some way to fund the development?
 
