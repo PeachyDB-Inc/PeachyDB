@@ -527,8 +527,9 @@ As with all Databases we have size limits on numerous elements of the database. 
 - **25.g)** Range deletes will delete no more than 1k objects at a time.
 - **25.h)** A single write query batch cannot update more than 100 tables and materialized views combined. Likewise, a single read query batch cannot access more than 60 tables and materialized views. These are not 'unique' table numbers but the total number of table/MV accesses. Each query accessing a table/MV would count towards the total even if a previous query in the same batch has accessed the same table/MV.
 - **25.i)** For batched writes, any error messages for the writes will be reported for only the first 10 failed writes in the batch; the rest of the writes will be accompanied by any error codes but not any error messages.
-- **25.j)** There is an upper limit of 64k on the sum total all the client-threads/fibers on all of the client instances taken together. We have not tested anywhere near that high number of client threads, so the actual figure may be a little lower. For a single client instance the maximum number of threads/fibers is 2k, although for AWS instances with very few vCPUs the practial limit would be much lower.
-- **25.k)** A single AWS client instance can run only one client driver, which usually has multiple threads and or multiple fibers.
+- **25.j)** There can be atmost 8k concurrent write transaction requests submit by client fibers/threads.
+- **25.k)** There is an upper limit of k on the sum total all the client-threads/fibers on all of the client instances taken together. We have not tested anywhere near that high number of client threads, so the actual figure may be a little lower. For a single client instance the maximum number of threads/fibers is 2k, although for AWS instances with very few vCPUs the practial limit would be much lower.
+- **25.l)** A single AWS client instance can run only one client driver, which usually has multiple threads and or multiple fibers.
 
 ## 26. Security Issues
 
