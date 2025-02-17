@@ -419,7 +419,7 @@ Below are known Bugs and Issues, we are not going to keep this list updated, but
 
 - **24.14)** Please do NOT make schema changes during adding/removing/substituting nodes in the cluster as this can significantly degrade the performance of the cluster configuration change. Making cluster configuration changes while adding a Materialized View is not allowed and vice-versa.
 
-- **24.15)** Currently, all the instances in an AWS stack for peachydb server/client stack have to be either On-Demand instances or all have to be Spot Instances; there cannot be a mix and match. The choice made at the time of creation of the stack remains in effect until the stack is deleted.
+- **24.15)** Currently, all the instances in an AWS stack for peachydb server/client stack have to be either On-Demand instances or all have to be Spot Instances; there cannot be a mix and match. The choice made at the time of creation of the stack remains in effect until the stack is deleted. Whether or not an AWS stack has spot instances is decided independently for server and client stacks.
 
 - **24.16)** We utilize AWS Placement Groups (PG) to avoid correlated AWS Hardware failures in production clusters.
   - **24.16.1)** AWS documentation states that occasionally this strategy may not be able to allocate an EC2 instance in a placement partition.
