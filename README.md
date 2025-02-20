@@ -597,6 +597,11 @@ What about benchmarks?
 ## 30. Why are we closed source?
 
 At the moment we want the user to focus only on their application and not depend upon implementation specifics of our product which could be significantly altered in subsequent releases.
+
 We want to minimize the effort users have to undertake to interact with the product.
-We may also have to weigh in the possibility of exposing code which can potentially become exposed to security exploits. Contirbuting to the open source as well as other community is an important part of our overall thought process, we have to figure out the details of how to give back to the ecosystem in a way that helps as many people as possible.
+
+We may also have to weigh in the possibility of exposing code which can potentially become exposed to security exploits. 
+
+Contirbuting to the open source as well as other community is an important part of our overall thought process, we have to figure out the details of how to give back to the ecosystem in a way that helps as many people as possible.
+
 We have to revisit this later as things become clearer.
