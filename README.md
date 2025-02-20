@@ -602,6 +602,6 @@ We want to minimize the effort users have to undertake to interact with the prod
 
 We may also have to weigh in the possibility of exposing code which can potentially become exposed to security exploits. 
 
-Contirbuting to the open source as well as other community is an important part of our overall thought process, we have to figure out the details of how to give back to the ecosystem in a way that helps as many people as possible.
+Contirbuting to the open source as well as other community is an important part of our overall thought process, we have to figure out the details of how to give back to the ecosystem in a way that helps as many organizations and people as we can.
 
 We have to revisit this later as we have a better idea on product positioning.
