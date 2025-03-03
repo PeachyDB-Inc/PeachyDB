@@ -43,7 +43,7 @@ The following files contain the schema for the client drivers:
 1. Please read through the file peachdb_client_cqldb.cpp completely as the numerous comments and details explain how the client works.
 2. Create a Server Stack of 3 smallest supported AWS Instances and once successfully created, create a Client stack containing a single smallest supported Client EC2 Instance
 3. ssh into the client
-4. Start off with a run of `peachdb_client_cqldb` to get a basic understanding of behavior and get a baseline.
+4. Start off with a run of `peachdb_client_cqldb` to get a basic understanding of behavior and get a baseline. You may see a few initial messages of the form "client_thread:288 obtained peer-client-thread leader info", just wait a little and the test will get going.
 5. Replace the schema files indicated above with your own schema.
 6. Replace the client driver function with your own queries.
 7. Try to utilize separate client driver threads/fibers for read queries and write queries. Since the write throughput is based upon completely different critera to read throughput, this will make it easier to investigate performance issues. Recompile the client with the script provided.
