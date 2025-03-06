@@ -171,9 +171,9 @@ Transactions can be issued with a single query (Insert,Delete,Update or Select) 
 
   - **6.a.3)** At the moment, the write batch query string, including space for query parameters and all other encodings should not be more than 320KB in size.
 
-  - **6.a.4)** At the moment, range deletes or range updates are not allowed in a batch of writes, in other words, a delete/update query must specify all the primary key members in the Where clause in order to alter only a single object that matches the primary key.
+  - **6.a.4)** At the moment, range deletes or range updates are not allowed in a batch of writes, in other words, a delete/update query which is part of a batch of writes must specify all the primary key members in the Where clause to match a single object.
 
-  - **6.a.5)** The user can specify range DELETE/UPDATE as a separate write txn (NOT as part of a write Batch, where it will be rejected). The functionality is available in a limited form as described above.
+  - **6.a.5)** The user can specify range DELETE/UPDATE as a separate write txn (NOT as part of a write Batch). The functionality is available in a limited form as described above.
 
   - **6.a.6)** With the exception of unappliable writes being skipped, the batch will be applied as a whole (in other words readers will not see partial results of a batch).
 
