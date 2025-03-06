@@ -199,8 +199,6 @@ If a DELETE/UPDATE/INSERT hits a timeout, it could be due to one of the followin
 
 - **6.h.4)** Repeatedly submitting the same DELETE/UPDATE query without addressing point 6.h.3) can make the database unavailable for subsequent writes and very significantly degrade performance of reads.
 
-- **6.h.5)** There is also a possibility that due to a software bug the coordinator is hanging indefinitely and it may never respond. In such a situation, we have to investigate the bug. Sometimes restarting the product can help to keep moving on, but sometimes it may not help.
-
 If a SELECT query times out, the causes could again be one of 6.h.1), 6.h.2), 6.h.3). The only difference is that SELECT queries are never journaled. The suggestions to address any issues are similar to the ones in 6.h.1), 6.h.2), 6.h.3).
 
 ## 7. Partition Key
