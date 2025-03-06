@@ -181,7 +181,7 @@ Transactions can be issued with a single query (Insert,Delete,Update or Select) 
 
 - **6.c)** The user can check on the SELECT query results if it was transactional or not.
 
-- **6.d)** Write batch can contain only UPDATE/DELETE/INSERT queries, read batch can contain only SELECTs, also, schema/security-data queries cannot be part of a batch.
+- **6.d)** Schema/Security-data queries cannot be part of a batch.
 
 - **6.e)** Write transactions utilize distributed consensus, as a result, the database will become unavailable for writes if the majority of the coordinator nodes are down. This is the price to pay for consistency. Some of this is mitigated with a larger number of coordinator nodes.
 
