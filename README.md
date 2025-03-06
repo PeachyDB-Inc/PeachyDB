@@ -242,7 +242,7 @@ At the moment the product relies on k-safety. This implies that as long as more 
 
 - **12.b)** If non-coordinator nodes which are involved in writes are also down then it can delay the application of transactions.
 
-- **12.c)** It is best to monitor the cluster closely and replace failed nodes as quickly as possible.
+- **12.c)** It is best to monitor the cluster closely and replace failed AWS nodes (failure of AWS EC2 Instances can occur and should be planned for) as quickly as possible.
 
 - **12.d)** This product chooses consistency over availability for write transactions in the presence of failures.
 
