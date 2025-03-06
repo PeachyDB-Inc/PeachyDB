@@ -165,7 +165,7 @@ Select works under similar constraints as Apache Cassandra
 ## 6. Database Transactions (read-only and read-write)
 Transactions can be issued with a single query (Insert,Delete,Update or Select) or a batch of queries. Batch of write queries must contain only write queries (no Selects) and Batch of reads must contain only Selects.
 - **6.a)** Batch of writes
-  - **6.a.1)** Can contain a sequence of insert, delete, update queries (no selects).
+  - **6.a.1)** Can contain a sequence of only insert, delete, update queries.
 
   - **6.a.2)** **Important**: If one of the writes in the batch fails to apply, it will be skipped and the user will be informed that it was skipped, however, the rest of the batch will be applied. This is not ideal. However, this is a first step that is likely to meet several use cases.
 
@@ -173,7 +173,7 @@ Transactions can be issued with a single query (Insert,Delete,Update or Select) 
 
   - **6.a.4)** At the moment, range deletes or range updates are not allowed in a batch of writes, in other words, a delete/update query which is part of a batch of writes must specify all the primary key members in the Where clause to match a single object.
 
-  - **6.a.5)** The user can specify range DELETE/UPDATE as a separate write txn (NOT as part of a write Batch). The functionality is available in a limited form as described above.
+  - **6.a.5)** The user can specify range DELETE/UPDATE as a separate write txn (NOT as part of a write batch). The functionality is available in a limited form as described above.
 
   - **6.a.6)** With the exception of unappliable writes being skipped, the batch will be applied as a whole (in other words readers will not see partial results of a batch).
 
