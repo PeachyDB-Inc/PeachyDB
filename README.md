@@ -199,7 +199,7 @@ If a DELETE/UPDATE/INSERT hits a timeout, it could be due to one of the followin
 
 - **6.h.4)** Repeatedly submitting the same DELETE/UPDATE query without addressing point 6.h.3) can make the database unavailable for subsequent writes and very significantly degrade performance of reads.
 
-If a SELECT query times out, the causes could again be one of 6.h.1), 6.h.2), 6.h.3). The only difference is that SELECT queries are never journaled. The suggestions to address any issues are similar to the ones in 6.h.1), 6.h.2), 6.h.3).
+If a SELECT query times out, the causes could again be one of 6.h.1), 6.h.2), 6.h.3). The only difference is that SELECT queries are never journaled and in general are lighter weight compared to writes. The suggestions to address any issues are similar to the ones in 6.h.1), 6.h.2), 6.h.3).
 
 ## 7. Partition Key
 As with Apache Cassandra, choose the partition key very carefully.
