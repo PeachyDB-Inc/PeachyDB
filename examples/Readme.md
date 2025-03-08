@@ -7,7 +7,7 @@ ___IMPORTANT:___ Each AWS EC2 client Instance must run only a single client driv
 ## Test 1
 `peachdb_client_cqldb.cpp`
 
-This is a stress test for the client and is meant to stress test various scenarios.
+This is a stress test for the client for testing various scenarios.
 
 If you run the command `peachdb_client_cqldb` you get the following Usage:
 
