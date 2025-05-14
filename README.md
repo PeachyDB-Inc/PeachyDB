@@ -544,7 +544,7 @@ Why do we charge a software license fee at all?
 
 - **27.b)** We have a simplified consistency model to significantly reduce application development costs.
 
-- **27.c)** We have virtually zero administration costs.
+- **27.c)** We have virtually zero administration costs (excepting initial setup effort and minimal monitoring and cluster size adjustment actions).
   
 - **27.d)** We avoid the severe pathologies related to data modifications that alternatives have and we also allow more options on write transactions.
   
