@@ -47,17 +47,18 @@ The following files contain the schema for the client drivers:
   client_thread:288 obtained peer-client-thread leader info\
   client_thread:390 request timeout leader:2 while waiting on updating for query request\
   client_thread:390 success\
+  ...\
 just wait a little and the test will get going.
 
-5. Replace the schema files indicated above with your own schema.
-6. Replace the client driver function with your own queries.
-7. Try to utilize separate client driver threads/fibers for read queries and write queries. Since the write throughput is based upon completely different critera to read throughput, this will make it easier to investigate performance issues. Recompile the client with the script provided.
-8. Note that each invocation of `peachdb_client_cqldb` will reload the schema and return errors in reloading the schema since all the schema records are present.
+6. Replace the schema files indicated above with your own schema.
+7. Replace the client driver function with your own queries.
+8. Try to utilize separate client driver threads/fibers for read queries and write queries. Since the write throughput is based upon completely different critera to read throughput, this will make it easier to investigate performance issues. Recompile the client with the script provided.
+9. Note that each invocation of `peachdb_client_cqldb` will reload the schema and return errors in reloading the schema since all the schema records are present.
    This should not hinder the test. You can also alter the test to not reload the schema for each run.
-9. The numerous important aspects of running the test are described in the test, it would be better to carefully read through the comments to understand the issues.
-10. The test utilizes fibers by default, this requires understanding of co-operative scheduling. If your code requires blocking calls which you are unable to turn into co-operative scheduling calls, utilizing fibers, the test can be run with threads instead. Although uilizing fiber friendly co-operative scheduling API (<a href="https://boost.org/doc/libs/1_85_0/libs/fiber/doc/html/index.html">boost c++ fibers </a>) is preferable as fibers perform better. Some API calls commonly utilized are boost::this_fiber::sleep_for() and boost::this_fiber::yield(), for voluntarily yielding the processor to allow other threads to execute. Other synchronization primitives may be needed for different usages, conditional waits etc. Examples of conditional waits are available and are rather straightforward. It would be much better to utilize fibers particularly when a lot of fibers are needed. Threads will become a bottleneck very quickly in such situations.
-11. To modify the number of driver fibers follow the suggestion in the test, but do so only with CPU usage data availability and if it is even making any difference. As done in the test, always print the number of threads/fibers running to ensure that your performance measurements are wrt the right number of threads. Due to error handling or limit issues threads/fibers may exit and you may not be aware of this unless you monitor the number of fibers/threads.
-12. Refer to <a href="https://github.com/akseg73/PeachyDB/tree/main?tab=readme-ov-file#23-deployment-strategy">Deployment Strategy</a> for subsequent steps.
+10. The numerous important aspects of running the test are described in the test, it would be better to carefully read through the comments to understand the issues.
+11. The test utilizes fibers by default, this requires understanding of co-operative scheduling. If your code requires blocking calls which you are unable to turn into co-operative scheduling calls, utilizing fibers, the test can be run with threads instead. Although uilizing fiber friendly co-operative scheduling API (<a href="https://boost.org/doc/libs/1_85_0/libs/fiber/doc/html/index.html">boost c++ fibers </a>) is preferable as fibers perform better. Some API calls commonly utilized are boost::this_fiber::sleep_for() and boost::this_fiber::yield(), for voluntarily yielding the processor to allow other threads to execute. Other synchronization primitives may be needed for different usages, conditional waits etc. Examples of conditional waits are available and are rather straightforward. It would be much better to utilize fibers particularly when a lot of fibers are needed. Threads will become a bottleneck very quickly in such situations.
+12. To modify the number of driver fibers follow the suggestion in the test, but do so only with CPU usage data availability and if it is even making any difference. As done in the test, always print the number of threads/fibers running to ensure that your performance measurements are wrt the right number of threads. Due to error handling or limit issues threads/fibers may exit and you may not be aware of this unless you monitor the number of fibers/threads.
+13. Refer to <a href="https://github.com/akseg73/PeachyDB/tree/main?tab=readme-ov-file#23-deployment-strategy">Deployment Strategy</a> for subsequent steps.
 
 ## Test 2
 `peachdb_client_udt.cpp`
