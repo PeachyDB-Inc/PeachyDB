@@ -558,7 +558,7 @@ Why do we charge a software license fee at all?
 
 ## 28. Support and License
 
-We have made every effort to ensure a product of extremely high quality but a few initial hiccups are inevitable.
+We have made every effort to ensure a product of extremely high quality but some initial hiccups are inevitable.
 
 - **28.a)** Customers with support contracts can open support issue with Tech support.
 
