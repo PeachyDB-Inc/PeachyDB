@@ -588,7 +588,7 @@ What about benchmarks?
 
 - **29.e)** Note points 5.f.5) and 23.h) above, among others, for performance improvement.
 
-- **29.f)** Our product also has limitations listed in the sections above. If your use case fits better with the alternatives, it would be better to stick with them. Different products may be optimized better for different situations.
+- **29.f)** Our product also has limitations listed in the sections above. If your use case fits better with the alternatives, it would be better to stick with them. Different products may be optimized better for different situations. Before critisizing this prduct please be compassionate to the fact that we are a very small team with limited resources. However, as we obtain more resouces, we expect to rapidly address majority of the issues and close the gap with the very best products.
 
 - **29.g)** Due to compatibility with Cassandra CQL you can easily migrate to other products if they fit your usage better.
 
