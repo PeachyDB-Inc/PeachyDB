@@ -590,7 +590,7 @@ What about benchmarks?
 
 - **29.f)** Our product also has limitations listed in the sections above. If your use case fits better with the alternatives, it would be better to stick with them. Different products may be optimized better for different situations.
 
-- **29.g)** Before criticizing/disparaging this product please be considerate of the fact that we are a very small team with very limited resources. However, as we obtain more resources, we expect to rapidly address majority of the issues and close the gap with the very best products. In the meantime any issues encountered should be recorded by creating Github issues.
+- **29.g)** Before criticizing/disparaging this product please be considerate of the fact that we are a very small team with very limited resources. However, as we obtain more resources, we expect to rapidly address majority of the issues and close the gap with the very best products. In the meantime any issues encountered should be recorded in Github issues.
 
 - **29.h)** Due to compatibility with Cassandra CQL you can easily migrate to other products if they fit your usage better.
 
