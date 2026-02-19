@@ -562,7 +562,7 @@ We have made every effort to ensure a product of extremely high quality but some
 
 - **28.a)** Customers with support contracts can open support issue with Tech support.
 
-- **28.b)** **Caution**: As indicated in our license, the product is provided as is and we are not responsible for any losses that may occur due to utilizing this product. We will not accept any form of litigation for any issues. To minimize your risk please test your use case thoroughly. You will likely find the product exceeds your expectations for the use cases it is designed for. Quality is of utmost importance to us and the product is very heavily stress tested over an elaborate period of time.
+- **28.b)** **Caution**: As indicated in our license, the product is provided as is and we are not responsible for any losses that may occur due to utilizing this product. We will not accept any form of litigation for any issues. To minimize your risk please test your use case thoroughly. You will likely find the product exceeds your expectations for the use cases it is designed for. Quality is of utmost importance to us and the product is very heavily stress tested over an elaborate period of time. It is important to carefully evaluate the limitations of this product, which have been described above as well as in the test provided, to avoid any surprises.
 
 - **28.c)** Currently the product is released only on Amazon AWS and is subject to all costs associated with AWS. We will formulate a separate license for allowing users to run product on their private resources later on.
 
