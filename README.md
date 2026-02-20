@@ -187,7 +187,7 @@ Transactions can be issued with a single query (Insert,Delete,Update or Select) 
 
 - **6.f)** Write transactions will respond to the client as soon as each statement in the batch has been applied on some node, however, it will not wait for it to be applied on all applicable nodes before responding to the client (Later bug fixes have altered this behavior a little bit; writes will wait for responses from all involved servers before responding to the client. Failure/restart of 1 member will be tolerated, in the sense that the throughput will be reduced and writes will still be applied. However if multiple members fail/restart simultaneously then writes will stall untill the members are brought back online. We can later on improve upon this restriction. With a typical replication factor of 3, this is probably the safer approach. It also means that a slower node will slow down write transactions involving that node). Writes are applied only if a quorum of coordinators have received the write txn and marked it as to-be-applied. Thus as soon as the write returns if you submit an MVCC read-only query to obtain the modified data right away you might get older data. That is just the nature of MVCC, it is not guaranteed to return the most recently committed data. This is true of all MVCC implementations.
 
-- **6.g)** Transaction functionality is rather limited, this is because this is a first implementation. We will make it better later.
+- **6.g)** Transaction functionality is rather limited, this is because this is a first implementation. We will improve upon it when we get a chance.
 
 #### 6.h) Query Timeout
 If a DELETE/UPDATE/INSERT hits a timeout, it could be due to one of the following reasons:
