@@ -586,7 +586,7 @@ What about benchmarks?
 
 - **29.d)** Subsequent releases will be more focused on performance improvements. Like other products, we have a very long list of improvements that should make us significantly better in every metric compared to our current release and competitive with the best products available out there in performance, latency, scalability and features. Some initial missed corner cases are inevitable, we will work with you on those.
 
-- **29.e)** Note points 5.f.5) and 23.h) above, among others, for performance improvement.
+- **29.e)** Note points 5.f.5) and 23.h) above, among others, for performance improvement. Note 6.f) for explanation of performance implications of distributed transaction. A slow node can slow down writes involving that node. In effect it will reduce throughput of the cluster. Database Server restart can have such an effect.
 
 - **29.f)** Our product also has limitations listed in the sections above. If your use case fits better with the alternatives, it would be better to stick with them. Different products may be optimized better for different situations.
 
