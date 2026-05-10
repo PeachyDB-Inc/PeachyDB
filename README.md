@@ -261,7 +261,7 @@ When replacing a failed node, always utilize the node SUBSTITUTE command from th
 
 ## 16. Removing Nodes from the Cluster
 **DO NOT** remove a node from the cluster (especially for replacement and even otherwise). This is because removing nodes can sometimes lead to poorer data distribution. This is a known issue, which we will resolve. For now, know that it will work, but it should be avoided as much as possible. Do it only if you know that you are going to shrink your database. This should be an uncommon situation. Removing a node from a cluster causes data to be
-transfered to existing nodes in the cluster and will severely degrade their performance. This is a known issue we have not gotten around to fixing it. So its preferable to remove nodes during times of low activity.
+transfered to remaining nodes in the cluster and will severely degrade their performance. This is a known issue we have not gotten around to fixing it. So its preferable to remove nodes during times of low activity.
 
 ## 17. Datacenter Clusters
 Currently, a single datacenter cluster is supported. However, the user can utilize AWS CloudFormation templates to replicate to multiple independent datacenters which are managed independently. The multiple datacenters in Apache Cassandra are also considered independent. In other words multi-datacenter replication is currently determined by the user, the product does not provide an option for this.
