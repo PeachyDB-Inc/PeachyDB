@@ -90,7 +90,7 @@ MV and SI behave similarly to Apache Cassandra with some differences noted below
 
 - **3.l)** Secondary index on user-defined-type is not supported because there is no natural sort order of user-defined-type. This is the same as Apache Cassandra.
 - **3.m)** If MV has the same partition key as the base table, please carefully evaluate if you need MV at all, would SI suffice?
-- **3.n)** As with all databases utilizing SI, MV has a performance penalty on writes in exchange for improvements in read performance. The more SI,MV on a single table the more the performance impact on writes.
+- **3.n)** As with all databases utilizing SI, MV has a performance penalty on writes in exchange for improvements in read performance. The more SI,MV on a single table the more the performance loss on writes.
 
 ## 4. INSERT, DELETE, UPDATE
 Insert, Delete, Update work differently from Apache Cassandra.
