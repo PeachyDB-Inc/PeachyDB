@@ -34,8 +34,8 @@ different use cases. Below is an explanation of these:
 Most of the code has detailed comments to explain every aspect of the test.
 
 The following files contain the schema for the client drivers:
-- `./peachdb_testfiles/peach.schema.full` - includes a lot of MVs and SIs (much slower), for test functionality
-- `./peachdb_testfiles/peach.schema` - does not utilize SIs or MVs.
+- `./peachdb_testfiles/peach.schema.full` - includes a lot of MVs and SIs (much slower), for stress testing functionality
+- `./peachdb_testfiles/peach.schema` - does not utilize SIs or MVs, performs much better.
 - `./peachdb_testfiles/peach.security`
 
 ### Deployment Approach:
