@@ -162,7 +162,7 @@ Select works under similar constraints as Apache Cassandra
 
   - **5.f.5)** **Important**: MV as well as Secondary indexes take up a lot of space, utilize them after carefully examining your queries. The more secondary indexes and MVs you create on a single table the more it will degrade the write performance. (This is true of all other databases as well).
 
-- **5.g)** Since the leader has a lot of responsibilities, if enough vCPUs are not available (such as on weaker AWS Ec2 instances), its read load will be reduced so that member servers execute majority of the read queries.
+- **5.g)** Since the leader has a lot of responsibilities, if enough vCPUs are not available (such as on weaker AWS Ec2 instances), its read load will be reduced so that member servers execute somewhat greater share of the read queries.
   
 - **5.h)** By default the read queries are distributed amongst the nodes in the cluster based upon load balancing. They do not favor the node which is further ahead in applying the writes. This allows uniform resouce utilization in the cluster and provides better overall throughput. A separate flag has
 been provided to specify that you prefer results from the node that is further ahead. However this has some implications, it will make the load distribution imbalanced (and very poor resource utilization for reader threads on some nodes) and it is still not guaranteed that the latest commits will be visible. This is due to the nature of snapshot isolation which is explained below.
