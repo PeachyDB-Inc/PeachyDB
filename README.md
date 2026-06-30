@@ -164,6 +164,9 @@ Select works under similar constraints as Apache Cassandra
 
 - **5.g)** Since the leader has a lot of responsibilities, if enough vCPUs are not available (such as on weaker AWS Ec2 instances), its read load will be reduced so that member servers execute majority of the read queries.
   
+- **5.h)** By default the read queries are distributed amongst the nodes in the cluster based upon load balancing. They do not favor the node which is further ahead in applying the writes. This allows uniform resouce utilization in the cluster and provides better overall throughput. A separate flag has
+been provided to specify that you prefer results from the node that is further ahead. However these has some implications, it will make the load distribution imbalanced additionally it is still not guaranteed that upto-the-last-minute commits will be visible. This is due to the nature of snapshot isolation which is explained below.
+  
 ## 6. Database Transactions (read-only and read-write)
 Transactions can be issued with a single query (Insert,Delete,Update or Select) or a batch of queries. Batch of write queries must contain only write queries (no Selects) and Batch of reads must contain only Selects.
 - **6.a)** Batch of writes
