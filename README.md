@@ -47,7 +47,7 @@ PeachyDB is a horizontally scalable database intended to overcome the shortcomin
 - Statics
 - Counters
 - Json input/output
-- Any java related things: user-defined-functions, user-defined-aggregates, triggers.
+- Any java related features: user-defined-functions, user-defined-aggregates, triggers.
 - Backup/Restore is not yet implemented.
 - Any data encryption features are not available.
 
