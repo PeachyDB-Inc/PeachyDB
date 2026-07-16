@@ -52,7 +52,7 @@ just wait a little and the test will get going.
 
 6. Replace the schema files indicated above with your own schema.
 7. Replace the client driver function with your own queries.
-8. Try to utilize separate client driver threads/fibers for read queries and write queries. Since the write throughput is based upon completely different critera to read throughput, this will make it easier to investigate performance issues. Write performance is expected to be lower than reads due to distributed consensus (raft) requirements. The test peachdb_client_separate.cpp provided above is a rough example of how to accomplish this.
+8. Try to utilize separate client driver threads/fibers for read queries and write queries. Since the write throughput is based upon completely different critera to read throughput, this will make it easier to investigate performance issues. Write performance is expected to be lower than reads due to distributed consensus (raft) requirements. The test `peachdb_client_separate.cpp` provided above is a rough example of how to accomplish this.
 9. Note that each invocation of `peachdb_client_cqldb` will reload the schema and return errors in reloading the schema since all the schema records are present.
    This should not hinder the test. You can also alter the test to not reload the schema for each run.
 10. The numerous important aspects of running the test are described in the test, it would be better to carefully read through the comments to understand the issues.
