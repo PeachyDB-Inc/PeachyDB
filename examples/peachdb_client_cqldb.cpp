@@ -16,6 +16,14 @@
 #include "cqldb/cqldb_api.h"
 #include "fast_rand.h"
 
+//extern int g_num_flips_performed;
+
+
+//packet stats can incur futex() system calls, so it might have a minor
+//performance impact. In measurements it doesn't show up much at all,
+//option is provided to disable it or enable it as needed.
+//#define __PRINT_PACKET_STATS
+
 //some globals related to the client info
 static const char* cluster_configuration_path = "/dbstore/mymisc/cluster_config.info";
 static const char* self_configuration_path = "/dbstore/mymisc/my_config.info";
@@ -28,7 +36,7 @@ typedef struct __client_thrd_arg__ {
   int fiber_id;
   int test_range_queries; /* optional to alter test behavior */
 
-  int larger_records;     /* for AWS testing we will utilizes larger records to 
+  int larger_records;     /* for AWS testing we will utilize larger records to
                            * reach the database cache limits faster, for testing
                            * out of cache load performance more effectively */
 } client_thrd_arg_t;
@@ -82,7 +90,7 @@ __check_resubmit_write(cqldb::statement& stat)
     //occasionally it can happen that the leader incurs a timeout
     //and the client automatically submits the request to a different
     //co-ordinator which may not have the answer yet.
-    stat.set_timeout(5);
+    stat.set_timeout(120);
 
     //IMPORTANT:: This API returns status of immediately prior request
     //submitted to the cluster. Invoking this on a request older than the
@@ -245,6 +253,7 @@ custom_driver_thread(client_thrd_arg_t arg)
   const char* debug_tag = (fiber_id==-1)? g_thread_tag: g_fiber_tag;
   int debug_id = (fiber_id==-1)? thrd_id: fiber_id;
   uint64_t packets_sent, packets_recvd, packets_dropped;
+  unsigned int thread_seed;
 
   const char* insert_qstr = "INSERT INTO testkeyspace.test_table1 (field1, field2, field3, field4, field5, field6, description, listfield, setfield, mapfield) VALUES (:fld1, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
   const char* update_qstr = "UPDATE testkeyspace.test_table1 SET listfield = ['todo', 'when'] + listfield WHERE field1 =? AND field2 =?";
@@ -253,6 +262,8 @@ custom_driver_thread(client_thrd_arg_t arg)
 
   //per thread initialization
   fast_randseed();
+  //utilize thread_seed for rand_r() instead of rand() to avoid futex calls
+  thread_seed = time(NULL) ^ (debug_id << 16);
   __START_FIBER;
 
   try {
@@ -273,6 +284,11 @@ custom_driver_thread(client_thrd_arg_t arg)
     //queries or cases where the query is not known in advance. Preparing the
     //queries once has been shown to improve CPU utilization by 25% or more.
     //
+    //BUG:: In some corner cases it is possible that preparing statements
+    //outside the outermost for() loop below as well as within the loop can
+    //lead to memory leak (ie preparing in both the places together, preparing
+    //in only one spot is not an issue). If you observe this please report it.
+    //
     cqldb::statement insert_stat = cqldb_session << insert_qstr;
 
     //cqldb::statement update_stat = cqldb_session << update_qstr;
@@ -282,7 +298,7 @@ custom_driver_thread(client_thrd_arg_t arg)
     cout << debug_tag << debug_id << " kicking off data load" << endl;
     for(i=0; i<100000000; i++) {
 
-      len = 7 + rand()%10;
+      len = 7 + rand_r(&thread_seed)%10;
       /* utilize client_id, fiber_id to ensure different clients,threads generate
        * non-over lapping keys */
       f1[0] = (client_id & 0x0f) + 'a';
@@ -294,7 +310,7 @@ custom_driver_thread(client_thrd_arg_t arg)
       f1[2] = (f1[2] & 0x0f) + 'a';
 
       for(j=4; j<len; j++) {
-        f1[j] = 'a' + rand()%26;
+        f1[j] = 'a' + rand_r(&thread_seed)%26;
       }
       f1[j] = '\0';
 
@@ -303,9 +319,9 @@ custom_driver_thread(client_thrd_arg_t arg)
         sprintf(&lookup[i][0], "%s", f1);
       }
 
-      len = 7 + rand()%10;
+      len = 7 + rand_r(&thread_seed)%10;
       for(j=0; j<len; j++) {
-        f2[j] = 'a' + rand()%26;
+        f2[j] = 'a' + rand_r(&thread_seed)%26;
       }
       f2[j] = '\0';
       snprintf(f4, sizeof(f4), "10:01:34");
@@ -322,7 +338,7 @@ custom_driver_thread(client_thrd_arg_t arg)
         }
       }
       for(j=0; j<len; j++) {
-        //caution::synthetic field may be artifically more compressible, if 
+        //caution::synthetic field may be artificially more compressible, if
         //compression is utilized.
         descfield[j] = 'a' + (uint8_t)(fast_rand32() & 0xf);
       }
@@ -343,9 +359,9 @@ custom_driver_thread(client_thrd_arg_t arg)
       insert_stat.bind("fld1", f1);
       insert_stat << f2 << (i+100) << f4 << ip1 <<ip2;
       insert_stat << descfield << listf << setf << mapf;
-      //optionally set timeout between (0, 255) seconds, increase if client
+      //optionally set timeout between (120, 255) seconds, increase if client
       //runs into query timeout, to avoid resubmitting the query
-      insert_stat.set_timeout(4);
+      insert_stat.set_timeout(120);
       do {
         //each iteration in this loop resubmits request to cluster
         insert_stat.exec();
@@ -366,9 +382,9 @@ custom_driver_thread(client_thrd_arg_t arg)
         insert_stat.bind(listf);
         insert_stat.bind(setf);
         insert_stat.bind(mapf);
-        //optionally set timeout between (0, 255) seconds, increase if client
+        //optionally set timeout between (120, 255) seconds, increase if client
         //runs into query timeout, to avoid resubmitting the query
-        insert_stat.set_timeout(4);
+        insert_stat.set_timeout(120);
         do {
           //each iteration in this loop resubmits request to cluster
           insert_stat.exec();
@@ -387,9 +403,9 @@ custom_driver_thread(client_thrd_arg_t arg)
       //perform udpate query
       update_stat.bind(f1);
       update_stat.bind(f2);
-      //optionally set timeout between (0, 255) seconds, increase if client
+      //optionally set timeout between (120, 255) seconds, increase if client
       //runs into query timeout, to avoid resubmitting the query
-      update_stat.set_timeout(4);
+      update_stat.set_timeout(120);
       do {
         //each iteration in this loop resubmits request to cluster
         update_stat.exec();
@@ -399,9 +415,9 @@ custom_driver_thread(client_thrd_arg_t arg)
       //perform delete query
       delete_stat.bind(f1);
       delete_stat.bind(f2);
-      //optionally set timeout between (0, 255) seconds, increase if client
+      //optionally set timeout between (120, 255) seconds, increase if client
       //runs into query timeout, to avoid resubmitting the query
-      delete_stat.set_timeout(4);
+      delete_stat.set_timeout(120);
       do {
         //each iteration in this loop resubmits request to cluster
         delete_stat.exec();
@@ -413,9 +429,18 @@ custom_driver_thread(client_thrd_arg_t arg)
         cout << debug_tag << debug_id << " iter data load: " << i
              << " num-fibers:" << __NUM_FIBERS;
 
-        cqldb_session.packet_stats(&packets_sent, &packets_recvd, &packets_dropped);
-        cout << " sent:" << packets_sent << " recvd:" << packets_recvd
-             << " dropped:" << packets_dropped << endl;
+#ifdef __PRINT_PACKET_STATS
+        if(i%4096==0) {
+          //print out packets stats even less often, as they can incurr system calls
+          cqldb_session.packet_stats(&packets_sent, &packets_recvd, &packets_dropped);
+          cout << " sent:" << packets_sent << " recvd:" << packets_recvd
+               << " dropped:" << packets_dropped << endl;
+        } else {
+          cout << endl;
+        }
+#else
+        cout << endl;
+#endif
       }
     }
     cout << debug_tag << debug_id << " done with data load" << endl;
@@ -428,9 +453,9 @@ custom_driver_thread(client_thrd_arg_t arg)
       select_stat.bind(lookup[i]);
       cout << debug_tag << debug_id << " about to execute " << select_qstr << endl;
 
-      //optionally set timeout between (0, 255) seconds, increase if client
+      //optionally set timeout between (120, 255) seconds, increase if client
       //runs into query timeout, to avoid resubmitting the query
-      select_stat.set_timeout(4);
+      select_stat.set_timeout(120);
       do {
         //each iteration in this loop resubmits request to cluster
         select_stat.exec();
@@ -513,9 +538,9 @@ custom_driver_thread(client_thrd_arg_t arg)
        returned is not determinate
        const char* select_qstr = "SELECT * FROM testkeyspace.test_table1 WHERE field1 = ?";
        cqldb::statement select_stat = cqldb_session << select_qstr;
-       //optionally set timeout between (0, 255) seconds, increase if client
+       //optionally set timeout between (120, 255) seconds, increase if client
        //runs into query timeout, to avoid resubmitting the query
-       select_stat.set_timeout(4);
+       select_stat.set_timeout(120);
        do {
         //each iteration in this loop resubmits request to cluster
          select_stat.exec();
@@ -607,6 +632,7 @@ custom_update_driver_thread(client_thrd_arg_t arg)
   const char* debug_tag = (fiber_id==-1)? g_thread_tag: g_fiber_tag;
   int debug_id = (fiber_id==-1)? thrd_id: fiber_id;
   uint64_t packets_sent, packets_recvd, packets_dropped;
+  unsigned int thread_seed;
 
   const char* insert_qstr = "INSERT INTO testkeyspace.test_table1 (field1, field2, field3, field4, field5, field6, description, listfield, setfield, mapfield) VALUES (:fld1, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
   const char* even_update_qstr = "UPDATE testkeyspace.test_table1 SET listfield = ['todo', 'when'] WHERE field1 =? AND field2 =?";
@@ -615,6 +641,8 @@ custom_update_driver_thread(client_thrd_arg_t arg)
 
   //per thread initialization
   fast_randseed();
+  //utilize thread_seed for rand_r() instead of rand() to avoid futex calls
+  thread_seed = time(NULL) ^ (debug_id << 16);
   __START_FIBER;
 
   try {
@@ -635,6 +663,11 @@ custom_update_driver_thread(client_thrd_arg_t arg)
     //queries or cases where the query is not known in advance. Preparing the
     //queries once has been shown to improve CPU utilization by 25% or more.
     //
+    //BUG:: In some corner cases it is possible that preparing statements
+    //outside the outermost for() loop below as well as within the loop can
+    //lead to memory leak (ie preparing in both the places together, preparing
+    //in only one spot is not an issue). If you observe this please report it.
+    //
     cqldb::statement insert_stat = cqldb_session << insert_qstr;
     cqldb::statement odd_update_stat = cqldb_session << odd_update_qstr;
     cqldb::statement even_update_stat = cqldb_session << even_update_qstr;
@@ -644,7 +677,7 @@ custom_update_driver_thread(client_thrd_arg_t arg)
 #define  TOTAL_LOAD_UPDTEST  100000000
 
     for(i=0; i<TOTAL_LOAD_UPDTEST; i++) {
-      len = 7 + rand()%10;
+      len = 7 + rand_r(&thread_seed)%10;
       /* utilize client_id, fiber_id to ensure different clients,threads generate
        * non-over lapping keys */
 
@@ -657,13 +690,13 @@ custom_update_driver_thread(client_thrd_arg_t arg)
       f1[2] = (f1[2] & 0x0f) + 'a';
 
       for(j=4; j<len; j++) {
-        f1[j] = 'a' + rand()%26;
+        f1[j] = 'a' + rand_r(&thread_seed)%26;
       }
       f1[j] = '\0';
 
-      len = 5 + rand()%10;
+      len = 5 + rand_r(&thread_seed)%10;
       for(j=0; j<len; j++) {
-        f2[j] = 'a' + rand()%26;
+        f2[j] = 'a' + rand_r(&thread_seed)%26;
       }
       f2[j] = '\0';
 
@@ -690,7 +723,7 @@ custom_update_driver_thread(client_thrd_arg_t arg)
         }
       }
       for(j=0; j<len; j++) {
-        //caution::synthetic field may be artifically more compressible, if 
+        //caution::synthetic field may be artificially more compressible, if
         //compression is utilized.
         descfield[j] = 'a' + (uint8_t)(fast_rand32() & 0xf);
       }
@@ -710,9 +743,9 @@ custom_update_driver_thread(client_thrd_arg_t arg)
       insert_stat << f2 << (i+100) << f4 << ip1 <<ip2;
       insert_stat << descfield << listf << setf << mapf;
 
-      //optionally set timeout between (0, 255) seconds, increase if client
+      //optionally set timeout between (120, 255) seconds, increase if client
       //runs into query timeout, to avoid resubmitting the query
-      insert_stat.set_timeout(4);
+      insert_stat.set_timeout(120);
       do {
         //each iteration in this loop resubmits request to cluster
         insert_stat.exec();
@@ -723,9 +756,18 @@ custom_update_driver_thread(client_thrd_arg_t arg)
       if(i%1000==0) {
         cout << debug_tag << debug_id << " iter update driver: " << i 
              << " num-fibers:" << __NUM_FIBERS;
-        cqldb_session.packet_stats(&packets_sent, &packets_recvd, &packets_dropped);
-        cout << " sent:" << packets_sent << " recvd:" << packets_recvd
-             << " dropped:" << packets_dropped << endl;
+#ifdef __PRINT_PACKET_STATS
+        if(i%4096==0) {
+          //print out packets stats even less often, as they can incurr system calls
+          cqldb_session.packet_stats(&packets_sent, &packets_recvd, &packets_dropped);
+          cout << " sent:" << packets_sent << " recvd:" << packets_recvd
+               << " dropped:" << packets_dropped << endl;
+        } else {
+          cout << endl;
+        }
+#else
+        cout << endl;
+#endif
       }
     }
     cout << debug_tag << debug_id << " done with data load" << endl;
@@ -738,9 +780,9 @@ custom_update_driver_thread(client_thrd_arg_t arg)
         cqldb::statement* updstat = ((j&0x01) ? &odd_update_stat: &even_update_stat);
         updstat->bind(update_f1[j]);
         updstat->bind(update_f2[j]);
-        //optionally set timeout between (0, 255) seconds, increase if client
+        //optionally set timeout between (120, 255) seconds, increase if client
         //runs into query timeout, to avoid resubmitting the query
-        updstat->set_timeout(4);
+        updstat->set_timeout(120);
         do {
           //each iteration in this loop resubmits request to cluster
           updstat->exec();
@@ -778,6 +820,7 @@ custom_large_requests_driver_thread(client_thrd_arg_t arg)
   const char* debug_tag = (fiber_id==-1)? g_thread_tag: g_fiber_tag;
   int debug_id = (fiber_id==-1)? thrd_id: fiber_id;
   uint64_t packets_sent, packets_recvd, packets_dropped;
+  unsigned int thread_seed;
 
 #define __MAXLEN  (20)
 #define __NUM_SEL (20)
@@ -801,6 +844,8 @@ custom_large_requests_driver_thread(client_thrd_arg_t arg)
 
   //per thread initialization
   fast_randseed();
+  //utilize thread_seed for rand_r() instead of rand() to avoid futex calls
+  thread_seed = time(NULL) ^ (debug_id << 16);
   __START_FIBER;
 
   try {
@@ -821,7 +866,7 @@ custom_large_requests_driver_thread(client_thrd_arg_t arg)
     int count;
 
     for(i=0; i<100000000; i++) {
-      write_batchsz = rand() % 40;
+      write_batchsz = rand_r(&thread_seed) % 40;
       count=0;
 
       if(write_batchsz < 10) {
@@ -837,14 +882,20 @@ custom_large_requests_driver_thread(client_thrd_arg_t arg)
       //dynamically constructed queries have to be created within the loop because
       //we can not prepare them in advance outside the loop and hence we incurr the
       //cost of repeatedly preparing the queries.
+      //
+      //BUG:: In some corner cases it is possible that preparing statements
+      //outside the outermost for() loop below as well as within the loop can
+      //lead to memory leak (ie preparing in both the places together, preparing
+      //in only one spot is not an issue). If you observe this please report it.
+      //
       cqldb::statement stat = cqldb_session << write_batchstr;
 
-      //optionally set timeout between (0, 255) seconds, increase if client
+      //optionally set timeout between (120, 255) seconds, increase if client
       //runs into query timeout, to avoid resubmitting the query
-      stat.set_timeout(5); //example of how to set timeout on query
+      stat.set_timeout(120); //example of how to set timeout on query
 
       while(count--) {
-        len = 7 + rand()%10;
+        len = 7 + rand_r(&thread_seed)%10;
         /* utilize client_id, fiber_id to ensure different clients,threads generate
          * non-over lapping keys */
         f1[0] = (client_id & 0x0f) + 'a';
@@ -856,13 +907,13 @@ custom_large_requests_driver_thread(client_thrd_arg_t arg)
         f1[2] = (f1[2] & 0x0f) + 'a';
 
         for(j=4; j<len; j++) {
-          f1[j] = 'a' + rand()%26;
+          f1[j] = 'a' + rand_r(&thread_seed)%26;
         }
         f1[j] = '\0';
 
-        len = 5 + rand()%10;
+        len = 5 + rand_r(&thread_seed)%10;
         for(j=0; j<len; j++) {
-          f2[j] = 'a' + rand()%26;
+          f2[j] = 'a' + rand_r(&thread_seed)%26;
         }
         f2[j] = '\0';
 
@@ -880,7 +931,7 @@ custom_large_requests_driver_thread(client_thrd_arg_t arg)
           }
         }
         for(j=0; j<len; j++) {
-          //caution::synthetic field may be artifically more compressible, if 
+          //caution::synthetic field may be artificially more compressible, if
           //compression is utilized.
           descfield[j] = 'a' + (uint8_t)(fast_rand32() & 0xf);
         }
@@ -901,7 +952,7 @@ custom_large_requests_driver_thread(client_thrd_arg_t arg)
         stat << descfield << listf << setf << mapf;
 
         /* randomly decide if the value is going to be looked up */
-        if(rand()%2==0 && select_count < __NUM_SEL) {
+        if(rand_r(&thread_seed)%2==0 && select_count < __NUM_SEL) {
           select_f1[select_count][0] = '\0';
           sprintf(&select_f1[select_count][0], "%s", f1);
           select_f2[select_count][0] = '\0';
@@ -911,9 +962,9 @@ custom_large_requests_driver_thread(client_thrd_arg_t arg)
         i++;
       }
 
-      //optionally set timeout between (0, 255) seconds, increase if client
+      //optionally set timeout between (120, 255) seconds, increase if client
       //runs into query timeout, to avoid resubmitting the query
-      stat.set_timeout(4);
+      stat.set_timeout(120);
       do {
         //each iteration in this loop resubmits request to cluster
         stat.exec();
@@ -968,9 +1019,18 @@ custom_large_requests_driver_thread(client_thrd_arg_t arg)
          * so a single batch of 4 selects is counted as 4 queries */
         cout << debug_tag << debug_id << " mixed RW/RD iter#:" << i
              << " select:" << sel_stats << " num-fibers:" << __NUM_FIBERS;
-        cqldb_session.packet_stats(&packets_sent, &packets_recvd, &packets_dropped);
-        cout << " sent:" << packets_sent << " recvd:" << packets_recvd
-             << " dropped:" << packets_dropped << endl;
+#ifdef __PRINT_PACKET_STATS
+        if(i%4096==0) {
+          //print out packets stats even less often, as they can incurr system calls
+          cqldb_session.packet_stats(&packets_sent, &packets_recvd, &packets_dropped);
+          cout << " sent:" << packets_sent << " recvd:" << packets_recvd
+               << " dropped:" << packets_dropped << endl;
+        } else {
+          cout << endl;
+        }
+#else
+        cout << endl;
+#endif
       }
 
       if(select_count==__NUM_SEL) {
@@ -987,11 +1047,11 @@ custom_large_requests_driver_thread(client_thrd_arg_t arg)
         while(select_drain_count < select_count) {
           //choose a batch size and utilize it to lookup values
           utilize_limit=0;
-          if(rand()%5==0) {
+          if(rand_r(&thread_seed)%5==0) {
             utilize_limit=1;
           }
 
-          sel_batchsz = rand() % (select_count - select_drain_count);
+          sel_batchsz = rand_r(&thread_seed) % (select_count - select_drain_count);
           if(sel_batchsz==0) {
             sel_batchsz = 10;
           } else if(sel_batchsz > 16) {
@@ -1026,9 +1086,9 @@ custom_large_requests_driver_thread(client_thrd_arg_t arg)
               stat << select_f2[select_drain_count+j];
             }
           }
-          //optionally set timeout between (0, 255) seconds, increase if client
+          //optionally set timeout between (120, 255) seconds, increase if client
           //runs into query timeout, to avoid resubmitting the query
-          stat.set_timeout(10); //example of how to set timeout on query
+          stat.set_timeout(120); //example of how to set timeout on query
           do {
             //each iteration in this loop resubmits request to cluster
             stat.exec();
@@ -1119,6 +1179,7 @@ custom_mixload_driver_thread(client_thrd_arg_t arg)
   const char* debug_tag = (fiber_id==-1)? g_thread_tag: g_fiber_tag;
   int debug_id = (fiber_id==-1)? thrd_id: fiber_id;
   uint64_t packets_sent, packets_recvd, packets_dropped;
+  unsigned int thread_seed;
 
 #define __MAXLEN  (20)
 #define __NUM_UPD (12)
@@ -1174,6 +1235,8 @@ custom_mixload_driver_thread(client_thrd_arg_t arg)
 
   //per thread initialization
   fast_randseed();
+  //utilize thread_seed for rand_r() instead of rand() to avoid futex calls
+  thread_seed = time(NULL) ^ (debug_id << 16);
   __START_FIBER;
 
   try {
@@ -1190,8 +1253,14 @@ custom_mixload_driver_thread(client_thrd_arg_t arg)
     cout << debug_tag << debug_id << " kicking off query load" << endl;
 
     if(test_range_quries) {
-      /* for range select/delete test we will record the distinct f1 values we are creating
-       * in a table and utilize these for range selects */
+      /* IMPORTANT:: when utilizing a very large number of fibers, this
+       * malloc() can give the appearence of a memory leak, in such cases
+       * you can reduce the number of fibers that invoke this feature (by
+       * adding code offcourse), or comment this feature out
+       */
+
+      /* for range select/delete test we will record the distinct f1 values we
+       * are creating in a table and utilize these for range selects */
       range_test_f1 = (char**)malloc(DISTINCT_VALS_THRESH * sizeof(char*));
       range_test_f2 = (char**)malloc(DISTINCT_VALS_THRESH * sizeof(char*));
     }
@@ -1200,7 +1269,7 @@ custom_mixload_driver_thread(client_thrd_arg_t arg)
       if(test_range_quries && i>= DISTINCT_VALS_THRESH) {
         /* once we have created enough distinct values for f1 we will
          * simply pick a previous value */
-        chosen_index = (rand()) % DISTINCT_VALS_THRESH;
+        chosen_index = (rand_r(&thread_seed)) % DISTINCT_VALS_THRESH;
         len = 0;
         while(range_test_f1[chosen_index][len++]!=0) { continue; }
         memmove(f1, range_test_f1[chosen_index], len);
@@ -1208,7 +1277,7 @@ custom_mixload_driver_thread(client_thrd_arg_t arg)
         while(range_test_f2[chosen_index][len++]!=0) { continue; }
         memmove(f2, range_test_f2[chosen_index], len);
       } else {
-        len = 7 + rand()%10;
+        len = 7 + rand_r(&thread_seed)%10;
         /* utilize client_id, fiber_id to ensure different clients,threads generate
          * non-over lapping keys */
         f1[0] = (client_id & 0x0f) + 'a';
@@ -1220,20 +1289,30 @@ custom_mixload_driver_thread(client_thrd_arg_t arg)
         f1[2] = (f1[2] & 0x0f) + 'a';
 
         for(j=4; j<len; j++) {
-          f1[j] = 'a' + rand()%26;
+          f1[j] = 'a' + rand_r(&thread_seed)%26;
         }
         f1[j] = '\0';
 
         if(test_range_quries) {
+          /* IMPORTANT:: when utilizing a very large number of fibers, this
+           * malloc() can give the appearence of a memory leak, in such cases
+           * you can reduce the number of fibers that invoke this feature (by
+           * adding code offcourse), or comment this feature out
+           */
           range_test_f1[i] = (char*)malloc((len+1));
           memmove(range_test_f1[i], f1, len+1);
         }
-        len = 5 + rand()%10;
+        len = 5 + rand_r(&thread_seed)%10;
         for(j=0; j<len; j++) {
-          f2[j] = 'a' + rand()%26;
+          f2[j] = 'a' + rand_r(&thread_seed)%26;
         }
         f2[j] = '\0';
         if(test_range_quries) {
+          /* IMPORTANT:: when utilizing a very large number of fibers, this
+           * malloc() can give the appearence of a memory leak, in such cases
+           * you can reduce the number of fibers that invoke this feature (by
+           * adding code offcourse), or comment this feature out
+           */
           range_test_f2[i] = (char*)malloc((len+1));
           memmove(range_test_f2[i], f2, len+1);
         }
@@ -1249,7 +1328,7 @@ custom_mixload_driver_thread(client_thrd_arg_t arg)
 
       int write_batchsz, tmp_deldrain, tmp_upddrain;
       if(delete_count==__NUM_DEL && update_count==__NUM_UPD) {
-        write_batchsz = rand() % (delete_count - delete_drain_count + update_count - update_drain_count);
+        write_batchsz = rand_r(&thread_seed) % (delete_count - delete_drain_count + update_count - update_drain_count);
         if(write_batchsz==0) {
           write_batchsz = 1;
         } else if(write_batchsz>5) {
@@ -1286,6 +1365,12 @@ custom_mixload_driver_thread(client_thrd_arg_t arg)
       //dynamically constructed queries have to be created within the loop because
       //we can not prepare them in advance outside the loop and hence we incurr the
       //cost of repeatedly preparing the queries.
+      //
+      //BUG:: In some corner cases it is possible that preparing statements
+      //outside the outermost for() loop below as well as within the loop can
+      //lead to memory leak (ie preparing in both the places together, preparing
+      //in only one spot is not an issue). If you observe this please report it.
+      //
       cqldb::statement stat = cqldb_session << write_batchstr;
 
       len = 1;
@@ -1296,7 +1381,7 @@ custom_mixload_driver_thread(client_thrd_arg_t arg)
         }
       }
       for(j=0; j<len; j++) {
-        //caution::synthetic field may be artifically more compressible, if 
+        //caution::synthetic field may be artificially more compressible, if
         //compression is utilized.
         descfield[j] = 'a' + (uint8_t)(fast_rand32() & 0xf);
       }
@@ -1336,9 +1421,9 @@ custom_mixload_driver_thread(client_thrd_arg_t arg)
         }
       }
 
-      //optionally set timeout between (0, 255) seconds, increase if client
+      //optionally set timeout between (120, 255) seconds, increase if client
       //runs into query timeout, to avoid resubmitting the query
-      stat.set_timeout(4);
+      stat.set_timeout(120);
       do {
         //each iteration in this loop resubmits request to cluster
         stat.exec();
@@ -1394,13 +1479,23 @@ custom_mixload_driver_thread(client_thrd_arg_t arg)
              << " delete:" << del_stats << " range-select:" << range_selects
              << " range-del:" << range_deletes 
              << " NUM-FIBERS:" << __NUM_FIBERS;
-        cqldb_session.packet_stats(&packets_sent, &packets_recvd, &packets_dropped);
-        cout << " sent:" << packets_sent << " recvd:" << packets_recvd
-             << " dropped:" << packets_dropped << endl;
+             //<< " num-flips:" << g_num_flips_performed;
+#ifdef __PRINT_PACKET_STATS
+        if(i%4096==0) {
+          //print out packets stats even less often, as they can incurr system calls
+          cqldb_session.packet_stats(&packets_sent, &packets_recvd, &packets_dropped);
+          cout << " sent:" << packets_sent << " recvd:" << packets_recvd
+               << " dropped:" << packets_dropped << endl;
+        } else {
+          cout << endl;
+        }
+#else
+        cout << endl;
+#endif
       }
       /* randomly decide if the value is going to be looked up */
       looked_up = 0;
-      if(rand()%2==0 && select_count < __NUM_SEL) {
+      if(rand_r(&thread_seed)%2==0 && select_count < __NUM_SEL) {
         select_f1[select_count][0] = '\0';
         sprintf(&select_f1[select_count][0], "%s", f1);
         select_f2[select_count][0] = '\0';
@@ -1411,7 +1506,7 @@ custom_mixload_driver_thread(client_thrd_arg_t arg)
       /* if the value is not going to be looked up then randomly decide if it
        * is going to be later updated/deleted */
       if(!looked_up) {
-        switch(rand()%8) {
+        switch(rand_r(&thread_seed)%8) {
          case 1:
            if(update_count < __NUM_UPD) {
              update_f1[update_count][0] = '\0';
@@ -1447,7 +1542,7 @@ custom_mixload_driver_thread(client_thrd_arg_t arg)
         int nxt, sel_batchsz;
         while(select_drain_count < select_count) {
           //choose a batch size and utilize it to lookup values
-          sel_batchsz = rand() % (select_count - select_drain_count);
+          sel_batchsz = rand_r(&thread_seed) % (select_count - select_drain_count);
           if(sel_batchsz==0) {
             sel_batchsz = 1;
           } else if(sel_batchsz>5) {
@@ -1466,6 +1561,12 @@ custom_mixload_driver_thread(client_thrd_arg_t arg)
           //dynamically constructed queries have to be created within the loop because
           //we can not prepare them in advance outside the loop and hence we incurr the
           //cost of repeatedly preparing the queries.
+          //
+          //BUG:: In some corner cases it is possible that preparing statements
+          //outside the outermost for() loop below as well as within the loop can
+          //lead to memory leak (ie preparing in both the places together, preparing
+          //in only one spot is not an issue). If you observe this please report it.
+          //
           cqldb::statement stat = cqldb_session << batchstr;
 
           //bind the select param using positional bind operator '<<'
@@ -1475,9 +1576,9 @@ custom_mixload_driver_thread(client_thrd_arg_t arg)
             stat << select_f1[select_drain_count+j];
             stat << select_f2[select_drain_count+j];
           }
-          //optionally set timeout between (0, 255) seconds, increase if client
+          //optionally set timeout between (120, 255) seconds, increase if client
           //runs into query timeout, to avoid resubmitting the query
-          stat.set_timeout(4);
+          stat.set_timeout(120);
           do {
             //each iteration in this loop resubmits request to cluster
             stat.exec();
@@ -1551,9 +1652,9 @@ custom_mixload_driver_thread(client_thrd_arg_t arg)
           stat << select_f1[j];
           stat << select_f2[j];
 
-          //optionally set timeout between (0, 255) seconds, increase if client
+          //optionally set timeout between (120, 255) seconds, increase if client
           //runs into query timeout, to avoid resubmitting the query
-          stat.set_timeout(4);
+          stat.set_timeout(120);
           do {
             //each iteration in this loop resubmits request to cluster
             stat.exec();
@@ -1611,17 +1712,23 @@ custom_mixload_driver_thread(client_thrd_arg_t arg)
           //dynamically constructed queries have to be created within the loop because
           //we can not prepare them in advance outside the loop and hence we incurr the
           //cost of repeatedly preparing the queries.
+          //
+          //BUG:: In some corner cases it is possible that preparing statements
+          //outside the outermost for() loop below as well as within the loop can
+          //lead to memory leak (ie preparing in both the places together, preparing
+          //in only one spot is not an issue). If you observe this please report it.
+          //
           cqldb::statement stat = cqldb_session << select_range_qstr;
 
-          chosen_index = (rand()) % DISTINCT_VALS_THRESH;
+          chosen_index = (rand_r(&thread_seed)) % DISTINCT_VALS_THRESH;
           len = 0;
           while(range_test_f1[chosen_index][len++]!=0) { continue; }
           memmove(f1, range_test_f1[chosen_index], len);
           stat << f1;
           //optionally set a timeout of 10 seconds on the statement, this may be
           //needed for queries that may be taking longer to execute. comment it
-          //out if its not needed. timeout has to be between (0, 255)
-          stat.set_timeout(10);
+          //out if its not needed. timeout has to be between (120, 255)
+          stat.set_timeout(120);
           do {
             //each iteration in this loop resubmits request to cluster
             stat.exec();
@@ -1656,9 +1763,15 @@ custom_mixload_driver_thread(client_thrd_arg_t arg)
           //dynamically constructed queries have to be created within the loop because
           //we can not prepare them in advance outside the loop and hence we incurr the
           //cost of repeatedly preparing the queries.
+          //
+          //BUG:: In some corner cases it is possible that preparing statements
+          //outside the outermost for() loop below as well as within the loop can
+          //lead to memory leak (ie preparing in both the places together, preparing
+          //in only one spot is not an issue). If you observe this please report it.
+          //
           cqldb::statement stat = cqldb_session << delete_range_qstr;
 
-          chosen_index = (rand()) % DISTINCT_VALS_THRESH;
+          chosen_index = (rand_r(&thread_seed)) % DISTINCT_VALS_THRESH;
           len = 0;
           while(range_test_f1[chosen_index][len++]!=0) { continue; }
           memmove(f1, range_test_f1[chosen_index], len);
@@ -1669,8 +1782,8 @@ custom_mixload_driver_thread(client_thrd_arg_t arg)
           stat << f2;
           //optionally set a timeout of 10 seconds on the statement, this may be
           //needed for queries that may be taking longer to execute. comment it
-          //out if its not needed. timeout has to be between (0, 255)
-          stat.set_timeout(10);
+          //out if its not needed. timeout has to be between (120, 255)
+          stat.set_timeout(120);
           do {
             //each iteration in this loop resubmits request to cluster
             stat.exec();
@@ -1737,6 +1850,7 @@ peachtest_driver_thread(client_thrd_arg_t arg)
   const char* debug_tag = (fiber_id==-1)? g_thread_tag: g_fiber_tag;
   int debug_id = (fiber_id==-1)? thrd_id: fiber_id;
   uint64_t packets_sent, packets_recvd, packets_dropped;
+  unsigned int thread_seed;
 
   //remember the field1 value for the first few records
 #define __FIRST_FEW 5
@@ -1755,6 +1869,8 @@ peachtest_driver_thread(client_thrd_arg_t arg)
 
   //per thread initialization
   fast_randseed();
+  //utilize thread_seed for rand_r() instead of rand() to avoid futex calls
+  thread_seed = time(NULL) ^ (debug_id << 16);
   __START_FIBER;
 
   try {
@@ -1776,7 +1892,7 @@ peachtest_driver_thread(client_thrd_arg_t arg)
       } else {
         tmp_f1 = f1;
       }
-      len = 7 + rand()%10;
+      len = 7 + rand_r(&thread_seed)%10;
       /* utilize client_id, fiber_id to ensure different clients,threads generate
        * non-over lapping keys */
       tmp_f1[0] = (client_id & 0x0f) + 'a';
@@ -1788,15 +1904,15 @@ peachtest_driver_thread(client_thrd_arg_t arg)
       tmp_f1[2] = (tmp_f1[2] & 0x0f) + 'a';
 
       for(j=4; j<len; j++) {
-        tmp_f1[j] = 'a' + rand()%26;
+        tmp_f1[j] = 'a' + rand_r(&thread_seed)%26;
       }
       tmp_f1[j] = '\0';
       cqldb::statement stat;
       stat = cqldb_session << qstr;
       stat.bind("field1_param", tmp_f1);
-      //optionally set timeout between (0, 255) seconds, increase if client
+      //optionally set timeout between (120, 255) seconds, increase if client
       //runs into query timeout, to avoid resubmitting the query
-      stat.set_timeout(4);
+      stat.set_timeout(120);
       do {
         //each iteration in this loop resubmits request to cluster
         stat.exec();
@@ -1829,9 +1945,18 @@ peachtest_driver_thread(client_thrd_arg_t arg)
       if(i%1000==0) {
         cout << debug_tag << debug_id << " iter # for peachdb_testfile writes/selects: "
              << i << " NUM-FIBERS:" << __NUM_FIBERS;
-        cqldb_session.packet_stats(&packets_sent, &packets_recvd, &packets_dropped);
-        cout << " sent:" << packets_sent << " recvd:" << packets_recvd
-             << " dropped:" << packets_dropped << endl;
+#ifdef __PRINT_PACKET_STATS
+        if(i%4096==0) {
+          //print out packets stats even less often, as they can incurr system calls
+          cqldb_session.packet_stats(&packets_sent, &packets_recvd, &packets_dropped);
+          cout << " sent:" << packets_sent << " recvd:" << packets_recvd
+               << " dropped:" << packets_dropped << endl;
+        } else {
+          cout << endl;
+        }
+#else
+        cout << endl;
+#endif
       }
 
       //statement is created in a try catch block so that when the block
@@ -1877,18 +2002,18 @@ peachtest_driver_thread(client_thrd_arg_t arg)
         stat.bind("field1_param2", data_f1[1]);
         stat.bind("field1_param3", data_f1[2]);
         if(readonly) {
-          //optionally set timeout between (0, 255) seconds, increase if client
+          //optionally set timeout between (120, 255) seconds, increase if client
           //runs into query timeout, to avoid resubmitting the query
-          stat.set_timeout(4);
+          stat.set_timeout(120);
           do {
             //each iteration in this loop resubmits request to cluster
             stat.exec();
             //should we add a tiny usleep() before resubmitting request?
           } while(!stat.got_response());
         } else {
-          //optionally set timeout between (0, 255) seconds, increase if client
+          //optionally set timeout between (120, 255) seconds, increase if client
           //runs into query timeout, to avoid resubmitting the query
-          stat.set_timeout(4);
+          stat.set_timeout(120);
           do {
             //each iteration in this loop resubmits request to cluster
             stat.exec();
@@ -2137,10 +2262,12 @@ main(int argc, const char *argv[])
    * not make any blocking calls in the fibers and you have to explicitly invoke
    * boost::this_fiber::wait_for() or boost::this_fiber::yield() instead of blocking
    * calls to ensure that other fibers get a chance to execute. If you make blocking
-   * i/o calls in fibers you will hang the thread running that fiber. If you do not
-   * want to deal with co-operative scheduling then you can provide --no-fibers to
-   * this test and then it will utilize only threads, in which you can make blocking
-   * calls.
+   * i/o calls in fibers you will hang the thread running that fiber. For eg do not
+   * utilize system calls in fibers else all fibers running on that OS thread will
+   * be delayed till completion of the system call. If you do not want to deal
+   * with co-operative scheduling then you can provide --no-fibers to this test
+   * and then it will utilize only threads, in which you can make blocking calls.
+   * Fibers are the preferable approach.
    */
 
   if(argc!=2 && argc!=3) {
