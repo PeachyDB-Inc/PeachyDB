@@ -250,7 +250,7 @@ At the moment the product relies on k-safety. This implies that as long as more 
 
 - **12.d)** This product chooses consistency over availability for write transactions in the presence of failures.
 
-- **12.e)** During a failover to elect a new leader, pending write transactions that have been committed to the journal but not yet applied will still be applied. However, the client that originated the query will only receive a timeout and will reconnect to a different leader. In this situation, if the client resubmits the same write, then depending on the situation, the client will receive errors.
+- **12.e)** During a failover to elect a new leader, pending write transactions that have been committed to the journal but not yet applied will still be applied. However, the client that originated the query will only receive a timeout and will reconnect to a different leader. In this situation, if the client resubmits the same write, then depending on the situation, the client will receive errors. Tests provided explain how to handle such a situation.
 
 - **12.f)** As indicated below, utilize AWS partition placement groups to mitigate correlated failures of multiple AWS instances.
 
