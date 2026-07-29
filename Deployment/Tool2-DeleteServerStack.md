@@ -14,7 +14,7 @@ Prerequisites:
  - Create a VPC, Subnet to utilize for instances
  - In AWS Console enable all traffic WITHIN the Subnet, VPC
 ALL servers and clients of a cluster must utilize the same Subnet and VPC
-Have you met the pre-requisites? [y/n]: y
+Have you met the pre-requisites? [y/n]: `y`
 
 PeachyDB Server Utilities (1-3):
  1. Create - create a Stack to run a PeachyDB cluster
@@ -30,12 +30,12 @@ Client Utilities (4-8):
  9 - Syntax <command#> - syntax for any commands (1 to 8) listed above
  q  - Quit - exit this tool
 
-Enter Choice [1-9, q]:2
+Enter Choice [1-9, q]:`2`
 
 
 Delete Stack Arguments: <stack-name>
 
-Enter Server Stack name: peachydb-teststack
+Enter Server Stack name: `peachydb-teststack`
 
  WARNING:: Deleting the stack will delete all of the data, the operation can not be undone
 Do you want to proceed (y/n)? y
