@@ -463,7 +463,7 @@ Below are known Bugs and Issues, we are not going to keep this list updated, but
 - **24.27)** Please take note of point 3.f.2) above about Materialized Views.
 - **24.28)** Please read point 22) above for another limitation.
 - **24.29)** Sometimes error responses from query execution can be vague. This needs improvement.
-- **24.30)** For larger instances like i3.8xlarge, i3.16xlarge, etc., please allow a few minutes for the server stack to initialize the large shared memory segments. Locking (mlock) large shared memory segments can take a long time.
+- **24.30)** For larger instances like i3.8xlarge, i3.16xlarge, etc., please allow a few minutes for the server stack to initialize the large shared memory segments. Locking (mlock system call) large shared memory segments can take a long time.
 - **24.31)** Please note point 19) above and do NOT interfere with server Ec2 Instances.
 - **24.32)** If the parameters you provided failed to satisfy the CFT (Cloud Formation Template), you can check the templates `peachydb_template.json` and others in the AWS console.
 - **24.33)** Range-selects, range-deletes, range-updates should be used sparingly as they will degrade performance depending on how much data is impacted. Similarly, each secondary index, MV added to a table will degrade the performance of writes proportionately.
