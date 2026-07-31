@@ -1,7 +1,7 @@
 # PeachyDB
 
 ![Logo](/LogoPeachyDB.png)
-<p align="center">
+<p>
   <img src="https://github.com/akseg73/PeachyDB/blob/main/LogoPeachyDB.png" width="150" alt="Centered Logo">
 </p>
 
