@@ -16,7 +16,7 @@ Prerequisites:
  - Create a VPC, Subnet to utilize for instances
  - In AWS Console enable all traffic WITHIN the Subnet, VPC
 ALL servers and clients of a cluster must utilize the same Subnet and VPC
-Have you met the pre-requisites? [y/n]: y
+Have you met the pre-requisites? [y/n]: <mark>y</mark>
 
 PeachyDB Server Utilities (1-3):
  1. Create - create a Stack to run a PeachyDB cluster
