@@ -1,6 +1,6 @@
  
 # PeachyDB
-<p>  <img src="https://github.com/akseg73/PeachyDB/blob/main/LogoPeachyDB.png" width="120" alt="Centered Logo"></p>
+<p>  <img src="https://github.com/akseg73/PeachyDB/blob/main/LogoPeachyDB.png" width="100" alt="Centered Logo"></p>
 
 PeachyDB is a horizontally scalable database intended to overcome the shortcomings of Apache Cassandra. We are mostly compatible with CQL, differences are noted below. This note contains various issues that a customer should be aware of when utilizing this product. All the commands and examples to run a cluster and drive it with a client are provided here. Reading this document is a pre-requisite to understanding the product.
 
