@@ -512,9 +512,7 @@ Below are known Bugs and Issues, we are not going to keep this list updated, but
 
 - **24.61)** Occasionally, a cluster configuration change appears to be stuck, and AWS does add/remove/substitute the node, but the node refuses to come online or join the cluster. This can happen if some aspect of AWS infrastructure did not get set up in a timely manner. If "ps -elf |grep -i server" on the new node shows database server not running, errors in `/var/log/peachy.errors` can be correlated with `setup_cluster_config.py`. Repair can involve running a repair script.
 
-- **24.62)** We have measured and confirmed with AWS an issue regarding ephemeral SSD performance attached to i3/i3en instances. The performance of I/O on the ephemeral storage can vary a lot depending on the other processes running in other instances associated with the same physical resources. This has been addressed to some extent in our layer.
-
-- **24.63)** Complete the currently submitted operation on an AWS stack before submitting another one; otherwise, the behavior can be unpredictable. Any commands issued via the tools provided should not be prematurely terminated with Ctrl-C unless you know what you are doing.
+- **24.62)** Complete the currently submitted operation on an AWS stack before submitting another one; otherwise, the behavior can be unpredictable. Any commands issued via the tools provided should not be prematurely terminated with Ctrl-C unless you know what you are doing.
 
 ## 25. Limits
 As with all Databases we have size limits on numerous elements of the database. Some are listed below, its possible that we may have missed some important ones, if you notice any please let us know.
