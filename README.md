@@ -315,15 +315,15 @@ The steps to create/delete/modify/describe server/client clusters are documented
 ## 22. Backup, Restore
 We do not have backup/restore at the moment. The Cluster has a built-in replication factor, which has some fault tolerance. Utilizing AWS Partition Placement Groups can reduce the probability of correlated hardware failures. If there are multiple concurrent hardware failures, it can lead to data loss if all copies of a partition are lost due to the failures. In production clusters, utilizing Partition placement Groups is a requirement for this reason. However, note that utilizing Partition Placement Groups does not reduce the probability of correlated failures to zero. AWS also indicates that Partition Placement algorithms are "best effort" and depend upon the availability of instances in the partitions to keep the EC2 instances balanced across partitions. Thus, it is still possible to have correlated failures, although the probability of this happening should be reduced by some degree. It is possible that in some cases it reduces odds of correlated failures very significantly so that in practice data loss does not occur.
 
-22.a) Also note that utilizing Partition Placement Groups is likely to degrade the performance of the servers to some degree, due to the fact that the servers are no longer as closely physically located.
+**22.a)** Also note that utilizing Partition Placement Groups is likely to degrade the performance of the servers to some degree, due to the fact that the servers are no longer as closely physically located.
 
-22.b) Backup/Restore can also be useful in situations of accidental deletion of data by the user. For accidental user deletion of data, we do not have any built-in mechanism to prevent/revert it. This can be mitigated via customer's application-level strategies.
+**22.b)** Backup/Restore can also be useful in situations of accidental deletion of data by the user. For accidental user deletion of data, we do not have any built-in mechanism to prevent/revert it. This can be mitigated via customer's application-level strategies.
 
-22.c) AWS provides utilities to backup AWS instances, however, we have not yet investigated them and even if some functionality exists then we may still have to provide some tools to make it work with our product.
+**22.c)** AWS provides utilities to backup AWS instances, however, we have not yet investigated them and even if some functionality exists then we may still have to provide some tools to make it work with our product.
 
-22.d) There are several third-party products that can be utilized for Backup/Restore. We have not investigated those, and there is a chance that we may have to provide some tools to make them work with our product.
+**22.d)** There are several third-party products that can be utilized for Backup/Restore. We have not investigated those, and there is a chance that we may have to provide some tools to make them work with our product.
 
-22.e) **NOTE:** It's virtually certain that eventually one or more AWS instances will incur hardware failures and they will have to be replaced. Depending upon your usage, you have to determine carefully which approaches (if any) you want to utilize to mitigate a scenario where enough number of concurrent failures lead to data loss. Currently, such approaches would have to be determined at a layer outside our product.
+**22.e) NOTE:** It's virtually certain that eventually one or more AWS instances will incur hardware failures and they will have to be replaced. Depending upon your usage, you have to determine carefully which approaches (if any) you want to utilize to mitigate a scenario where enough number of concurrent failures lead to data loss. Currently, such approaches would have to be determined at a layer outside our product.
 
 We have to provide backup and restore tools as soon as we can.
 
