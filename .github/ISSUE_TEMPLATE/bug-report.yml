@@ -7,6 +7,16 @@ body:
     attributes:
       value: |
         Thanks for taking the time to fill out this bug report!
+  - type: dropdown
+    id: version
+    attributes:
+      label: Product Version
+      description: Which Product Version are you using?
+      multiple: false
+      options:
+        - 1.0.0
+    validations:
+      required: true
   - type: textarea
     id: clear-description
     attributes:
