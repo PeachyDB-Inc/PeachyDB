@@ -34,7 +34,7 @@ body:
       placeholder: |
         1. Start Servers '...'
         2. Kickoff Client '....'
-        3. Note rror at '....'
+        3. Note error at '....'
     validations:
       required: true   
   - type: checkboxes
