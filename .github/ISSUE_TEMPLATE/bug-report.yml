@@ -10,7 +10,7 @@ body:
   - type: textarea
     id: clear-description
     attributes:
-      label: What happened?
+      label: What is the issue?
       description: Also tell us what you expected to happen.
       placeholder: Provide a clear and concise description of the bug.
     validations:
