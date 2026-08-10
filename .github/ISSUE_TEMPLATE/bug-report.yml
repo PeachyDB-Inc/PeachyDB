@@ -35,7 +35,6 @@ body:
         1. Start Servers '...'
         2. Kickoff Client '....'
         3. Note rror at '....'
-      value: "1. "
     validations:
       required: true   
   - type: checkboxes
