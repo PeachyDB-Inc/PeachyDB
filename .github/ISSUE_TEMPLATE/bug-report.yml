@@ -14,6 +14,7 @@ body:
       description: Which Product Version are you using?
       multiple: false
       options:
+        - 0.0.0
         - 1.0.0
     validations:
       required: true
