@@ -257,7 +257,7 @@ At the moment the product relies on k-safety. This implies that as long as more 
 - **12.f)** As indicated below, utilize AWS partition placement groups to mitigate correlated failures of multiple AWS instances.
 
 ## 13. Cluster Size Limit
-The current cluster size limit is 64 nodes. Although we have not stress tested clusters near 64 nodes yet to determine exact performance characteristics. We will improve upon this later.
+The current cluster size limit is 64 nodes. Although we have not stress tested clusters anywhere near 64 nodes yet to determine exact performance characteristics. We will improve upon this later.
 
 ## 14. Adding Nodes to the Cluster
 When adding more nodes to the cluster, plan on adding at least 3 or 4 nodes (one by one, of course) to evenly spread out the data. However, you have to add the nodes one by one. You can check its rough status periodically and even cancel the ongoing operation if you change your mind, although the further along you are, the more work is needed to cancel the operation, and it is better to avoid canceling. Also, add nodes to a cluster only after it has sufficient data (i.e., nodes are all atleast 25% (the more the better) full to their maximum capacity, else the product may not be able to come up with a good data redistribution).
