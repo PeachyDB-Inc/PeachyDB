@@ -100,7 +100,7 @@ Insert, Delete, Update work differently from Apache Cassandra.
 
 - **4.b)** Unlike Apache Cassandra UPDATE is an UPDATE not an UPSERT. So if the underlying item doesn't exist UPDATE will fail.
 
-- **4.c)** UPDATE query can modify any columns other than the columns that form the partition key of the base table or columns that form the partition key of any MVs on the base table (this is less restrictive than Apache Cassandra which does not allow modifying any primary key column of the base table). However it is better to design the schema in a way that does not require update of primary key columns as that is slower, especially in presence of secondary indexes.
+- **4.c)** UPDATE query can modify any columns other than the columns that form the partition key of the base table or columns that form the partition key of any MVs on the base table (this is less restrictive than Apache Cassandra which does not allow modifying any primary key column of the base table). However it is better to design the schema in a way that does not require update of primary key columns as that can be slower, especially in presence of secondary indexes.
 
 - **4.d)** If DELETE/UPDATE is part of a write batch then DELETE/UPDATE must also specify all the primary key columns in the WHERE clause exactly. As a part of the write batch, DELETE can delete only one object at a time. UPDATE can update only one object at a time.
 
