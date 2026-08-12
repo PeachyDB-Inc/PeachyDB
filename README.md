@@ -139,6 +139,8 @@ Insert, Delete, Update work differently from Apache Cassandra.
 
 - **4.j)** A DATEMSK environment variable points to the DATEMSK file, which allows the following formats (%A, %T,%F, %FT%T). We will allow replacing this file later on.
 
+- **4.k)** As with other database products larger records (much larger than 1K) tend to perform worse in every metric compared to smaller records.
+
 ## 5. SELECT
 Select works under similar constraints as Apache Cassandra
 - **5.a)** SELECT query that has WHERE clause conditions restricting all the partition key constraints can perform better than others because they can be sent to specific nodes.
