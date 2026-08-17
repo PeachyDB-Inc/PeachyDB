@@ -137,7 +137,7 @@ Insert, Delete, Update work differently from Apache Cassandra.
 
 - **4.i)** Apache Cassandra will often times truncate timestamp value to milliseconds, we do the same.
 
-- **4.j)** A DATEMSK environment variable points to the DATEMSK file, which allows the following formats (%A, %T,%F, %FT%T). We will allow replacing this file later on.
+- **4.j)** A DATEMSK environment variable points to the DATEMSK file, which allows the following formats (%A, %T,%F, %FT%T).
 
 - **4.k)** As with other database products larger records (much larger than 1K) tend to perform worse in every metric compared to smaller records.
 
