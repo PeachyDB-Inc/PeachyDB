@@ -175,7 +175,7 @@ Transactions can be issued with a single query (Insert,Delete,Update or Select) 
 - **6.a)** Batch of writes
   - **6.a.1)** Can contain a sequence of only insert, delete, update queries.
 
-  - **6.a.2)** **Important**: If one of the writes in the batch fails to apply, it will be skipped and the user will be informed that it was skipped, however, the rest of the batch will be applied. This is not ideal. However, this is a first step that is likely to meet several use cases.
+  - **6.a.2)** **Important**: If one of the writes in the batch fails to apply due to key constraints, it will be skipped and the user will be informed that it was skipped, however, the rest of the batch will be applied. This is not ideal. However, this is a first step that is likely to meet several use cases.
 
   - **6.a.3)** At the moment, the write batch query string, including space for query parameters and all other encodings should not be more than 320KB in size.
 
