@@ -368,7 +368,7 @@ If you are able to drive enough stress into the system and it presents no signif
 
 **NOTE**: Database data compression can improve upon the disk utilization indicated above, we have not yet implemented it.
 
-- **23.e)** At the moment, each server cluster must have homogeneous instances. The instances in a cluster have to be of the same capacity or basically the same EC2 instance kind. We are aware of this limitation and we will improve upon this. This is just to keep things simple, and it is the case we have tested.
+- **23.e)** At the moment, each server cluster must have homogeneous instances. The instances in a server cluster have to be of the same AWS EC2 instance kind.
 - **23.f)** Please be careful about which instances you utilize because the region in which you create the cluster may have different availabilities of different instances. Thus, it will be better to be on top of your storage utilizations on the instances to make sure that you add additional nodes well before hitting the storage limit on any one node. Otherwise, you will stall your cluster.
 - **23.g)** Due to the replication factor of 3, at least 3 nodes have to be present in the cluster for the product to work. However, in that configuration, each node has identical data. It is best to choose an initial cluster size that is representative of how much data you plan to handle. This is because adding nodes to a running cluster can be time-consuming. It is also suggested to add at least 3 nodes (one by one) when adding nodes, as this will produce better-balanced clusters. Sometimes adding an additional node can take care of slight imbalances in the cluster.
 
