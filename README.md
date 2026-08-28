@@ -472,7 +472,7 @@ Below are known Bugs and Issues, we are not going to keep this list updated, but
 - **24.36)** At the moment, the leader responds to a client on a write query when 'enough' number of member nodes have applied the write to cover all the 'partition keys' involved.
 - **24.37)** Please try to avoid doing multiple large operations concurrently, such as altering cluster configuration by add/remove/substitute of nodes together with dropping a table, etc. Multiple resource-intensive operations can severely degrade performance.
 - **24.38)** Larger clusters are better handled by larger AWS instances since they have more vCPUs to handle more load.
-- **24.39)** Write queries have completely different latency behavior compared to read queries. It may be better to separate client threads that issue write queries from those that issue read queries.
+- **24.39)** Write queries have completely different latency behavior compared to read queries. It may be better to separate client threads that issue write queries from those that issue read queries. Example has been provided for this.
 - **24.40)** The number of client threads you can effectively utilize is also determined by whether your workload is primarily I/O bound or CPU bound.
 - **24.41)** The performance monitoring section details several aspects of client performance tuning according to known issues.
 - **24.42)** If your query performance has degraded, it is most likely due to some node not being online. One way to check this is to keep track of QPS, and if you see a significant degradation, check if the members are all online or if something else is going on with some node. Query timeouts can also happen when the leader node restarts, electing a new leader.
