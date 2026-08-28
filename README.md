@@ -366,7 +366,7 @@ If you are able to drive enough stress into the system and it presents no signif
 
   - **23.d.8)** When utilizing larger clusters, it might be better to utilize i3.4xlarge instances or larger AWS instances as they have more vCPUs available to handle more load.
 
-**NOTE**: We are currently working on database data compression, that should hopefully improve upon the disk utilization indicated above.
+**NOTE**: Database data compression can improve upon the disk utilization indicated above, we have not yet implemented it.
 
 - **23.e)** At the moment, each server cluster must have homogeneous instances. The instances in a cluster have to be of the same capacity or basically the same EC2 instance kind. We are aware of this limitation and we will improve upon this. This is just to keep things simple, and it is the case we have tested.
 - **23.f)** Please be careful about which instances you utilize because the region in which you create the cluster may have different availabilities of different instances. Thus, it will be better to be on top of your storage utilizations on the instances to make sure that you add additional nodes well before hitting the storage limit on any one node. Otherwise, you will stall your cluster.
