@@ -43,8 +43,7 @@
 <details>
   <summary>4. How do I obtain a support bundle?</summary>
   <br>
-  The <code>peachydb_status_tool</code> can be utilized for obtaining a support bundle:
-  <pre><code>peachydb_status_tool -support-bundle &lt;stack-name&gt; &lt;aws-instance-id&gt;</code></pre>
+  The <code>peachydb_status_tool</code> can be utilized for obtaining a support bundle. The <code>peachydb_status_tool</code> can be utilized to obtain liveness information of the servers in the server AWS CloudFormation Stack. This is explained in <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tools-MonitorCluster.md"> monitor servers </a>.
   <br><br>
 </details>
 
