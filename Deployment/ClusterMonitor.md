@@ -1,4 +1,4 @@
-## Monitor Server Cluster
+### Monitor Server Cluster
 It is recommended that you monitor the health of the server cluster utilizing <code>peachydb_status_tool</code>
 
 1. As explained in <a href="">monitor instance</a>, the monitoring instance is the instance from which AWS cloud formation stacks are created and deleted. This is the instance from which the monitoring commands will be issued.
