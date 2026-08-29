@@ -6,7 +6,7 @@ It is recommended that you monitor the health of the server cluster utilizing <c
   <br> <code> peachydb_status_tool -support-bundle stack-name aws-instance-id </code><br><br>
   The support bundle will also attempt to include any core files generated on the instance, this will significantly degrade the
    performance of the instance.
-   <br>
+   <br><br>
 3. To check liveness of nodes in the server cluster this is the command, it is recommended that liveness be sampled every 2 minutes.
    <code>peachydb_status_tool -status stack-name </code><br><br>
 4. To check space utilization on the members of the server cluster utilize the following command, it is recommended that space utilization
