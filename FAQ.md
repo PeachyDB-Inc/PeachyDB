@@ -5,14 +5,14 @@
   <br>
   Writes in this database are subject to the following constraints:<br>
   <ul>
-    <li>1.a) Each write will respond to the client only after all live servers which involve that write have responded to the leader node. Thus, a slow server node will slow down the writes that involve that server.</li><br>
-    <li>1.b) If a server has restarted/failed, then writes will be throttled significantly (as much as 70%) to allow the node to rejoin the cluster. Otherwise, so much write log will be accumulated that the server may not be able to catch up after restart. Thus, any failed node in the cluster should be brought back online as quickly as possible.</li><br>
-    <li>1.c) Writes are significantly faster for data that lies in the database cache. If the whole database fits in database cache writes will be much faster. If SSD i/o is involved for the data pages, writes will slow down by a significant amount.</li><br>
-    <li>1.d) Cluster Configuration change (node add/delete/substitute) is ongoing. During this change, we have to deal with long-running read transactions which accumulate MVCC versions; to mitigate this, we throttle the writes significantly.</li><br>
-    <li>1.e) After each Cluster Configuration change, vnode_gc will attempt to garbage collect vnodes from instances from which their ownership has been removed. This requires scan of the database and possibly a lot of writes to remove those data items. Thus immediately after the Cluster configuration change, the write performance will significantly degrade.</li><br>
-    <li>1.f) Adding/Dropping Secondary Indexes, Tables are also time consuming operations and will significantly degrade online write performance. It is best that such operations are undertaken at quiescent point, with low write activity.</li><br>
-    <li>1.g) Write performance is also impacted a little by utilizing Partition Placement groups. However, for production clusters, using Placement groups is required.</li><br>
-    <li>1.h) A small performance loss may also be incurred (if the database is small enough to fit in cache) due to requirements of the Raft consensus protocol.</li><br>
+    <li>**1.a)** Each write will respond to the client only after all live servers which involve that write have responded to the leader node. Thus, a slow server node will slow down the writes that involve that server.</li><br>
+    <li>**1.b)** If a server has restarted/failed, then writes will be throttled significantly (as much as 70%) to allow the node to rejoin the cluster. Otherwise, so much write log will be accumulated that the server may not be able to catch up after restart. Thus, any failed node in the cluster should be brought back online as quickly as possible.</li><br>
+    <li>**1.c)** Writes are significantly faster for data that lies in the database cache. If the whole database fits in database cache writes will be much faster. If SSD i/o is involved for the data pages, writes will slow down by a significant amount.</li><br>
+    <li>**1.d)** Cluster Configuration change (node add/delete/substitute) is ongoing. During this change, we have to deal with long-running read transactions which accumulate MVCC versions; to mitigate this, we throttle the writes significantly.</li><br>
+    <li>**1.e)** After each Cluster Configuration change, vnode_gc will attempt to garbage collect vnodes from instances from which their ownership has been removed. This requires scan of the database and possibly a lot of writes to remove those data items. Thus immediately after the Cluster configuration change, the write performance will significantly degrade.</li><br>
+    <li>**1.f)** Adding/Dropping Secondary Indexes, Tables are also time consuming operations and will significantly degrade online write performance. It is best that such operations are undertaken at quiescent point, with low write activity.</li><br>
+    <li>**1.g)** Write performance is also impacted a little by utilizing Partition Placement groups. However, for production clusters, using Placement groups is required.</li><br>
+    <li>**1.h)** A small performance loss may also be incurred (if the database is small enough to fit in cache) due to requirements of the Raft consensus protocol.</li><br>
   </ul>
 </details>
 
