@@ -143,3 +143,11 @@ Simply resubmitting a write that may already have been submitted is not the corr
   <br><br>
 </details>
 
+---
+
+<details>
+  <summary>12. What is the default timeout of queries?</summary>
+  <br>
+  We are setting a default timeout of 2 minutes, and this is the minimum timeout allowed because in the event of timeout we do not want to overwhelm the servers with continuous barrage of resubmissions of timedout requests.
+  <br><br>
+</details>
