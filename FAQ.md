@@ -5,7 +5,7 @@
   <br>
   Writes in this database are subject to the following constraints:
   <ul>
-    <li>1.a) Each write will respond to the client only after all live servers which involve that write have responded to the leader node. Thus, a server node will slow down the writes that involve that server.</li>
+    <li>1.a) Each write will respond to the client only after all live servers which involve that write have responded to the leader node. Thus, a slow server node will slow down the writes that involve that server.</li>
     <li>1.b) If a server has restarted/failed, then writes will be throttled significantly (as much as 70%) to allow the node to rejoin the cluster. Otherwise, so much write log will be accumulated that the server may not be able to catch up after restart. Thus, any failed node in the cluster should be brought back online as quickly as possible.</li>
     <li>1.c) Cluster Configuration change (node add/delete/substitute) is ongoing. During this change, we have to deal with long-running read transactions which accumulate MVCC versions; to mitigate this, we throttle the writes significantly.</li>
     <li>1.d) Write performance is also impacted a little by utilizing Partition Placement groups. However, for product clusters, using Placement groups is more or less required.</li>
