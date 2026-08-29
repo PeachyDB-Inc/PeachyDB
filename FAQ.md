@@ -9,7 +9,7 @@
     <li>1.b) If a server has restarted/failed, then writes will be throttled significantly (as much as 70%) to allow the node to rejoin the cluster. Otherwise, so much write log will be accumulated that the server may not be able to catch up after restart. Thus, any failed node in the cluster should be brought back online as quickly as possible.</li>
     <li>1.c) Cluster Configuration change (node add/delete/substitute) is ongoing. During this change, we have to deal with long-running read transactions which accumulate MVCC versions; to mitigate this, we throttle the writes significantly.</li>
     <li>1.d) After each Cluster Configuration change, vnode_gc will attempt to garbage collect vnodes from instances from which their ownership has been removed. This requires scan of the database and possibly a lot of writes to remove those data items. Thus immediately after the Cluster configuration change, the write performance will significantly degrade.</li>
-    <li>1.e) Write performance is also impacted a little by utilizing Partition Placement groups. However, for production clusters, using Placement groups is more or less required.</li>
+    <li>1.e) Write performance is also impacted a little by utilizing Partition Placement groups. However, for production clusters, using Placement groups is required.</li>
     <li>1.f) A small performance loss may also be incurred (if the database is small enough to fit in cache) due to requirements of the Raft consensus protocol.</li>
   </ul>
 </details>
