@@ -24,7 +24,7 @@
     <li>Navigate to the store directory: <code>cd /dbstore</code></li>
     <li>Check the message log: <code>tail -f mypeachdb/peachdb.messglog</code></li>
     <li>You can also look at <code>/var/log/peachy.errors</code>.</li>
-    <li>Occasionally, it has been found that the ports could not be bound to DPDK and you will see the <code>peachdb.messglog</code> indicating so. There is an open GitHub issue for this case #124.</li>
+    <li>Occasionally, it has been found that the ports could not be bound to DPDK and you will see the <code>peachdb.messglog</code> indicating so. There is an open GitHub issue #124 for this case.</li>
   </ol>
   If there is a definitive failure, then:
   <ul>
