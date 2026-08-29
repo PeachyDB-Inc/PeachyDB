@@ -14,6 +14,8 @@
   <br>  
 </details>
 
+---
+
 <details>
   <summary>2. The new node being added to the cluster appears to be hung, what should I do?</summary>
   <br>
