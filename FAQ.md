@@ -1,4 +1,4 @@
-# PeachDB Frequently Asked Questions (FAQ)
+## Frequently Asked Questions (FAQ)
 
 <details>
   <summary>1. Write performance tanked, what happened?</summary>
