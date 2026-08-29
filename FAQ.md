@@ -37,6 +37,7 @@
   <summary>3. An AWS EC2 server stack instance died, what should I do?</summary>
   <br>
   If the failure is at AWS and the instance cannot be revived, you have to substitute the instance. In the presence of multiple correlated failures, if all servers responsible for a vnode have failed, you will experience data loss.
+  <br>
 </details>
 
 <details>
