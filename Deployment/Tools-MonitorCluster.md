@@ -9,4 +9,4 @@ It is recommended that you monitor the health of the server cluster utilizing <c
    <code>peachydb_status_tool -status stack-name </code><br><br>
 5. To check space utilization on the members of the server cluster utilize the following command, it is recommended that space utilization
    be checked every few hours.
-   <code>peachydb_status_tool -utilization stack-name</code>
+   <br><code>peachydb_status_tool -utilization stack-name</code>
