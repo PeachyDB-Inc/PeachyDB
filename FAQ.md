@@ -129,3 +129,38 @@ This error should hopefully not occur outside of long-running read transactions.
 3. **Check the Server:** Examine `mypeachdb/perf.peachdb.messglog` to check CPU utilization for reads and writes. The servers may be either CPU or I/O bound.
 4. **Experiment:** Try increasing the number of client threads or spinning up an additional client node. If neither change improves performance, the servers are officially bottlenecked on either CPU or I/O.
 </details>
+
+### 8. Why does `mpstat` on the client show an uneven distribution of CPU utilization?
+<details>
+<summary><b>Click to expand answer</b></summary>
+
+Some of this is due to variances of system calls, and some is due to CPU core 0 being utilized by the OS. Therefore, the numerous cores are not uniformly available to the client.
+</details>
+
+---
+
+### 9. A Spot instance in AWS was terminated, what should I do?
+<details>
+<summary><b>Click to expand answer</b></summary>
+
+Spot instances for server AWS CloudFormation stacks are not recommended for production because they can be asynchronously terminated by AWS due to demand from other users. 
+
+If you are utilizing experimental clusters (proof of concept, etc.), it is probably best to delete the server and client stacks and try one of the following:
+* Look for weaker instance types.
+* Try a different AWS region.
+* Use **On-Demand** instances instead of Spot instances.
+
+It would be futile to try to substitute the terminated instance right away because AWS is likely running into capacity availability issues in that specific zone/region.
+</details>
+
+---
+
+### 10. Why can I not add a materialized view (MV) in the running product?
+<details>
+<summary><b>Click to expand answer</b></summary>
+
+We have not yet implemented that functionality. It requires setting up long-running transactions to transfer data between different nodes in the cluster. This functionality requires thorough stress testing and failure testing before release. 
+
+At the moment, it is better to finalize your schema and test it before deployment. While changes in schema are inevitable in a production system, we plan to make improvements in this area as soon as possible.
+</details>
+
