@@ -10,8 +10,9 @@
     <li>1.c) Writes are significantly faster for data that lies in the database cache. If the whole database fits in database cache writes will be much faster. If SSD i/o is involved for the data pages, writes will slow down by a significant amount.</li>
     <li>1.d) Cluster Configuration change (node add/delete/substitute) is ongoing. During this change, we have to deal with long-running read transactions which accumulate MVCC versions; to mitigate this, we throttle the writes significantly.</li>
     <li>1.e) After each Cluster Configuration change, vnode_gc will attempt to garbage collect vnodes from instances from which their ownership has been removed. This requires scan of the database and possibly a lot of writes to remove those data items. Thus immediately after the Cluster configuration change, the write performance will significantly degrade.</li>
-    <li>1.f) Write performance is also impacted a little by utilizing Partition Placement groups. However, for production clusters, using Placement groups is required.</li>
-    <li>1.g) A small performance loss may also be incurred (if the database is small enough to fit in cache) due to requirements of the Raft consensus protocol.</li>
+    <li>1.f) Adding/Dropping Secondary Indexes are also time consuming and will significantly degrade online write performance. It is best that such operations are undertaken at quiescent point.</li>
+    <li>1.g) Write performance is also impacted a little by utilizing Partition Placement groups. However, for production clusters, using Placement groups is required.</li>
+    <li>1.h) A small performance loss may also be incurred (if the database is small enough to fit in cache) due to requirements of the Raft consensus protocol.</li>
   </ul>
 </details>
 
