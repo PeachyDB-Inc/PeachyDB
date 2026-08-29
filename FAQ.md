@@ -5,7 +5,7 @@
   <br>
   Writes in this database are subject to the following constraints:<br>
   <ul>
-    <li>__1.a)__ Each write will respond to the client only after all live servers which involve that write have responded to the leader node. Thus, a slow server node will slow down the writes that involve that server.</li><br>
+    <li><b>1.a)</b> Each write will respond to the client only after all live servers which involve that write have responded to the leader node. Thus, a slow server node will slow down the writes that involve that server.</li><br>
     <li>**1.b)** If a server has restarted/failed, then writes will be throttled significantly (as much as 70%) to allow the node to rejoin the cluster. Otherwise, so much write log will be accumulated that the server may not be able to catch up after restart. Thus, any failed node in the cluster should be brought back online as quickly as possible.</li><br>
     <li>**1.c)** Writes are significantly faster for data that lies in the database cache. If the whole database fits in database cache writes will be much faster. If SSD i/o is involved for the data pages, writes will slow down by a significant amount.</li><br>
     <li>**1.d)** Cluster Configuration change (node add/delete/substitute) is ongoing. During this change, we have to deal with long-running read transactions which accumulate MVCC versions; to mitigate this, we throttle the writes significantly.</li><br>
