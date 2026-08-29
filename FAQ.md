@@ -157,7 +157,7 @@ Simply resubmitting a write that may already have been submitted is not the corr
 <details>
   <summary>13. I set up the server and client AWS CLoudformation Stacks and run the client but absolutely nothing happens, what is going on?</summary>
   <br>
-  This situation is often because all traffic within the subnet has not been enabled as explained in <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Step1--Prerequisites.md"> prerequisites</a>
+  This situation is often because network traffic within the subnet has not been enabled as explained in <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Step1--Prerequisites.md"> prerequisites</a>
   <br><br>
 </details>
 
