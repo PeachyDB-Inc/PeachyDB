@@ -36,4 +36,4 @@ Modifying an existing PeachyDB Server Stack requires its own unique command tool
 
 Once a Client stack has been created, the user can ssh into the Client EC2 Instances and perform 14) below to run Client driver.
 
-14. <a href="https://github.com/akseg73/PeachyDB/blob/main/ClientExamples.md" title="client examples"> Client Driver Examples</a> -- explains how to utilize clients to drive load onto servers. These examples are meant to be executed on the AWS EC2 Instances which are part of the Client Stack.
+14. <a href="https://github.com/PeachyDB-Inc/PeachyDB/tree/main/examples" title="client examples"> Client Driver Examples</a> -- explains how to utilize clients to drive load onto servers. These examples are meant to be executed on the AWS EC2 Instances which are part of the Client Stack.
