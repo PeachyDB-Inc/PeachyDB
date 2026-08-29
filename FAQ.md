@@ -87,7 +87,7 @@ peachydb_status_tool -utilization &lt;stack-name&gt;</code></pre>
   However, if CPU utilization is low, then the server is likely the bottleneck. You can look at <code>mypeachdb/perf.peachdb.messglog</code> to examine the CPU utilization for reads/writes. The servers may be either CPU or I/O bound. The stats have to be interpreted correctly. 
   <br><br>
   You can also experiment with either increasing the number of client threads or using an additional client. If neither makes a difference, then the servers are bottlenecked on either CPU or I/O.
-  <br>
+  <br><br>
 </details>
 
 <details>
