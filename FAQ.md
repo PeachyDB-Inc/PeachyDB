@@ -164,3 +164,13 @@ Simply resubmitting a write that may already have been submitted is not the corr
 </details>
 
 ---
+
+
+<details>
+  <summary>14. What is the topology of the server cluster?</summary>
+  <br>
+  In this database there are several co-ordinator nodes which receive all journals for the write transactions submitted to the cluster. The remaining members of the cluster receive writes only pertaining to their node. One node out of the co-ordinators is the leader that manages the raft consensus protocol. If a leader fails, a different co-ordinator node will be elected the leader. Writes get submitted to the leader and are propogated to the other members.
+  <br><br>
+</details>
+
+---
