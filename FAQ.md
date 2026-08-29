@@ -163,4 +163,39 @@ We have not yet implemented that functionality. It requires setting up long-runn
 
 At the moment, it is better to finalize your schema and test it before deployment. While changes in schema are inevitable in a production system, we plan to make improvements in this area as soon as possible.
 </details>
+# Frequently Asked Questions
+
+<details>
+<summary><b>8. Why does <code>mpstat</code> on the client show an uneven distribution of CPU utilization?</b></summary>
+<br>
+
+Some of this is due to variances of system calls, and some is due to CPU core 0 being utilized by the OS. Therefore, the numerous cores are not uniformly available to the client.
+</details>
+
+---
+
+<details>
+<summary><b>9. A Spot instance in AWS was terminated, what should I do?</b></summary>
+<br>
+
+Spot instances for server AWS CloudFormation stacks are not recommended for production because they can be asynchronously terminated by AWS due to demand from other users. 
+
+If you are utilizing experimental clusters (proof of concept, etc.), it is probably best to delete the server and client stacks and try one of the following:
+* Look for weaker instance types.
+* Try a different AWS region.
+* Use **On-Demand** instances instead of Spot instances.
+
+It would be futile to try to substitute the terminated instance right away because AWS is likely running into capacity availability issues in that specific zone/region.
+</details>
+
+---
+
+<details>
+<summary><b>10. Why can I not add a materialized view (MV) in the running product?</b></summary>
+<br>
+
+We have not yet implemented that functionality. It requires setting up long-running transactions to transfer data between different nodes in the cluster. This functionality requires thorough stress testing and failure testing before release. 
+
+At the moment, it is better to finalize your schema and test it before deployment. While changes in schema are inevitable in a production system, we plan to make improvements in this area as soon as possible.
+</details>
 
