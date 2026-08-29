@@ -77,7 +77,7 @@
 ---
 
 <details>
-  <summary>6. I get "mvccro garbage collected" or "stale handle", what should I do?</summary>
+  <summary>6. I get "mvccro garbage collected" or "stale handle" as response to a read query, what should I do?</summary>
   <br>
   This should, hopefully, not occur for cases other than long-running read transactions. Reads (short or long-running) that involve only a single partition key should not be seeing this error. 
   <br><br>
