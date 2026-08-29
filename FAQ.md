@@ -1,4 +1,4 @@
-#### Frequently Asked Questions (FAQ)
+#### Frequently Asked Questions
 
 <details>
   <summary>1. Write performance tanked, what happened?</summary>
