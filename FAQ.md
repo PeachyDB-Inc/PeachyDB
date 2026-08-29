@@ -3,7 +3,7 @@
 <details>
   <summary>1. Write performance tanked, what happened?</summary>
   <br>
-  Writes in this database are subject to the following constraints:
+  Writes in this database are subject to the following constraints:<br>
   <ul>
     <li>1.a) Each write will respond to the client only after all live servers which involve that write have responded to the leader node. Thus, a slow server node will slow down the writes that involve that server.</li><br>
     <li>1.b) If a server has restarted/failed, then writes will be throttled significantly (as much as 70%) to allow the node to rejoin the cluster. Otherwise, so much write log will be accumulated that the server may not be able to catch up after restart. Thus, any failed node in the cluster should be brought back online as quickly as possible.</li><br>
