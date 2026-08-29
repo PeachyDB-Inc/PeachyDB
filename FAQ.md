@@ -90,7 +90,7 @@
 <details>
   <summary>7. How do I determine if clients or the servers are the bottleneck?</summary>
   <br>
-  Perform <code>mpstat</code> on the client. You will most likely find an uneven distribution of load on the different cores; some of this is due to system calls and some due to the fact that core 0 is assigned to the OS and has other things to do. 
+  Perform <code>mpstat</code> on the client. You will most likely find an uneven distribution of load on the different cores.
   <br><br>
   However, if CPU utilization is low, then the server is likely the bottleneck. You can look at <code>mypeachdb/perf.peachdb.messglog</code> from the support bundle to examine the CPU utilization for reads/writes. The servers may be either CPU or I/O bound. The stats have to be interpreted correctly. 
   <br><br>
