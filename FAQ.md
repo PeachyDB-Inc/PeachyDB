@@ -37,7 +37,7 @@
   <summary>3. An AWS EC2 server stack instance died, what should I do?</summary>
   <br>
   If the failure is at AWS and the instance cannot be revived, you have to substitute the instance. In the presence of multiple correlated failures, if all servers responsible for a vnode have failed, you will experience data loss.
-  <br>
+  <br><br>
 </details>
 
 <details>
@@ -45,7 +45,7 @@
   <br>
   The <code>peachydb_status_tool</code> can be utilized for obtaining a support bundle:
   <pre><code>peachydb_status_tool -support-bundle &lt;stack-name&gt; &lt;aws-instance-id&gt;</code></pre>
-  <br>
+  <br><br>
 </details>
 
 <details>
@@ -76,7 +76,7 @@ peachydb_status_tool -utilization &lt;stack-name&gt;</code></pre>
   This should, hopefully, not occur for cases other than long-running read transactions. Reads (short or long-running) that involve only a single partition key should not be seeing this error. 
   <br><br>
   If you believe you have short reads that are running into this issue, you can file an issue in GitHub. There is a chance that due to a race condition, an incorrect distributed <code>jnltxid</code> was assigned to a reader; this is a bug that has to be addressed. This error means the read request has to be resubmitted.
-  <br>
+  <br><br>
 </details>
 
 <details>
@@ -94,7 +94,7 @@ peachydb_status_tool -utilization &lt;stack-name&gt;</code></pre>
   <summary>8. Why does mpstat on the client show uneven distribution of CPU utilization?</summary>
   <br>
   Some of this is due to variances of system calls, and some is due to the CPU core 0 being utilized by the OS. Therefore, the numerous cores are not uniformly available to the client.
-  <br>
+  <br><br>
 </details>
 
 <details>
@@ -103,7 +103,7 @@ peachydb_status_tool -utilization &lt;stack-name&gt;</code></pre>
   Spot instances for server AWS CloudFormation stacks are not recommended for production because they can be asynchronously terminated by AWS due to any reason. 
   <br>
   If you are utilizing experimental clusters (proof of concept, etc.), then it is probably best to delete the server and client stacks and either look for weaker instances, try a different AWS region, or try On-Demand instances instead of Spot. It would be futile trying to substitute the terminated instance because AWS is apparently running into availability issues.
-  <br>
+  <br><br>
 </details>
 
 <details>
@@ -112,5 +112,5 @@ peachydb_status_tool -utilization &lt;stack-name&gt;</code></pre>
   We have not yet implemented that functionality. It requires setting up long-running transactions to transfer data between different nodes in the cluster. This functionality requires thorough stress testing and failure testing before release. 
   <br><br>
   At the moment, it is better to figure out your schema and test it before deployment. In a production system, this is not always doable as changes in schema are inevitable. We plan to make improvements in this area ASAP.
-  <br>
+  <br><br>
 </details>
