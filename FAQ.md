@@ -51,7 +51,7 @@
 <details>
   <summary>5. How do I monitor the server cluster?</summary>
   <br>
-  The <code>peachydb_status_tool</code> can be utilized to obtain liveness information of the servers in the server AWS CloudFormation Stack. The <a><href=""> monitor servers </href>a> explains how to issue commands to monitor the health of the server clusters.
+  The <code>peachydb_status_tool</code> can be utilized to obtain liveness information of the servers in the server AWS CloudFormation Stack. The <a><href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tools-MonitorCluster.md"> monitor servers </href>a> explains how to issue commands to monitor the health of the server clusters.
   <br><br>
   If you find some server is hung, you can do the following:
   <ul>
