@@ -153,3 +153,11 @@ Simply resubmitting a write that may already have been submitted is not the corr
 </details>
 
 ---
+
+
+<details>
+  <summary>13. I set up the server and client clusters but absolutely nothing happens, what is going on?</summary>
+  <br>
+  This situation is often because all traffic within the subnet has not been enabled as explained in
+  <br><br>
+</details>
