@@ -84,7 +84,7 @@ peachydb_status_tool -utilization &lt;stack-name&gt;</code></pre>
   <br>
   Perform <code>mpstat</code> on the client. You will most likely find an uneven distribution of load on the different cores; some of this is due to system calls and some due to the fact that core 0 is assigned to the OS and has other things to do. 
   <br><br>
-  However, if CPU utilization is low, then the server is likely the bottleneck. You can look at <code>mypeachdb/perf.peachdb.messglog</code> to examine the CPU utilization for reads/writes. The servers may be either CPU or I/O bound. The stats have to be interpreted correctly. 
+  However, if CPU utilization is low, then the server is likely the bottleneck. You can look at <code>mypeachdb/perf.peachdb.messglog</code> from the support bundle to examine the CPU utilization for reads/writes. The servers may be either CPU or I/O bound. The stats have to be interpreted correctly. 
   <br><br>
   You can also experiment with either increasing the number of client threads or using an additional client. If neither makes a difference, then the servers are bottlenecked on either CPU or I/O.
   <br><br>
