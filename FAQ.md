@@ -11,7 +11,6 @@
     <li>1.d) Write performance is also impacted a little by utilizing Partition Placement groups. However, for product clusters, using Placement groups is more or less required.</li>
     <li>1.e) A small performance loss may also be incurred (if the database is small enough to fit in cache) due to requirements of the Raft consensus protocol.</li>
   </ul>
-  <br>  
 </details>
 
 ---
@@ -35,6 +34,8 @@
   <br>  
 </details>
 
+---
+
 <details>
   <summary>3. An AWS EC2 server stack instance died, what should I do?</summary>
   <br>
@@ -42,12 +43,16 @@
   <br><br>
 </details>
 
+---
+
 <details>
   <summary>4. How do I obtain a support bundle?</summary>
   <br>
   The <code>peachydb_status_tool</code> can be utilized for obtaining a support bundle. The <code>peachydb_status_tool</code> can be utilized to obtain support bundle for servers in the server AWS CloudFormation Stack. This is explained in <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tools-MonitorCluster.md"> monitor servers </a>.
   <br><br>
 </details>
+
+---
 
 <details>
   <summary>5. How do I monitor the server cluster?</summary>
@@ -68,6 +73,8 @@
   <br>
 </details>
 
+---
+
 <details>
   <summary>6. I get "mvccro garbage collected" or "stale handle", what should I do?</summary>
   <br>
@@ -77,6 +84,8 @@
   <br><br>If you entounter the error the read request has to be resubmitted.
   <br><br>
 </details>
+
+---
 
 <details>
   <summary>7. How do I determine if clients or the servers are the bottleneck?</summary>
@@ -89,12 +98,16 @@
   <br><br>
 </details>
 
+---
+
 <details>
   <summary>8. Why does mpstat on the client show uneven distribution of CPU utilization?</summary>
   <br>
   Some of this is due to variances of system calls, and some is due to the CPU core 0 being utilized by the OS. Therefore, the numerous cores are not uniformly available to the client.
   <br><br>
 </details>
+
+---
 
 <details>
   <summary>9. A Spot instance in AWS was terminated, what should I do?</summary>
@@ -104,6 +117,8 @@
   If you are utilizing experimental clusters (proof of concept, etc.), then it is probably best to delete the server and client stacks and either look for weaker instances, try a different AWS region, or try On-Demand instances instead of Spot. It would be futile trying to substitute the terminated instance because AWS is apparently running into availability issues.
   <br><br>
 </details>
+
+---
 
 <details>
   <summary>10. Why can I not add a materialized view (MV) in the running product?</summary>
