@@ -92,8 +92,8 @@ peachydb_status_tool -utilization &lt;stack-name&gt;</code></pre>
 <details>
   <summary>9. A Spot instance in AWS was terminated, what should I do?</summary>
   <br>
-  Spot instances for server AWS CloudFormation stacks are not recommended for production because they can be asynchronously terminated by AWS due to demands from other users. 
-  <br><br>
+  Spot instances for server AWS CloudFormation stacks are not recommended for production because they can be asynchronously terminated by AWS due to any reason. 
+  <br>
   If you are utilizing experimental clusters (proof of concept, etc.), then it is probably best to delete the server and client stacks and either look for weaker instances, try a different AWS region, or try On-Demand instances instead of Spot. It would be futile trying to substitute the terminated instance because AWS is apparently running into availability issues.
 </details>
 
