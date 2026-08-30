@@ -187,9 +187,9 @@ Simply resubmitting a write that may already have been submitted is not the corr
   <summary>16. What are the tools to be aware of?</summary>
   <br>
   The following tools are utilized with peachydb:<br><br>
-  <b>16.a</b><code>peachydb_cluster_tool</code>: to create/delete/describe server and client AWS Cloudformation Stacks. It is also utilized to modify (add,remove instances) client stacks. This tool is executed on the Control Unit.<br><br>
+  <b>16.a</b><code>peachydb_cluster_tool</code>: to create/delete/describe server and client AWS Cloudformation Stacks. It is also utilized to modify (add,remove instances) client stacks. This tool is executed on the <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Step2--ControlUnit.md">Control Unit.</a><br><br>
   <b>16.b</b><code>peachy_modify_server_stack</code>: to modify server AWS Cloudformation stack. Modifying server stack is a database transaction and hence must be submitted from a client instance.<br><br>
-  <b>16.c</b><code>peachydb_status_tool</code>: to obtain support bundle and to monitor the health of server AWS Cloudformation stack. It is executed on the Control Unit.
+  <b>16.c</b><code>peachydb_status_tool</code>: to obtain support bundle and to monitor the health of server AWS Cloudformation stack. It is executed on the <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Step2--ControlUnit.md">Control Unit.</a>
   <br><br>
 </details>
 
