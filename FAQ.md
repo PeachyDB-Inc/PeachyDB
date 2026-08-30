@@ -165,11 +165,19 @@ Simply resubmitting a write that may already have been submitted is not the corr
 
 ---
 
-
 <details>
   <summary>14. What is the topology of the server cluster?</summary>
   <br>
   In this database there are several co-ordinator nodes which receive all journals for the write transactions submitted to the cluster. The remaining members of the cluster receive writes only pertaining to their node. One node out of the co-ordinators is the leader that manages the raft consensus protocol. If the leader fails, a different co-ordinator node will be elected the leader. Writes get submitted to the leader and are propogated to the other members. In order for writes to be accepted more than K/2 co-rodinators have to be alive.
+  <br><br>
+</details>
+
+---
+
+<details>
+  <summary>15. Are there any scheduled tasks to be run on the database servers?</summary>
+  <br>
+  Any such tasks are currently managed within the database server threads and do not requre explicit tuning or scheduling. For the moment the user should not focus on this, we will check later if there is any need for any tunable parameters or not.
   <br><br>
 </details>
 
