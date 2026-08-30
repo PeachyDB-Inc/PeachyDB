@@ -177,7 +177,7 @@ Simply resubmitting a write that may already have been submitted is not the corr
 <details>
   <summary>15. Are there any scheduled tasks to be run on the database servers?</summary>
   <br>
-  Any such tasks are currently managed within the database server threads and do not require explicit tuning or scheduling. For the moment the user should not focus on this, we will check later if there is any need for any tunable parameters or not.
+  Any such tasks are currently managed within the database server threads and do not require explicit tuning or scheduling. With the exception of vnode_gc for garbage collecting vnodes after cluster configuration changes and table_ops tasks for create/drop SI/Tables, the other tasks should not have any noticeable impact on performance. For the moment the user should not focus on this, we will check later if there is any need for any tunable parameters or not.
   <br><br>
 </details>
 
