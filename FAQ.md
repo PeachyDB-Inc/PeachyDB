@@ -177,7 +177,7 @@ Simply resubmitting a write that may already have been submitted is not the corr
 <details>
   <summary>15. Are there any scheduled tasks to be run on the database servers?</summary>
   <br>
-  Any such tasks are currently managed within the database server threads and do not requre explicit tuning or scheduling. For the moment the user should not focus on this, we will check later if there is any need for any tunable parameters or not.
+  Any such tasks are currently managed within the database server threads and do not require explicit tuning or scheduling. For the moment the user should not focus on this, we will check later if there is any need for any tunable parameters or not.
   <br><br>
 </details>
 
