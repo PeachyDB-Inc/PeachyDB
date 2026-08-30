@@ -50,8 +50,8 @@ PeachyDB is a horizontally scalable database intended to overcome the shortcomin
 - Counters
 - Json input/output
 - Any java related features: user-defined-functions, user-defined-aggregates, triggers.
-- Backup/Restore is not yet implemented.
-- Any data encryption features are not available.
+- Backup/Restore.
+- Any data encryption features.
 
 ## 2. Only C++ client available 
 Client Driver <a href="https://github.com/akseg73/PeachyDB/tree/main/examples" title="Documentation"> Examples</a> provide a detailed explanation of how to drive load to servers. Some noteworthy points are as below:
