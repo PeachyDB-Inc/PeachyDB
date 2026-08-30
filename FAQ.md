@@ -140,7 +140,7 @@
 <details>
   <summary>11. What if a write query timed out, should i resubmit it?</summary>
   <br>
-  A Write could timeout due to multiple reasons, either the write was never submitted to the leader node before it failed over to a different leader or write was submitted but the completion response did not arrive within the timeout window at the client. Depending upon the situation we have to perform different actions. The tests provided peachdb_client_cqldb.c etc contain detailed explanation of what to do in each case.
+  A write could timeout due to multiple reasons, either the write was never submitted to the leader node before it failed over to a different leader or write was submitted but the completion response did not arrive within the timeout window at the client. Depending upon the situation we have to perform different actions. The tests provided peachdb_client_cqldb.c etc contain detailed explanation of what to do in each case.
 Simply resubmitting a write that may already have been submitted is not the correct approach. We have to determine the status of the previously submitted write and only proceed from there as explained in the tests.
   <br><br>
 </details>
