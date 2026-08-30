@@ -14,7 +14,6 @@
     <li><b>1.e)</b> After each Cluster Configuration change, vnode_gc will attempt to garbage collect vnodes from instances from which their ownership has been removed. This requires scan of the database and possibly a lot of writes to remove those data items. Thus immediately after the Cluster configuration change, the write performance will significantly degrade till the vnodes have been garbage collected.</li><br>
     <li><b>1.f)</b> Adding/Dropping Secondary Indexes, Tables are also time consuming operations and will significantly degrade online write performance till the table_ops operation completes. It is best that such operations are undertaken at quiescent point, with low write activity.</li><br>
     <li><b>1.g)</b> Write performance is also impacted a little by utilizing Partition Placement groups. However, for production clusters, using Placement groups is required.</li><br>
-    <li><b>1.h)</b> A small performance loss may also be incurred (if the database is small enough to fit in cache) due to requirements of the Raft consensus protocol.</li><br>
   </ul>
 </details>
 
