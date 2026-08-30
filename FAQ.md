@@ -13,7 +13,8 @@
     <li><b>1.d)</b> Cluster Configuration change (node add/delete/substitute) is ongoing. During this change, we have to deal with long-running read transactions which accumulate MVCC versions; to mitigate this, we throttle the writes significantly.</li><br>
     <li><b>1.e)</b> After each Cluster Configuration change, vnode_gc will attempt to garbage collect vnodes from instances from which their ownership has been removed. This requires scan of the database and possibly a lot of writes to remove those data items. Thus immediately after the Cluster configuration change, the write performance will significantly degrade till the vnodes have been garbage collected.</li><br>
     <li><b>1.f)</b> Adding/Dropping Secondary Indexes, Tables are also time consuming operations and will significantly degrade online write performance till the table_ops operation completes. It is best that such operations are undertaken at quiescent point, with low write activity.</li><br>
-    <li><b>1.g)</b> Write performance is also impacted a little by utilizing Partition Placement groups. However, for production clusters, using Placement groups is required.</li><br>
+    <li><b>1.g)</b> Secondary Indexes and Materialized Views add cost to writes. These are most pronounced in insert,delete. The SI refer to the primary table with the primary key, thus primary key modification is also expensive and discouraged. The more SI,MV you add to the table the slower the writes will be.</li><br>
+    <li><b>1.h)</b> Write performance is also impacted a little by utilizing Partition Placement groups. However, for production clusters, using Placement groups is required.</li><br>
   </ul>
 </details>
 
