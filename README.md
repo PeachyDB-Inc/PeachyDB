@@ -506,7 +506,7 @@ Below are known Bugs and Issues, we are not going to keep this list updated, but
 
 - **24.56)** All components of the partition key must be generated at the client and provided with the query; this appears to be a requirement in Cassandra as well.
 
-- **24.57)** If an EC2 instance newly added to a cluster fails to come up, you can collect `/var/log/peachy.errors` from the instance to see if there are any problems. You can also examine /dbstore/mypeachdb/peachdb.messglog.
+- **24.57)** If an EC2 instance newly added to a cluster fails to come up, you can collect `/var/log/peachy.errors` from the instance to see if there are any problems. You can also examine `/dbstore/mypeachdb/peachdb.messglog`.
 
 - **24.58)** When looking at query statistics, it's important to understand that the statistics are printed every 10 minutes, which may suggest lower CPU utilization during periods of low/no activity. Care should be taken to look at statistics that are representative of durations when the clients are driving sufficient traffic to the servers.
 
