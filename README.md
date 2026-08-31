@@ -349,22 +349,19 @@ If you are able to drive enough stress into the system and it presents no signif
 
 - **23.c)** Try to utilize a cluster of less than 64 nodes, although we have not stress tested clusters nearing this size, so you may run into performance issues even at clusters of less than this size. We plan to address these issues soon.
 
-- **23.d)** For different storage requirements, here are suggestions:
-  - **23.d.1)** For a total storage requirement of < 122TB, utilize i3.2xlarge instances to form a cluster. (each i3.2xlarge instance has about 1.9TB of SSD available)
+- **23.d)** Choosing between the different AWS Ec2 instances depends upon whether you care more about storage or performance or both
+  
+  - **23.d.1)** i3.2xlarge/i3en.2xlarge instances can be utilized for experimental (or proof of concept) server clusters. This will also provide baseline performance characteristics.
 
-  - **23.d.2)** For a total storage requirement of < 244TB, utilize i3.4xlarge instances to form a cluster. (each i3.4xlarge instance has about 3.8TB SSD available)
+  - **23.d.2)** You can make calculations for different instances based on a cluster that could at most have 64 nodes in it to determine if the cluster of the instance type will be able to meet you storage requirements. Multiply the storage available with the most needed instances (which could be 64). Note that these suggestions are only from storage point of view, not performance. Depending upon performance requirements larger AWS instances may be required.
 
-  - **23.d.3)** For a total storage requirement of less than 488TB, utilize i3.8xlarge instances to form a cluster. Each i3.8xlarge instance has about 7.6TB of SSD available.
+  - **23.d.3)** The instances are priced linearly by capacity at AWS. Please double-check this. So from a cost perspective, for the same amount of data, a smaller cluster of beefier instances should cost similar to a larger cluster of smaller instances.
 
-  - **23.d.4)** You can make similar calculations for other instances based on a cluster that could at most have 64 nodes in it. Multiply the storage available with the most needed instances (which could be 64). Note that these suggestions are only from storage point of view, not performance. Depending upon performance requirements larger AWS instances may be required.
+  - **23.d.4)** If you anticipate your storage requirements to be at least 6TB (meaning actual data is about 1TB), then it's best to utilize i3.4xlarge instances onwards. Weaker instances will not be cost-effective and will perform worse. Due to linear AWS pricing of i3 instances, you will not save anything by utilizing weaker instances (but please double-check this in your calculations, we are not responsible for any differing calculations).
 
-  - **23.d.5)** The instances are priced linearly by capacity at AWS. Please double-check this. So from a cost perspective, for the same amount of data, a smaller cluster of beefier instances should cost similar to a larger cluster of smaller instances.
+  - **23.d.5)** Notice that the above calculations are with respect to storage. However, the smaller instances also offer lower performance. So if higher performance matters to you more than storage, you could utilize the larger i3.[n]xlarge instances even though your dataset size on the whole is not large enough at the moment.
 
-  - **23.d.6)** If you anticipate your storage requirements to be at least 6TB (meaning actual data is about 1TB), then it's best to utilize i3.4xlarge instances onwards. Weaker instances will not be cost-effective and will perform worse. Due to linear AWS pricing of i3 instances, you will not save anything by utilizing weaker instances (but please double-check this in your calculations, we are not responsible for any differing calculations).
-
-  - **23.d.7)** Notice that the above calculations are with respect to storage. However, the smaller instances also offer lower performance. So if higher performance matters to you more than storage, you could utilize the larger i3.[n]xlarge instances even though your dataset size on the whole is not large enough at the moment.
-
-  - **23.d.8)** When utilizing larger clusters, it might be better to utilize i3.4xlarge instances or larger AWS instances as they have more vCPUs available to handle more load.
+  - **23.d.6)** When utilizing larger clusters, it might be better to utilize i3.4xlarge instances or larger AWS instances as they have more vCPUs available to handle more load.
 
 **NOTE**: Database data compression can improve upon the disk utilization indicated above, we have not yet implemented it.
 
