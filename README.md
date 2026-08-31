@@ -345,7 +345,7 @@ We utilize AWS CloudFormation templates to create AWS stacks to deploy our datab
 
 If you are able to drive enough stress into the system and it presents no significant issues, you can utilize a production cluster consisting of more powerful EC2 instances. Thoroughly testing your use case scenario will minimize any risks in deployment.
 
-- **23.b)** Once the use case has been validated, determine how much data you plan on having in the cluster. According to the above calculations, with a replication factor of 3 and accounting for SSD overhead, journaling, multiversioning overhead, fragmentation, background tasks, merging, etc., another factor of 2 has to be included. So for 10TB actual data, you need 10'*'3'*'2 = 60TB total storage requirement. While this might seem excessive, other horizontally scalable databases with replication factors have similar overheads.
+- **23.b)** Once the use case has been validated, determine how much data you plan on having in the cluster. According to the above calculations, with a replication factor of 3 and accounting for SSD overhead, journaling, multiversioning overhead, fragmentation, background tasks, merging, etc., another factor of 2 has to be included. So for 10TB actual data, you need 10\*3\*2 = 60TB total storage requirement. While this might seem excessive, other horizontally scalable databases with replication factors have similar overheads.
 
 - **23.c)** Try to utilize a cluster of less than 64 nodes, although we have not stress tested clusters nearing this size, so you may run into performance issues even at clusters of less than this size. We plan to address these issues soon.
 
