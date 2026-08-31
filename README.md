@@ -362,7 +362,7 @@ If you are able to drive enough stress into the system and it presents no signif
 
   - **23.d.6)** If you anticipate your storage requirements to be at least 6TB (meaning actual data is about 1TB), then it's best to utilize i3.4xlarge instances onwards. Weaker instances will not be cost-effective and will perform worse. Due to linear AWS pricing of i3 instances, you will not save anything by utilizing weaker instances (but please double-check this in your calculations, we are not responsible for any differing calculations).
 
-  - **23.d.7)** Notice that the above calculations are with respect to storage. However, the smaller instances may also offer lower performance. So if higher performance matters to you even more than storage, you could utilize the larger i3.<n>xlarge instances even though your dataset size on the whole is not large enough at the moment.
+  - **23.d.7)** Notice that the above calculations are with respect to storage. However, the smaller instances also offer lower performance. So if higher performance matters to you more than storage, you could utilize the larger i3.[n]xlarge instances even though your dataset size on the whole is not large enough at the moment.
 
   - **23.d.8)** When utilizing larger clusters, it might be better to utilize i3.4xlarge instances or larger AWS instances as they have more vCPUs available to handle more load.
 
