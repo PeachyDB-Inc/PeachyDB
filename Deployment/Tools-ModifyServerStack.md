@@ -82,7 +82,7 @@ Instance IP address can be obtained by describing the cluster with peachydb_stat
 Enter Arguments: myteststack 192.23.45.10
 ```
 
-7. To rejoin instance that exists in the AWS server stack this is the command
+7. To rejoin instance that exists in the AWS server stack this is the command, rejoin is effectively substituting the node with itself.
 ```shell
   prompt> python3 peachydb_modify_server_stack.py
   1 - Stack Add Instance - add an EC2 instance to a server Stack
@@ -108,7 +108,7 @@ Instance IP address can be obtained by describing the cluster with peachydb_stat
 Enter Arguments: myteststack 192.34.44.10
 ```
 
-8. To cancel any of the add/remove/subtitute operations above this is the command it will not work for rejoin instance.
+8. To cancel any of the add/remove/subtituterejoin operations above this is the command.
 ```shell
 prompt> python3 peachydb_modify_server_stack.py
 1 - Stack Add Instance - add an EC2 instance to a server Stack
