@@ -61,7 +61,7 @@ Utilizing (Delete Instance + Add Instance) instead of Subtitute can imbalance th
 and can be an extremely slow operation. Please make certain that your use case is not Substitute
 DO you want to proceed (y/n)? y
 Delete instance Arguments: <stack-name> <instance-ip-addr>
-Instance IP address can be obtained by describing the cluster with  <code>peachydb_status_tool -status stack-name</code>
+Instance IP address can be obtained by describing the cluster with peachydb_status_tool -status
 Enter Arguments: myteststack 192.32.34.10
 ```
 
@@ -77,7 +77,7 @@ Enter Arguments: myteststack 192.32.34.10
   Enter Choice [1-5, q]: 3
 
 Substitute instance Arguments: <stack-name> <instance-ip-addr>
-Instance IP address can be obtained by describing the cluster with  <code>peachydb_status_tool -status stack-name</code>
+Instance IP address can be obtained by describing the cluster with peachydb_status_tool -status
 Enter Arguments: myteststack 192.23.45.10
 ```
 
@@ -103,7 +103,7 @@ NOTE::
 
 Do you want to proceed with Rejoin? (y/n) y
 Rejoin instance Arguments: <stack-name> <instance-ip-addr>
-Instance IP address can be obtained by describing the cluster with <code>peachydb_status_tool -status stack-name</code>
+Instance IP address can be obtained by describing the cluster with peachydb_status_tool -status
 Enter Arguments: myteststack 192.34.44.10
 ```
 
