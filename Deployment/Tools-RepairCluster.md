@@ -39,3 +39,36 @@ Really? Please type the word \"proceed\" to continue: proceed
 
 Enter Arguments: myteststack i-0b5089d37bd750dd3
 ```
+
+3. If you find that the cluster configuration change that you submitted completed, but the you can confirm with peachydb_status_tool -status that all expected instances are live and you can also confirm from describing the stack with peachydb_cluster_tool that it does not contain any extraneous instances that the peachydb_status_tool is not aware of and you still can not submit additional cluster configuration changes. This means that the AWS Cloudformation template has a stale state which needs to be reset by selecting option 2 of he repair tool as below.
+
+ ```shell
+  AWS Cluster Repair. For an AWS instance which is no longer part of
+  a server cluster but is still running as a part of AWS stack, this
+  tool can be utilized to remove such an AWS instance from the AWS stack
+   Repair options:
+   1 - PeachyDB Server stack remove instances
+   2 - PeachyDB Server stack reset change state
+   q  - Quit - exit this tool
+  
+  Enter Choice [1-2, q]: 2
+
+AWS Server stack state can be reset only if ALL below conditions are true:")
+1. You are unable to make cluster changes because the stack mistakenly")
+  believes that a cluster configuration change is ongoing when none is active")
+2. You have checked with status option of peachydb_status_tool.py as well as")
+   describe cluster option of peachydb_cluster_tool.py that all instances in")
+   AWS stack are same as the instances in the peachydb cluster")
+3. There is no cluster configuration change that is currently ongoing")
+
+If cluster members reported by peachydb_status_tool.py are fewer than the")
+ones reported by peachydb_cluster_tool.py, please utilize repair to remove")
+the AWS instances instead")
+Alternately if there is a cluster configuration change ongoing you can cancel it")
+utilizing the peachydb_modify_server_stack.py tool")
+
+Do you want to proceed (y/n)? y
+Please enter Stack Name: 
+
+```
+  
