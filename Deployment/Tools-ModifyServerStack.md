@@ -17,6 +17,7 @@ As a prerequisite please carefully read setions in <a href="https://github.com/a
 2. Once the Client Instance is available we can now Add/Remove/Substitute instances to the Server Stack utilizing peachydb_modify_server_stack.py
 
 ```shell
+  prompt> python3 peachydb_modify_server_stack.py
   1 - Stack Add Instance - add an EC2 instance to a server Stack
   2 - Stack Remove Instance - remove an EC2 instance from a server Stack
   3 - Stack Substitute Instance - substitute an EC2 instance in a server Stack
