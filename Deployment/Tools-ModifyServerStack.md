@@ -14,7 +14,7 @@ As a prerequisite please carefully read setions in <a href="https://github.com/a
 
 1. As a first step obtain an EC2 Instance in the Client Stack from which the Server Stack Modification will be issued. If such an instance is not available then follow the steps  <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Tool6-ClientStackAddInstances.md" title="Documentation"> Adding Instances to Client Stacks</a> to add such a client instance. The EC2 Instance chosen can be one of the cheapest ones available.
 
-2. Some of the commands below (remove, substitute, rejoin) require ip-address of an AWS EC2 instance being utilized in the server stack, this is obtained by utilizing peachydb_status_tool -status as explained <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tools-MonitorCluster.md"> here</a>, which can be executed from the client as well as the monitor instance.
+2. Some of the commands below (remove, substitute, rejoin) require ip-address of an AWS EC2 instance being utilized in the server stack, this is obtained by utilizing peachydb_status_tool -status as explained <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tools-MonitorCluster.md"> here</a>, which can be executed from the client as well as the control unit.
 
 3. Once the Client Instance is available we can now Add/Remove/Substitute instances to the Server Stack utilizing peachydb_modify_server_stack.py. This is what the invocation looks like.
 ```shell
