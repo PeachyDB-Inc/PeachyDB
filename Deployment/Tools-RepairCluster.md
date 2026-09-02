@@ -1,4 +1,6 @@
-1. peachydb_repair_cluster.py can be utilized to cleanup AWS state if a cluster configuration change did not go as planned. It provides two functionalities at the moment. Removing an AWS instance from the AWS server Cloudformation Stack. And the other functionality is to update the state of the stack template to indicate that the previous change to AWS Server Stack was completed and any left behind state in the AWS template should be reset.
+1. peachydb_repair_cluster.py can be utilized to cleanup AWS state if a cluster configuration change did not complete as expected. There are two issues it resolves with an impaired AWS server stack.
+ 1.a) If peachydb_cluster_tool describe option lists an AWS EC2 instance, with an IP address, but that IP Address does not appear in peachydb_status_tool -status, then you can remove the extra AWS EC2 instances by utilizing the remove command below.
+ 1.b) If peachydb_cluster_tool describe option matches with the peachydb_status_tool -status by IP address and you still can not submit additional cluster configuration changes, then you can invoke option 2 of the repair tool to reset state of the AWS server Cloudformation template.
 
 ```shell
   AWS Cluster Repair. For an AWS instance which is no longer part of
