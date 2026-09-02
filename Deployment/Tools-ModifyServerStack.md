@@ -38,6 +38,7 @@ As a prerequisite please carefully read setions in <a href="https://github.com/a
   5 - Stack Cancel Ongoing change - cancel ongoing change
   q  - Quit - exit this tool
   Enter Choice [1-5, q]: 1
+
 Add instance Arguments: <stack-name>
 Enter Arguments: myteststack
 ```
