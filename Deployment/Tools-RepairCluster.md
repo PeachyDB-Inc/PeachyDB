@@ -12,7 +12,7 @@
   Enter Choice [1-2, q]:
 ```
 
-2. Removing an AWS instance from an AWS Cloudformation Server Stack can be done by selecting choice 1 above. It is **IMPORTANT** to ascertain that the AWS Instance being removed is no longer a part of the peachydb server cluster. This is confirmed by utilizing peachydb_status_tool -status. If the IP address of the AWS instance being removed is not listed only then the AWS instance can safely be removed from the server stack. <br><br>
+2. Removing an AWS instance from an AWS Cloudformation Server Stack can be done by selecting choice 1 above. It is **IMPORTANT** to ascertain that the AWS Instance being removed is no longer a part of the peachydb server cluster. This is confirmed by utilizing peachydb_status_tool -status as explained <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tools-MonitorCluster.md"> here</a>. If the IP address of the AWS instance being removed is not listed only then the AWS instance can safely be removed from the server stack. <br><br>
 ```shell
   AWS Cluster Repair. For an AWS instance which is no longer part of
   a server cluster but is still running as a part of AWS stack, this
