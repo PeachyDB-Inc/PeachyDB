@@ -64,7 +64,7 @@ Instance IP address can be obtained by describing the cluster with cluster-tool
 Enter Arguments: myteststack 192.32.34.10
 ```
 
-5. The substitute an AWS EC2 instance in a server stack this is what has to be done
+5. To substitute an AWS EC2 instance in a server stack this is what has to be done
 ```shell
   prompt> python3 peachydb_modify_server_stack.py
   1 - Stack Add Instance - add an EC2 instance to a server Stack
