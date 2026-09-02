@@ -43,7 +43,7 @@ Add instance Arguments: <stack-name>
 Enter Arguments: myteststack
 ```
 
-4. To remove and AWS EC2 instance from a server stack this is the command
+4. To remove an AWS EC2 instance from a server stack this is the command
 ```shell
   prompt> python3 peachydb_modify_server_stack.py
   1 - Stack Add Instance - add an EC2 instance to a server Stack
