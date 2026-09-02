@@ -28,24 +28,69 @@ As a prerequisite please carefully read setions in <a href="https://github.com/a
   Enter Choice [1-5, q]:
 ```
 
-add instance arguments:
+3. To add an AWS EC2 instance to a server stack this is the command
+```shell
+  prompt> python3 peachydb_modify_server_stack.py
+  1 - Stack Add Instance - add an EC2 instance to a server Stack
+  2 - Stack Remove Instance - remove an EC2 instance from a server Stack
+  3 - Stack Substitute Instance - substitute an EC2 instance in a server Stack
+  4 - Stack Rejoin Instance - rejoin EC2 instance in a server Stack (factory reset of database followed by join)
+  5 - Stack Cancel Ongoing change - cancel ongoing change
+  q  - Quit - exit this tool
+  Enter Choice [1-5, q]: 1
 Add instance Arguments: <stack-name>
-Enter Arguments:
+Enter Arguments: myteststack
+```
 
-remove instance arguments
+4. To remove and AWS EC2 instance from a server stack this is the command
+```shell
+  prompt> python3 peachydb_modify_server_stack.py
+  1 - Stack Add Instance - add an EC2 instance to a server Stack
+  2 - Stack Remove Instance - remove an EC2 instance from a server Stack
+  3 - Stack Substitute Instance - substitute an EC2 instance in a server Stack
+  4 - Stack Rejoin Instance - rejoin EC2 instance in a server Stack (factory reset of database followed by join)
+  5 - Stack Cancel Ongoing change - cancel ongoing change
+  q  - Quit - exit this tool
+  Enter Choice [1-5, q]: 2
+
 WARNING:: Instance Substitute is not equivalent to Instance Remove followed by Instance Add
 Removing nodes is done only for extremely rare situation of downscaling cluster
 For Substituting a node utilize Subtitute command
 Utilizing (Delete Instance + Add Instance) instead of Subtitute can imbalance the cluster
 and can be an extremely slow operation. Please make certain that your use case is not Substitute
-DO you want to proceed (y/n)?
+DO you want to proceed (y/n)? y
+Delete instance Arguments: <stack-name> <instance-ip-addr>
+Instance IP address can be obtained by describing the cluster with cluster-tool
+Enter Arguments: myteststack 192.32.34.10
+```
 
-substitute instance arguments
+5. The substitute an AWS EC2 instance in a server stack this is what has to be done
+```shell
+  prompt> python3 peachydb_modify_server_stack.py
+  1 - Stack Add Instance - add an EC2 instance to a server Stack
+  2 - Stack Remove Instance - remove an EC2 instance from a server Stack
+  3 - Stack Substitute Instance - substitute an EC2 instance in a server Stack
+  4 - Stack Rejoin Instance - rejoin EC2 instance in a server Stack (factory reset of database followed by join)
+  5 - Stack Cancel Ongoing change - cancel ongoing change
+  q  - Quit - exit this tool
+  Enter Choice [1-5, q]: 3
+
 Substitute instance Arguments: <stack-name> <instance-ip-addr>
 Instance IP address can be obtained by describing the cluster with cluster-tool
-Enter Arguments:
+Enter Arguments: myteststack 192.23.45.10
+```
 
-rejoin instance arguments
+6. To rejoin instance that exists in the AWS server stack this is the command
+```shell
+  prompt> python3 peachydb_modify_server_stack.py
+  1 - Stack Add Instance - add an EC2 instance to a server Stack
+  2 - Stack Remove Instance - remove an EC2 instance from a server Stack
+  3 - Stack Substitute Instance - substitute an EC2 instance in a server Stack
+  4 - Stack Rejoin Instance - rejoin EC2 instance in a server Stack (factory reset of database followed by join)
+  5 - Stack Cancel Ongoing change - cancel ongoing change
+  q  - Quit - exit this tool
+  Enter Choice [1-5, q]: 4
+
 NOTE::
 1. Rejoin should only be performed on nodes which are offline and are
  too far behind in jnls that a regular catchup will not allow them to join
@@ -55,11 +100,23 @@ NOTE::
 4. Rejoin can only be invoked when no other cluster change (add/remove/substitute/rejoin) is ongoing
 5. While a node is rejoining, cluster changes (add/remove/subst/rejoin node) can not be submitted
 
-Do you want to proceed with Rejoin? (y/n)
+Do you want to proceed with Rejoin? (y/n) y
 Rejoin instance Arguments: <stack-name> <instance-ip-addr>
 Instance IP address can be obtained by describing the cluster with cluster tool
-Enter Arguments:
+Enter Arguments: myteststack 192.34.44.10
+```
 
-cancel change arguments, will work for changes other thank rejoin instance.
+7. To cancel any of the add/remove/subtitute operations above this is the command it will not work for rejoin instance.
+```shell
+prompt> python3 peachydb_modify_server_stack.py
+1 - Stack Add Instance - add an EC2 instance to a server Stack
+2 - Stack Remove Instance - remove an EC2 instance from a server Stack
+3 - Stack Substitute Instance - substitute an EC2 instance in a server Stack
+4 - Stack Rejoin Instance - rejoin EC2 instance in a server Stack (factory reset of database followed by join)
+5 - Stack Cancel Ongoing change - cancel ongoing change
+q  - Quit - exit this tool
+Enter Choice [1-5, q]: 2
+
 Cancel cluster change Arguments: <stack-name>
-Enter Arguments:
+Enter Arguments: myteststack
+```
