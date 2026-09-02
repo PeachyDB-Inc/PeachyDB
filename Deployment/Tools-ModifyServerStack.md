@@ -1,5 +1,5 @@
 ## Modify Server Stack
-Adding/Removing/Substituting Instances in a Server Stack is considered to be a Database Transaction and thus it is not accomplished via peachydb_cluster_tool.py. Instead we have to rely on a different tool for this, which can be executed only from a client machine. This tool is called peachydb_modify_server_stack.py.
+Adding/Removing/Substituting Instances in a AWS Server Cloudformation Stack is considered to be a Database Transaction and thus it is not accomplished via peachydb_cluster_tool.py. Instead we have to rely on a different tool for this, which can be executed only from a client machine. This tool is called peachydb_modify_server_stack.py.
 
 ***__IMPORTANT:__*** Cluster changes require long running read-only transactions that scan the whole database. Thus we have to keep some issues in mind:
 1. Long running read only transactions, running in presence of writers, have a tendency to accumulate MVCC versions of data.
