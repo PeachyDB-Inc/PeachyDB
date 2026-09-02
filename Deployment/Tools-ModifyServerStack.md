@@ -27,3 +27,39 @@ As a prerequisite please carefully read setions in <a href="https://github.com/a
 
   Enter Choice [1-5, q]:
 ```
+
+add instance arguments:
+Add instance Arguments: <stack-name>
+Enter Arguments:
+
+remove instance arguments
+WARNING:: Instance Substitute is not equivalent to Instance Remove followed by Instance Add
+Removing nodes is done only for extremely rare situation of downscaling cluster
+For Substituting a node utilize Subtitute command
+Utilizing (Delete Instance + Add Instance) instead of Subtitute can imbalance the cluster
+and can be an extremely slow operation. Please make certain that your use case is not Substitute
+DO you want to proceed (y/n)?
+
+substitute instance arguments
+Substitute instance Arguments: <stack-name> <instance-ip-addr>
+Instance IP address can be obtained by describing the cluster with cluster-tool
+Enter Arguments:
+
+rejoin instance arguments
+NOTE::
+1. Rejoin should only be performed on nodes which are offline and are
+ too far behind in jnls that a regular catchup will not allow them to join
+2. Rejoining a node will perform a factory reset on the node and reobtain all data
+ and then catchup with the leader to come online
+3. Have you tried to perform a product restart on node to check if it can catchup?
+4. Rejoin can only be invoked when no other cluster change (add/remove/substitute/rejoin) is ongoing
+5. While a node is rejoining, cluster changes (add/remove/subst/rejoin node) can not be submitted
+
+Do you want to proceed with Rejoin? (y/n)
+Rejoin instance Arguments: <stack-name> <instance-ip-addr>
+Instance IP address can be obtained by describing the cluster with cluster tool
+Enter Arguments:
+
+cancel change arguments, will work for changes other thank rejoin instance.
+Cancel cluster change Arguments: <stack-name>
+Enter Arguments:
