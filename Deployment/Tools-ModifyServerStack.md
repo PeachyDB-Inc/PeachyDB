@@ -31,7 +31,7 @@ As a prerequisite please carefully read <a href="https://github.com/akseg73/Peac
   Enter Choice [1-5, q]:
 ```
 
-5. To add an AWS EC2 instance to a server stack this is the command
+5. To **ADD** an AWS EC2 instance to a server stack this is the command
 ```shell
   prompt> python3 peachydb_modify_server_stack.py
   1 - Stack Add Instance - add an EC2 instance to a server Stack
@@ -46,7 +46,7 @@ Add instance Arguments: <stack-name>
 Enter Arguments: myteststack
 ```
 
-6. To remove an AWS EC2 instance from a server stack this is the command
+6. To **REMOVE** an AWS EC2 instance from a server stack this is the command
 ```shell
   prompt> python3 peachydb_modify_server_stack.py
   1 - Stack Add Instance - add an EC2 instance to a server Stack
@@ -68,7 +68,7 @@ Instance IP address can be obtained by describing the cluster with peachydb_stat
 Enter Arguments: myteststack 192.32.34.10
 ```
 
-7. To substitute an AWS EC2 instance in a server stack this is what has to be done
+7. To **SUBSTTUTE** an AWS EC2 instance in a server stack this is what has to be done
 ```shell
   prompt> python3 peachydb_modify_server_stack.py
   1 - Stack Add Instance - add an EC2 instance to a server Stack
@@ -84,7 +84,7 @@ Instance IP address can be obtained by describing the cluster with peachydb_stat
 Enter Arguments: myteststack 192.23.45.10
 ```
 
-8. To rejoin instance that exists in the AWS server stack this is the command, rejoin is effectively substituting the node with itself.
+8. To **REJOIN** instance that exists in the AWS server stack this is the command, rejoin is effectively substituting the node with itself.
 ```shell
   prompt> python3 peachydb_modify_server_stack.py
   1 - Stack Add Instance - add an EC2 instance to a server Stack
@@ -110,7 +110,7 @@ Instance IP address can be obtained by describing the cluster with peachydb_stat
 Enter Arguments: myteststack 192.34.44.10
 ```
 
-9. To cancel any of the add/remove/subtitute/rejoin operations above this is the command.
+9. To **CANCEL** any of the add/remove/subtitute/rejoin operations above this is the command.
 ```shell
 prompt> python3 peachydb_modify_server_stack.py
 1 - Stack Add Instance - add an EC2 instance to a server Stack
