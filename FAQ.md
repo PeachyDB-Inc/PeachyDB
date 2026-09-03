@@ -85,7 +85,7 @@
   <br>
   This should, hopefully, not occur for cases other than long-running read transactions. Reads (short or long-running) that involve only a single partition key should not be seeing this error. 
   <br><br>
-  If you believe you have short reads that are running into this issue, you can file an issue in GitHub. There is a chance that due to a race condition, an incorrect distributed <code>jnltxid</code> was assigned to a reader; this is a bug that has to be addressed. In this case we would like to look at the bulk.peachdb.messglog from the support bundle to look for the messages of the form "mvccro has been garbage collected", this will provide us more details on where the race condition may be.
+  If you believe you have short reads that are running into this issue, you can file an issue in GitHub. There is a chance that due to a race condition, an incorrect distributed <code>jnltxid</code> was assigned to a reader; this is a bug that has to be addressed. In this case we would like to look at the bulk.peachdb.messglog from the support bundle to look for the messages of the form "mvccro has been garbage collected", this will provide us more details on where the race condition may be. You can paste these messages in the github issue you create to make it easier.
   <br><br>If you entounter the error the read request has to be resubmitted.
   <br><br>
 </details>
