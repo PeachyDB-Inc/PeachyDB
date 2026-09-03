@@ -6,7 +6,7 @@ It is recommended that you monitor the health of the server cluster utilizing <c
 3. To obtain the support bundle utilize the following command:
   <br> <code> peachydb_status_tool -support-bundle stack-name aws-instance-id </code><br><br>
   The support bundle will also attempt to include any core files generated on the instance, this will significantly degrade the
-   performance of the instance.
+   performance of the instance. A support_bundle will not be generated any more than once per ten minute window for a given server node.
    <br><br>
 4. To check liveness of nodes in the server cluster this is the command, it is recommended that liveness be sampled every 2 minutes.
    <code>peachydb_status_tool -status stack-name </code><br><br>
