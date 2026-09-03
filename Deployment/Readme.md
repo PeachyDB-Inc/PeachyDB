@@ -39,3 +39,5 @@ Once a Client stack has been created, the user can ssh into the Client EC2 Insta
 14. <a href="https://github.com/PeachyDB-Inc/PeachyDB/tree/main/examples" title="client examples"> Client Driver Examples</a> -- explains how to utilize clients to drive load onto servers. These examples are meant to be executed on the AWS EC2 Instances which are part of the Client Stack.
 
 15. <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tools-MonitorCluster.md"> Server Cluster Monitoring</a> -- explains how to monitor the health of the server cluster and to obtain support bundle in case of issues.
+
+16. <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tools-RepairCluster.md"> AWS Server Stack Repair Tool</a> -- is a utility that can help repair AWS Server Stack that may have been left in an inconsistent state after a Cluster Configuration Change that did not complete as expected.
