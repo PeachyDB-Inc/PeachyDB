@@ -44,7 +44,7 @@ Really? Please type the word \"proceed\" to continue: proceed
 Enter Arguments: myteststack i-0b5089d37bd750dd3
 ```
 
-3. If you find that the cluster configuration change that you submitted completed, but the you can confirm with peachydb_status_tool -status that all expected instances are live and you can also confirm from describing the stack with peachydb_cluster_tool that it does not contain any extraneous instances that the peachydb_status_tool is not aware of and you still can not submit additional cluster configuration changes. This means that the AWS Cloudformation template has a stale state which needs to be reset by selecting option 2 of he repair tool as below.
+3. If you find that the cluster configuration change that you submitted completed, and you can confirm with peachydb_status_tool -status that all expected instances are live and you can also confirm from describing the stack with peachydb_cluster_tool that it does not contain any extraneous instances that the peachydb_status_tool is not aware of and you still can not submit additional cluster configuration changes. This means that the AWS Cloudformation template has a stale state which is preventing additional cluster configuration changes from being submitted and which needs to be reset by selecting option 2 of he repair tool as below.
 
  ```shell
   prompt> python3 peachydb_repair_cluster.py
