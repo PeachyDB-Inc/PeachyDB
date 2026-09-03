@@ -14,7 +14,9 @@ As a prerequisite please carefully read <a href="https://github.com/akseg73/Peac
 
 1. As a first step obtain an EC2 Instance in the Client Stack from which the Server Stack Modification commands will be issued. If such an instance is not available then follow the steps  <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Tool6-ClientStackAddInstances.md" title="Documentation"> listed here,</a> to add such a client instance. The EC2 Instance chosen can be one of the cheapest ones available, it does not have to be the same type of instance as the other AWS EC2 instances in the AWS client stack. **IMPORTANT**: recall that a client instance does not allow multiple client commands to be issued concurrently, so if an existing client is running a client driver, it will have to be killed to execute the below commands. If you don't want to kill the running client driver then obtaining an additional client instance by augmenting client stack would be the approach.
 
-3. Some of the commands below (remove, substitute, rejoin) require ip-address of an AWS EC2 instance being utilized in the server stack, this is obtained by utilizing peachydb_cluster_tool to describe the server stack as explained <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tool3-DescribeServerStack.md"> here</a>, which can be executed from the client. If you want to confirm the status of a node (whether it is live or not) it can be done with the peachydb_status_tool -status command as described <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tools-MonitorCluster.md">here</a>. peachydb_status_tool can also be executed from the client instance.
+2. Some of the commands below (remove, substitute, rejoin) require ip-address of an AWS EC2 instance being utilized in the server stack, this is obtained by utilizing peachydb_cluster_tool to describe the server stack as explained <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tool3-DescribeServerStack.md"> here</a>, which can be executed from the client. If you want to confirm the status of a node (whether it is live or not) it can be done with the peachydb_status_tool -status command as described <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tools-MonitorCluster.md">here</a>. peachydb_status_tool can also be executed from the client instance.
+
+3. When the below commands are executed, they submit the operation to the AWS infrastructure as well as to peachydb. In case of add and substitute, the AWS change is submitted first and takes some time to be completed at AWS and then it is submitted to peachydb. In case of remove the operation is first submitted to peachydb and once that is complete the instance is removed from AWS. Once the command returns you can check the status of the cluster with peachydb_status_tool as explained <a = href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tools-MonitorCluster.md>here</a>. After the operation is complete both at AWS and peachydb, always confirm by describing the server stack with peachydb_cluster_tool as explained <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tool3-DescribeServerStack.md">here</a>, to make sure that an instances that had to be removed have been removed and are no longer reported by peachydb_status_tool. If you find inconsistencies between the server stack description and the peachydb_status_tool you may have to repair the AWS stack as explained here.
 
 4. Once the Client Instance is available we can now Add/Remove/Substitute instances to the Server Stack utilizing peachydb_modify_server_stack.py. This is what the invocation looks like.
 ```shell
@@ -29,7 +31,7 @@ As a prerequisite please carefully read <a href="https://github.com/akseg73/Peac
   Enter Choice [1-5, q]:
 ```
 
-4. To add an AWS EC2 instance to a server stack this is the command
+5. To add an AWS EC2 instance to a server stack this is the command
 ```shell
   prompt> python3 peachydb_modify_server_stack.py
   1 - Stack Add Instance - add an EC2 instance to a server Stack
@@ -44,7 +46,7 @@ Add instance Arguments: <stack-name>
 Enter Arguments: myteststack
 ```
 
-5. To remove an AWS EC2 instance from a server stack this is the command
+6. To remove an AWS EC2 instance from a server stack this is the command
 ```shell
   prompt> python3 peachydb_modify_server_stack.py
   1 - Stack Add Instance - add an EC2 instance to a server Stack
@@ -66,7 +68,7 @@ Instance IP address can be obtained by describing the cluster with peachydb_stat
 Enter Arguments: myteststack 192.32.34.10
 ```
 
-6. To substitute an AWS EC2 instance in a server stack this is what has to be done
+7. To substitute an AWS EC2 instance in a server stack this is what has to be done
 ```shell
   prompt> python3 peachydb_modify_server_stack.py
   1 - Stack Add Instance - add an EC2 instance to a server Stack
@@ -82,7 +84,7 @@ Instance IP address can be obtained by describing the cluster with peachydb_stat
 Enter Arguments: myteststack 192.23.45.10
 ```
 
-7. To rejoin instance that exists in the AWS server stack this is the command, rejoin is effectively substituting the node with itself.
+8. To rejoin instance that exists in the AWS server stack this is the command, rejoin is effectively substituting the node with itself.
 ```shell
   prompt> python3 peachydb_modify_server_stack.py
   1 - Stack Add Instance - add an EC2 instance to a server Stack
@@ -108,7 +110,7 @@ Instance IP address can be obtained by describing the cluster with peachydb_stat
 Enter Arguments: myteststack 192.34.44.10
 ```
 
-8. To cancel any of the add/remove/subtitute/rejoin operations above this is the command.
+9. To cancel any of the add/remove/subtitute/rejoin operations above this is the command.
 ```shell
 prompt> python3 peachydb_modify_server_stack.py
 1 - Stack Add Instance - add an EC2 instance to a server Stack
