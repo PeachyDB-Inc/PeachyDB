@@ -58,19 +58,19 @@ Enter Arguments: myteststack i-0b5089d37bd750dd3
   
   Enter Choice [1-2, q]: 2
 
-AWS Server stack state can be reset only if ALL below conditions are true:")
-1. You are unable to make cluster changes because the stack mistakenly")
-  believes that a cluster configuration change is ongoing when none is active")
-2. You have checked with status option of peachydb_status_tool.py as well as")
-   describe cluster option of peachydb_cluster_tool.py that all instances in")
-   AWS stack are same as the instances in the peachydb cluster")
-3. There is no cluster configuration change that is currently ongoing")
+AWS Server stack state can be reset only if ALL below conditions are true:
+1. You are unable to make cluster changes because the stack mistakenly
+  believes that a cluster configuration change is ongoing when none is active
+2. You have checked with status option of peachydb_status_tool.py as well as
+   describe cluster option of peachydb_cluster_tool.py that all instances in
+   AWS stack are same as the instances in the peachydb cluster
+3. There is no cluster configuration change that is currently ongoing
 
-If cluster members reported by peachydb_status_tool.py are fewer than the")
-ones reported by peachydb_cluster_tool.py, please utilize repair to remove")
-the AWS instances instead")
-Alternately if there is a cluster configuration change ongoing you can cancel it")
-utilizing the peachydb_modify_server_stack.py tool")
+If cluster members reported by peachydb_status_tool.py are fewer than the
+ones reported by peachydb_cluster_tool.py, please utilize repair to remove
+the AWS instances instead
+Alternately if there is a cluster configuration change ongoing you can cancel it
+utilizing the peachydb_modify_server_stack.py tool
 
 Do you want to proceed (y/n)? y
 Please enter Stack Name: myteststack
