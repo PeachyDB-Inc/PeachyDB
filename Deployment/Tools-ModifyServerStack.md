@@ -31,7 +31,7 @@ As a prerequisite please carefully read <a href="https://github.com/akseg73/Peac
   Enter Choice [1-5, q]:
 ```
 
-5. To **ADD** an AWS EC2 instance to a server stack this is the command. After command returns follow above steps to check status of server stack.
+5. To **ADD** an AWS EC2 instance to a server stack this is the command. After command returns follow step 3 above to check status of server stack.
 ```shell
   prompt> python3 peachydb_modify_server_stack.py
   1 - Stack Add Instance - add an EC2 instance to a server Stack
