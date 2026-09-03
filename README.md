@@ -185,7 +185,7 @@ Transactions can be issued with a single query (Insert,Delete,Update or Select) 
 
   - **6.a.6)** With the exception of unappliable writes being skipped, the batch will be applied as a whole (in other words readers will not see partial results of a batch).
 
-- **6.b)** Batch of read-only transactions - transactions that perform only reads.
+- **6.b)** Batch of read-only statements
   - **6.b.1)** Currently, such batches which have even one query that has ALLOW-FILTER will not return results that are transactional (long running reads are not transactional). Otherwise the transactions will return MVCC (multi-version concurrency control) consistent results. (MVCC is the same as snapshot isolation).
     
   - **6.b.2)** MVCC read-only transactions return snapshot isolation consistent results, which can return data which is older than the most recently committed.
