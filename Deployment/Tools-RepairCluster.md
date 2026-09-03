@@ -73,7 +73,7 @@ Alternately if there is a cluster configuration change ongoing you can cancel it
 utilizing the peachydb_modify_server_stack.py tool")
 
 Do you want to proceed (y/n)? y
-Please enter Stack Name: 
+Please enter Stack Name: myteststack
 
 ```
   
