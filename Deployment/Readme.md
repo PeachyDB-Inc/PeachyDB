@@ -26,7 +26,7 @@ After 1) and 2) above we are now ready to issue commands 3) through 12) to manag
 
 11. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Tool8-DescribeClientStack.md" title="describe client stack">Describe Client Stack</a> -- how to describe PeachyDB Client Stack
 
-12. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Tool9-CommandSyntax.md" title="syntax commands">Syntax for any of the above commands</a> -- explain syntax and arguments for each of the peachydb_cluster_tool.py commands. Although the commands themselves are quite explanatory.
+12. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Tool9-CommandSyntax.md" title="syntax commands">Syntax for any of the above commands</a> -- explain syntax and arguments for each of the peachydb_cluster_tool.py commands. Although the commands themselves are quite self explanatory.
 
 
 Modifying an existing PeachyDB Server Stack requires its own unique command tools which are described here in 13).<br>
