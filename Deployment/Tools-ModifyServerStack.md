@@ -10,7 +10,7 @@ Adding/Removing/Substituting Instances in a AWS Server Cloudformation Stack is c
 
 As a prerequisite please carefully read <a href="https://github.com/akseg73/PeachyDB?tab=readme-ov-file#14-adding-nodes-to-the-cluster" title="Documentation"> Section 14</a>, <a href="https://github.com/akseg73/PeachyDB?tab=readme-ov-file#15-replacing-a-failed-node" title="Documentation"> Section 15</a>, <a href="https://github.com/akseg73/PeachyDB?tab=readme-ov-file#16-removing-nodes-from-the-cluster" title="Documentation"> Section 16 </a> and <a href="https://github.com/akseg73/PeachyDB?tab=readme-ov-file#24-known-bugs-issues" title="Documentation"> Known Bugs, Issues </a> to understand numerous issues.
 
-**Steps:**
+### Steps
 
 1. As a first step obtain an EC2 Instance in the Client Stack from which the Server Stack Modification commands will be issued. If such an instance is not available then follow the steps  <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Tool6-ClientStackAddInstances.md" title="Documentation"> listed here,</a> to add such a client instance. The EC2 Instance chosen can be one of the cheapest ones available, it does not have to be the same type of instance as the other AWS EC2 instances in the AWS client stack. **IMPORTANT**: recall that a client instance does not allow multiple client commands to be issued concurrently, so if an existing client is running a client driver, it will have to be killed to execute the below commands. If you don't want to kill the running client driver then obtaining an additional client instance by augmenting client stack would be the approach.
 
