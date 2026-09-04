@@ -84,7 +84,7 @@ Instance IP address can be obtained by describing the cluster with peachydb_stat
 Enter Arguments: myteststack 192.23.45.10
 ```
 
-8. To **REJOIN** instance that exists in the AWS server stack this is the command, rejoin is effectively substituting the node with itself. If the node is currently live, as confirmed by the status tool, then rejoin will be rejected. If instance is offline it can be substituted. After command returns follow step 3 to check status of server stack.
+8. To **REJOIN** instance that exists in the AWS server stack this is the command, rejoin is effectively substituting the node with itself. If the node is currently live, as confirmed by the status tool, then rejoin will be rejected. If instance is offline it can be rejoined. After command returns follow step 3 to check status of server stack.
 ```shell
   prompt> python3 peachydb_modify_server_stack.py
   1 - Stack Add Instance - add an EC2 instance to a server Stack
