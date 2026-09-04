@@ -39,7 +39,7 @@ Enter Arguments: aws-key-pair-name=user-choice-key-pair-uswest1 s3-bucket-name=p
 
 ```
 
-- The above command will create a server stack in the us-west-2a region (as set in the environment variable on the Monitor Instance).
+- The above command will create a server stack in the us-west-2a region (as set in the environment variable on the Control Unit).
 - We are utilizing i3.2xlarge instances, total count is 3 and all 3 are co-ordinator nodes. We are utilizing Spot Instances in this example.
 - Please wait for the command to finish execution, do not Ctrl-C it (hitting Ctrl-C will not cancel the command, it has already been submitted to AWS, wait a little for the command to complete), it might take a few minutes to create the stack
 - Keep an eye on the CloudFormation Console, if it is taking too long most likely its because SpotInstances are not available, the above command can be tried without Spot Instances.
