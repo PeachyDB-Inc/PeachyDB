@@ -46,7 +46,7 @@ Add instance Arguments: <stack-name>
 Enter Arguments: myteststack
 ```
 
-6. To **REMOVE** an AWS EC2 instance from a server stack this is the command. After command returns follow step 3 above to monitor status of server stack.
+6. To **REMOVE** an AWS EC2 instance from a server stack this is the command. After command returns follow step 3 above to monitor status of server stack. Co-ordinator node can not be removed from the stack, it can only be substituted. Note that the number of co-ordinators is chosen at the time of creation of the server stack and it can not be altered afterwords.
 ```shell
   prompt> python3 peachydb_modify_server_stack.py
   1 - Stack Add Instance - add an EC2 instance to a server Stack
