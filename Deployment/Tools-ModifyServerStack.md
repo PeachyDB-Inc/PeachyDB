@@ -68,7 +68,7 @@ Instance IP address can be obtained by describing the cluster with peachydb_stat
 Enter Arguments: myteststack 192.32.34.10
 ```
 
-7. To **SUBSTTUTE** an AWS EC2 instance in a server stack this is what has to be done. After command returns follow step 3 above to check status of server stack.  If an AWS instance is live, then it can not be substituted, and the command will be rejected.
+7. To **SUBSTTUTE** an AWS EC2 instance in a server stack this is what has to be done. After command returns follow step 3 above to check status of server stack.  If the node is currently live, then it can not be substituted, and the command will be rejected.
 ```shell
   prompt> python3 peachydb_modify_server_stack.py
   1 - Stack Add Instance - add an EC2 instance to a server Stack
