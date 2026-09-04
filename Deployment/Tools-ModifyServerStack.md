@@ -58,7 +58,7 @@ Enter Arguments: myteststack
   Enter Choice [1-5, q]: 2
 
 WARNING:: Instance Substitute is not equivalent to Instance Remove followed by Instance Add
-Removing nodes is done only for extremely rare situation of downscaling cluster
+Removing nodes is done only for less common situation of downscaling cluster
 For Substituting a node utilize Subtitute command
 Utilizing (Delete Instance + Add Instance) instead of Subtitute can imbalance the cluster
 and can be an extremely slow operation. Please make certain that your use case is not Substitute
