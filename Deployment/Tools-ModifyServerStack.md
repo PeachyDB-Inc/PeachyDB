@@ -20,6 +20,7 @@ As a prerequisite please carefully read <a href="https://github.com/akseg73/Peac
    3.a) Once any of the commands below returns you can check the status of the cluster with peachydb_status_tool every 2 minutes.<br><br>
    3.b) After the operation is complete both at AWS and peachydb, always confirm by describing the server stack with peachydb_cluster_tool, to make sure that any instances that had to be removed have been removed and are no longer reported by peachydb_status_tool. If you find inconsistencies between the server stack description and the peachydb_status_tool you may have to <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tools-RepairCluster.md">repair</a> the AWS stack.<br><br>
    3.c) When running the below commands do **NOT** hit Ctrl-C. The command has already been submitted to AWS and it is only waiting to confirm the completion of the task. Hitting Ctrl-C will leave the AWS stack inconsistent with the underlying database and the stack will have to be <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tools-RepairCluster.md"> repaired</a>.<br><br>
+   3.d) AWS also has account capacity limits, which will prevent you from acquiring Ec2 Instances beyond those limits.<br><br>
 
 5. Once the Client Instance is available we can now Add/Remove/Substitute instances to the Server Stack utilizing peachydb_modify_server_stack.py. This is what the invocation looks like.
 ```shell
