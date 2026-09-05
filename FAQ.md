@@ -191,7 +191,7 @@ Simply resubmitting a write that may already have been submitted is not the corr
   <b>16.b</b><code>peachydb_modify_server_stack</code>: to modify server AWS Cloudformation stack. Modifying server stack is a database transaction and hence must be submitted from a client instance in the client AWS cloudformation stack. Usage of this tool is explained <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tools-ModifyServerStack.md">here</a>.<br><br>
   <b>16.c</b><code>peachydb_status_tool</code>: to obtain support bundle and to monitor the health of server AWS Cloudformation stack. It is executed on the <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Step2--ControlUnit.md">Control Unit.</a>
   <br><br>
-  <b>16.d</b><code>peachydb_repair_cluster</code>: to repair server AWS Cloudformation stack, if a previous server Stack modification operation did not complete as expected then the <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tools-RepairCluster.md">repair</a> tool can be utilized to address common issues.
+  <b>16.d</b><code>peachydb_repair_cluster</code>: to repair server AWS Cloudformation stack, if a previous server Stack modification operation did not complete as expected then the <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tools-RepairCluster.md">repair tool</a> can be utilized to address common issues.
   <br><br>
 </details>
 
