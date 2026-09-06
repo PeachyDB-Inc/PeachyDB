@@ -18,7 +18,7 @@ It is recommended that you monitor the health of the server cluster utilizing <c
    Nodeid:2 IP:132.21.4.215 LIVE
    ```
    No Cluster CFG change ongoing means there is no outstanding Cluster Configuration Change (add/remove/substitute/rejoin node) in server cluster.
-   leaderid is the nodeid of the current leader. The ipaddresses of each node are listed so that they can be corelated with the output of <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tools-ModifyServerStack.md"> stack description</a>.
+   leaderid is the nodeid of the current leader. The ipaddresses of each node are listed so that they can be corelated with the output of <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tool3-DescribeServerStack.md"> stack description</a>.
 
 6. To check space utilization on the members of the server cluster utilize the following command, it is recommended that space utilization
    be checked every few hours.
