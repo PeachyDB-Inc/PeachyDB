@@ -22,6 +22,12 @@ It is recommended that you monitor the health of the server cluster utilizing <c
 
 6. To check space utilization on the members of the server cluster utilize the following command, it is recommended that space utilization
    be checked every few hours.
-   <br><code>peachydb_status_tool -utilization stack-name</code>
+   ```shell
+    prompt> python3 peachydb_status_tool.py -utilization server-stack-name
+
+    Nodeid:0 IP:172.31.8.50 DB-SPACE: 267MB LOG-SPACE: 320MB CAPACITY: 5000GB UTILIZATION: 0%
+    Nodeid:1 IP:172.31.8.168 DB-SPACE: 267MB LOG-SPACE: 320MB CAPACITY: 5000GB UTILIZATION: 0%
+    Nodeid:2 IP:172.31.0.170 DB-SPACE: 267MB LOG-SPACE: 320MB CAPACITY: 5000GB UTILIZATION: 0%
+   ```
 
 Utilizing the above commands too frequently will place a burden of their own on the servers as a result, they should be utilized according to the above suggestions. The above commands can be invoked from a bash script and their output can be parsed utilizing shell utilities to look for liveness issues of nodes or for too high storage utilization on the members of the cluster.
