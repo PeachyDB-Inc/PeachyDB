@@ -7,7 +7,7 @@ It is recommended that you monitor the health of the server cluster utilizing <c
 2\. Note that the commands below provide information about the nodes in the server cluster listed by ipaddress assigned to the instances. If you want to know which AWS instance the address corresponds to you can describe the stack as exaplined <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tool3-DescribeServerStack.md">here</a>. Since the server stack description doesn't change unless you modify the server cluster you can save it in a file to revisit as needed.
 
 3\. To obtain the support bundle utilize the following command:
-   ```shell
+  > ```shell
    prompt> python3 peachydb_status_tool -support-bundle server-stack-name aws-instance-id
    ```
   The support bundle will also attempt to include any core files generated on the instance, this will significantly degrade the
