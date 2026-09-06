@@ -11,6 +11,7 @@ It is recommended that you monitor the health of the server cluster utilizing <c
 4. To check liveness of nodes in the server cluster this is the command, it is recommended that liveness be sampled every 2 minutes.
    ```shell
    prompt> peachydb_status_tool -status stack-name
+   
    No Cluster CFG change ongoing, Leaderid:1, liveness check (heartbeat recvd):
    Nodeid:0 IP:132.21.2.128 LIVE
    Nodeid:1 IP:132.21.3.10 LIVE
