@@ -9,7 +9,7 @@ It is recommended that you monitor the health of the server cluster utilizing <c
    prompt> python3 peachydb_status_tool -support-bundle server-stack-name aws-instance-id
    ```
   The support bundle will also attempt to include any core files generated on the instance, this will significantly degrade the
-   performance of the instance. A support_bundle will not be generated any more than once per ten minute window for a given server node.
+   performance of the instance. A support_bundle will not be generated any more than once per ten minute window for a given server node.<br>
 4) To check liveness of nodes in the server cluster this is the command, it is recommended that liveness be sampled every 2 minutes.
    ```shell
    prompt> python3 peachydb_status_tool.py -status server-stack-name
@@ -20,7 +20,7 @@ It is recommended that you monitor the health of the server cluster utilizing <c
    Nodeid:2 IP:132.21.4.215 LIVE
    ```
    No Cluster CFG change ongoing means there is no outstanding Cluster Configuration Change (add/remove/substitute/rejoin node) in server cluster.
-   leaderid is the nodeid of the current leader. The ipaddresses of each node are listed so that they can be corelated with the output of <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tool3-DescribeServerStack.md"> stack description</a>.
+   leaderid is the nodeid of the current leader. The ipaddresses of each node are listed so that they can be corelated with the output of <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tool3-DescribeServerStack.md"> stack description</a>.<br>
 5) To check space utilization on the members of the server cluster utilize the following command, it is recommended that space utilization
    be checked every few hours.
    ```shell
