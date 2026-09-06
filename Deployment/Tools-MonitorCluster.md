@@ -12,9 +12,9 @@ It is recommended that you monitor the health of the server cluster utilizing <c
    ```shell
    prompt> peachydb_status_tool -status stack-name
    No Cluster CFG change ongoing, Leaderid:1, liveness check (heartbeat recvd):
-   Nodeid:0 IP:172.31.3.158 LIVE
-   Nodeid:1 IP:172.31.7.11 LIVE
-   Nodeid:2 IP:172.31.2.225 LIVE
+   Nodeid:0 IP:132.21.2.128 LIVE
+   Nodeid:1 IP:132.21.3.10 LIVE
+   Nodeid:2 IP:132.21.4.215 LIVE
    ```
 
 5. To check space utilization on the members of the server cluster utilize the following command, it is recommended that space utilization
