@@ -9,7 +9,13 @@ It is recommended that you monitor the health of the server cluster utilizing <c
    performance of the instance. A support_bundle will not be generated any more than once per ten minute window for a given server node.
    <br><br>
 4. To check liveness of nodes in the server cluster this is the command, it is recommended that liveness be sampled every 2 minutes.
-   <code>peachydb_status_tool -status stack-name </code><br><br>
+   ```shell
+   prompt> peachydb_status_tool -status stack-name
+ No Cluster CFG change ongoing, Leaderid:1, liveness check (heartbeat recvd):
+ Nodeid:0 IP:172.31.3.158 LIVE
+ Nodeid:1 IP:172.31.7.11 LIVE
+ Nodeid:2 IP:172.31.2.225 LIVE
+ ```
 5. To check space utilization on the members of the server cluster utilize the following command, it is recommended that space utilization
    be checked every few hours.
    <br><code>peachydb_status_tool -utilization stack-name</code>
