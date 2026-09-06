@@ -69,6 +69,7 @@ DO you want to proceed (y/n)? y
 Delete instance Arguments: <stack-name> <instance-ip-addr>
 Instance IP address can be obtained by describing the cluster with peachydb_status_tool -status
 Enter Arguments: myteststack 192.32.34.10
+Really want to go ahead? Please type the word "proceed" to continue: proceed
 ```
 
 7. To **SUBSTTUTE** an AWS EC2 instance in a server stack this is what has to be done. After command returns follow step 3 above to check status of server stack.  If the node is currently live, as confirmed by the status tool, then it can not be substituted, and the command will be rejected.
