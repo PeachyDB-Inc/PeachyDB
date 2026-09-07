@@ -28,6 +28,7 @@ It is recommended that you monitor the health of the server cluster utilizing <c
    be checked every few hours.
    ```shell
    prompt> python3 peachydb_status_tool.py -utilization server-stack-name
+
    Nodeid:0 IP:152.21.2.26 DB-SPACE: 5GB LOG-SPACE: 4.59GB CAPACITY: 4.9TB UTILIZATION: 0%
    Nodeid:1 IP:152.21.3.31 DB-SPACE: 5GB LOG-SPACE: 4.53GB CAPACITY: 4.9TB UTILIZATION: 0%
    Nodeid:2 IP:152.21.4.152 DB-SPACE: 5GB LOG-SPACE: 4.56GB CAPACITY: 4.9TB UTILIZATION: 0%
