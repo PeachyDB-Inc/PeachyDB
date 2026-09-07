@@ -601,8 +601,6 @@ What about benchmarks?
 
 - **29.g)** Before criticizing/disparaging this product please be considerate of the fact that we are a very small team with very limited resources. However, as we obtain more resources, we expect to rapidly address majority of the issues and close the gap with the very best products. In the meantime any issues encountered should be recorded in Github issues for the project.
 
-- **29.h)** Due to compatibility with Cassandra CQL you can easily migrate to other products if they fit your usage better.
-
 ## 30. Why are we closed source?
 
 At the moment we want the user to focus only on their application and not depend upon implementation specifics of our product which could be significantly altered in subsequent releases.
