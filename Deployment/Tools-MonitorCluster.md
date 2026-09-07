@@ -16,7 +16,7 @@ It is recommended that you monitor the health of the server cluster utilizing <c
    ```shell
    prompt> python3 peachydb_status_tool.py -status server-stack-name
    
-   No Cluster CFG change ongoing, Leaderid:1, liveness check (heartbeat recvd):
+   No Cluster CFG change ongoing, Leaderid:1, liveness (heartbeat) check:
    Nodeid:0 IP:132.21.2.128 LIVE
    Nodeid:1 IP:132.21.3.10 LIVE
    Nodeid:2 IP:132.21.4.215 LIVE
