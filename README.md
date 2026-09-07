@@ -581,8 +581,6 @@ We have made every effort to ensure a product of extremely high quality but some
 
 - **28.f)** If you have run into a critical bug, you can open an issue in Github, after checking that it is not a duplicate of a known issue. Depending upon availability of resources we can get to it.
 
-- **28.g)** Since we are mostly compatible with Cassandra CQL, if you have issues with our current release you can migrate to Cassandra or similar products easily. We hope that this should not be needed.
-
 ## 29. Benchmarks
 
 What about benchmarks?
@@ -600,6 +598,8 @@ What about benchmarks?
 - **29.f)** Our product also has limitations listed in the sections above. If your use case fits better with the alternatives, it would be better to stick with them. Different products may be optimized better for different situations.
 
 - **29.g)** Before criticizing/disparaging this product please be considerate of the fact that we are a very small team with very limited resources. However, as we obtain more resources, we expect to rapidly address majority of the issues and close the gap with the very best products. In the meantime any issues encountered should be recorded in Github issues for the project.
+
+- **29.h)** Since we are mostly compatible with Cassandra CQL, if you have issues with our current release you can migrate to Cassandra or similar products easily. We hope that this should not be needed.
 
 ## 30. Why are we closed source?
 
