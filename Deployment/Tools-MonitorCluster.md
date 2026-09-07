@@ -12,7 +12,7 @@ It is recommended that you monitor the health of the server cluster utilizing <c
    ```
   The support bundle will also attempt to include any core files generated on the instance, this will significantly degrade the performance of the instance. A support_bundle will not be generated any more than once per ten minute window for a given server node.
 
-4\. To check liveness of nodes in the server cluster this is the command, it is recommended that liveness be sampled every 2 minutes.
+4\. To check liveness of nodes in the server cluster this is the command, it is recommended that liveness be sampled every 1 minute.
    ```shell
    prompt> python3 peachydb_status_tool.py -status server-stack-name
    
