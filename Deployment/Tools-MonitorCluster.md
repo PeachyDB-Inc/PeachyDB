@@ -25,7 +25,7 @@ It is recommended that you monitor the health of the server cluster utilizing <c
    leaderid is the nodeid of the current leader. The ipaddress of each node is listed so that it can be corelated with the output of <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tool3-DescribeServerStack.md"> stack description</a>.
 
 5\. To check space utilization on the members of the server cluster utilize the following command, it is recommended that space utilization
-   be checked every few hours.
+   be checked once every hour.
    ```shell
    prompt> python3 peachydb_status_tool.py -utilization server-stack-name
 
