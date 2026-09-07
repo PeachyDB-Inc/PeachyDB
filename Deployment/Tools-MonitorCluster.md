@@ -27,11 +27,10 @@ It is recommended that you monitor the health of the server cluster utilizing <c
 5\. To check space utilization on the members of the server cluster utilize the following command, it is recommended that space utilization
    be checked every few hours.
    ```shell
-    prompt> python3 peachydb_status_tool.py -utilization server-stack-name
-
-    Nodeid:0 IP:172.31.8.50 DB-SPACE: 267MB LOG-SPACE: 320MB CAPACITY: 4.9TB UTILIZATION: 0%
-    Nodeid:1 IP:172.31.8.168 DB-SPACE: 267MB LOG-SPACE: 320MB CAPACITY: 4.9TB UTILIZATION: 0%
-    Nodeid:2 IP:172.31.0.170 DB-SPACE: 267MB LOG-SPACE: 320MB CAPACITY: 4.9TB UTILIZATION: 0%
+   prompt> python3 peachydb_status_tool.py -utilization server-stack-name
+   Nodeid:0 IP:152.21.2.26 DB-SPACE: 5GB LOG-SPACE: 4.59GB CAPACITY: 4.9TB UTILIZATION: 0%
+   Nodeid:1 IP:152.21.3.31 DB-SPACE: 5GB LOG-SPACE: 4.53GB CAPACITY: 4.9TB UTILIZATION: 0%
+   Nodeid:2 IP:152.21.4.152 DB-SPACE: 5GB LOG-SPACE: 4.56GB CAPACITY: 4.9TB UTILIZATION: 0%
    ```
    The command output displays for each node the amount of SSD storage space taken up by the database, the logs and the total capacity of the instance as well as % utilization of storage space. The space is displayed in MB (megabytes) or GB (gigabytes) or TB (terabytes).
 
