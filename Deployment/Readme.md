@@ -8,7 +8,7 @@ In this sub directory you will find the pre-requisites and tools to get going wi
 
 After 1) and 2) above we are now ready to issue commands 3) through 12) to manage PeachyDB Server and Client Stacks. These commands are executed on the Control Unit obtained in step 2) above. If during running any of the below commands the tool peachydb_cluster_tool returns an error "Stack with <stack-name> does not exist", this may be caused due to clock skew and that can be fixed by following steps indicated in Pre-requisites 1) above. <br>
 
-3. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Step3--PeachydbClusterTool.md" title="peachydb cluster tool">Peachydb Cluster Tool</a> -- peachydb_cluster_tool.py is the main tool to manage PeachyDB Server/Client Stack
+3. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Step3--PeachydbClusterTool.md" title="peachydb cluster tool">Peachydb Cluster Tool</a> -- peachydb_cluster_tool.py is the main tool to manage PeachyDB Server/Client Stacks. This tool submits operations to AWS, it does not directly interact with the product.
 
 4. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Tool1-CreateServerStack.md" title="create server stack">Create Server stack</a> --  how to create PeachyDB Server Stack
 
