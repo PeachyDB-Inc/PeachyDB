@@ -337,7 +337,7 @@ We do not have backup/restore at the moment. The Cluster has a built-in replicat
 We have to provide backup and restore tools as soon as we can.
 
 ## 23. Deployment Strategy
-We utilize AWS CloudFormation templates to create AWS stacks to deploy our database clusters. You have to create an S3 bucket with write permissions in which the CloudFormation templates will be stored. All AWS EC2 instances must be within the same Subnet, VPC.
+We utilize AWS CloudFormation templates to create AWS stacks to deploy our database clusters. All AWS EC2 instances must be within the same Subnet, VPC.
 
 - **23.a)** As a first step, create a test cluster with the cheapest instances (i3.2xlarge for server clusters). Spot instances can be utilized for experimental clusters, however they can be stopped by AWS at any time. They are not supported for production because disruptions can lead to loss of data, however, for testing purposes as long as you know you won't be disrupted, it will be more cost-effective to utilize this option. **Important**: Occasionally you will find that an AWS EC2 Spot instance is stopped. Please keep an eye on the AWS console to look out for this. If this is a test cluster, you could simply delete the clusters and start over. A stopped instance is considered to be a failed instance which would have to be substituted in a production cluster.
   - **23.a.1)** Utilize the computation below to determine, based upon the number of nodes in the cluster, how much data you can store in the database; choose a cluster of at least 4 nodes.
