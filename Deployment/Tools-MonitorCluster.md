@@ -1,6 +1,6 @@
 ## Monitor Server Cluster
 
-It is recommended that you monitor the health of the server cluster utilizing <code>peachydb_status_tool</code>
+It is recommended that you monitor the health of the server cluster utilizing <code>peachydb_status_tool</code>. This is a product level tool that interacts with the database server. It does not interact with AWS Cloudformation resources.
 
 1\. As explained in <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Step2--ControlUnit.md">control unit</a>, the control instance is the instance from which AWS cloud formation stacks are created and deleted. This is the instance from which the monitoring commands will be issued. From the control instance utilize <code>peachydb_status_tool</code> for various usages. NOTE:: the status tool can be run from the control unit as well as from the client instances. It is more cost effective to utilize the cheapest EC2 instance available to utilize as the Control Unit. However if you are ssh'd into a client machine, these commands should work there as well.
 
