@@ -37,6 +37,6 @@ It is recommended that you monitor the health of the server cluster utilizing <c
 
 Utilizing the above commands too frequently will place a burden of their own on the servers, as a result, they should be utilized according to the above suggestions. <br>
 
-If the above commands are executed more frequently than a minimal time window (which could be anywhere between 30sec to 5min depending upon the command), cached results will be returned rather than the data being evaluated afresh. Caching is done to reduce the burden on the server to reevaluate these commands at a high rate. Please be carefull about the caching aspect of these commands, for eg, a cluster coonfiguration change may have completed but it may get reported by the status tool 30sec after completion.<br>
+If the above commands are executed more frequently than a minimal time window (which could be anywhere between 30sec to 5min depending upon the command), cached results will be returned rather than the data being evaluated afresh. Caching is done to reduce the burden on the server to reevaluate these commands at a high rate. Please be carefull about the caching aspect of these commands, for eg, a cluster coonfiguration change may have completed but it may get reported as completed by the status tool 30sec after completion.<br>
 
 The above commands can be invoked from a bash script and their output can be parsed utilizing shell utilities to look for liveness issues of nodes or for too high storage utilization on the members of the cluster.
