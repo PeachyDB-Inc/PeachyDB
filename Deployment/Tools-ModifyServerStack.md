@@ -34,7 +34,7 @@ As a prerequisite please carefully read <a href="https://github.com/akseg73/Peac
   Enter Choice [1-5, q]:
 ```
 
-5. To **ADD** an AWS EC2 instance to a server stack this is the command. After command returns follow step 3 above to check status of server stack. ***__IMPORTANT:__*** Adding nodes to a cluster should be done only after the nodes in the cluster have 100s of GB of data so that vnode repartitioning can better distribute the new vnodes else it can lead to imbalanced nodes (some nodes with too much data and some with very little data).
+5. To **ADD** an AWS EC2 instance to a server stack this is the command. After command returns follow step 3 above to check status of server stack. ***__IMPORTANT:__*** Adding nodes to a cluster should be done only after the nodes in the cluster have reached at least 50% of their storage capacity so that vnode repartitioning can better distribute the new vnodes else it can lead to imbalanced nodes (some nodes with too much data and some with very little data).
 ```shell
   prompt> python3 peachydb_modify_server_stack.py
   1 - Stack Add Instance - add an EC2 instance to a server Stack
