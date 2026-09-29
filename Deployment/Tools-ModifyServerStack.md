@@ -115,7 +115,8 @@ Instance IP address can be obtained by describing the cluster with peachydb_stat
 Enter Arguments: myteststack 192.34.44.10
 ```
 
-9. To **CANCEL** any of the add/remove/subtitute/rejoin operations above this is the command.
+9. To **CANCEL** any of the add/remove/subtitute/rejoin operations just submitted, with the above commands this is the way.
+The primary use case for **CANCEL** is if an operation was just submitted by mistake, and immediately cancelled can be invoked. Another possibility is that a new node being added did not come up due to failure to initialize ports etc. It is not recommended to invoke cancel on an operation that is well under way. It is meant only for corner cases.
 ```shell
 prompt> python3 peachydb_modify_server_stack.py
 1 - Stack Add Instance - add an EC2 instance to a server Stack
