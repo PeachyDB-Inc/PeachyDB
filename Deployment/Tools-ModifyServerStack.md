@@ -50,8 +50,9 @@ Add instance Arguments: <stack-name>
 Enter Arguments: myteststack
 ```
 
-6. To **REMOVE** an AWS EC2 instance from a server stack this is the command. After command returns follow step 3 above to monitor status of server stack. A co-ordinator node can not be removed from the stack, it can only be substituted. Note that the number of co-ordinators is chosen at the time of creation of the server stack and it can not be altered afterwords. <br>
+6. To **REMOVE** an AWS EC2 instance from a server stack this is the command. After command returns follow step 3 above to monitor status of server stack. <br>
  **NOTE**:
+   -  A co-ordinator node can not be removed from the stack, it can only be substituted. Note that the number of co-ordinators is chosen at the time of creation of the server stack and it can not be altered afterwords.
    - if a node removal causes vnodes to be assigned to a node, which are being garbage collected by vnode_gc (due to a previous cluster configuration change that deallocated those vnodes from the current node) then the garbage collection of those vnodes has to be completed before they can be reacquired as a part of the current request to remove a node. So the node removal will stall till the existing garbage collection request is completed.
    - node removal is much less efficient than node addition, so please do this at a quiescent point. Write performance will plummet during this operaiton.
 ```shell
