@@ -57,7 +57,7 @@ Enter Arguments: myteststack
    -  A co-ordinator node can not be removed from the stack, it can only be substituted. Note that the number of co-ordinators is chosen at the time of creation of the server stack and it can not be altered afterwords.
    - if a node removal causes vnodes to be assigned to a node, which are being garbage collected by vnode_gc (due to a previous cluster configuration change that deallocated those vnodes from the current node) then the garbage collection of those vnodes has to be completed before they can be reacquired as a part of the current request to remove a node. So the node removal will stall till the existing garbage collection request is completed. This happens if a node is being removed immediately after node addition.
    - node removal is much less efficient than node addition, so please do this at a quiescent point.
-   - **node substitute** is not the same as remove + add, do NOT remove node if you are looking to substitute it.
+   - **node substitute** is not the same as remove + add, do **NOT** remove node if you are looking to substitute it.
 ```shell
   prompt> python3 peachydb_modify_server_stack.py
   1 - Stack Add Instance - add an EC2 instance to a server Stack
