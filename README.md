@@ -536,7 +536,7 @@ As with all Databases we have size limits on numerous elements of the database. 
 - **25.j)** There can be atmost 16k concurrent write transaction requests submitted by client fibers/threads.
 - **25.k)** There is an upper limit of 64k on the sum total all the client-threads/fibers on all of the client instances taken together. We have not tested anywhere near that high number of client threads, so the actual figure may be a little lower.
 - **25.l)** A single AWS client instance can run only one client driver, which usually has multiple threads and or multiple fibers.
-- **25.m)** Table names, Column names, and any other identifier names have a maximum length of 63 bytes. If longer names are provided they will be truncated. In query string do NOT utilize long identifiers or values for columns, rely on bind markers as explained in Cassandra documentation.
+- **25.m)** Table names, Column names, and any other identifier names appearing in query string have a maximum length of 63 bytes. If longer names are provided they will be truncated. In query string do NOT utilize long identifiers or values for columns, rely on bind markers as explained in Cassandra documentation.
 
 ## 26. Security Issues
 
