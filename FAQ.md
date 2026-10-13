@@ -128,7 +128,9 @@
 <details>
   <summary>10. Why can I not add a materialized view (MV) in the running product?</summary>
   <br>
-  We have not yet implemented that functionality. It requires setting up long-running transactions to transfer data between different nodes in the cluster. This functionality requires thorough stress testing and failure testing before release. 
+  We have not yet implemented that functionality. It requires setting up long-running transactions to transfer data between different nodes in the cluster. This functionality requires thorough stress testing and failure testing before release.
+  <br>
+  A known bug in this code is that, while this functionality is not supported, the code does not yet report errors if this is done. This is because the code is not yet capable of knowing whether the MV is being added before adding data or not. So just be aware of this and load MV schema before running tests.
   <br><br>
   At the moment, it is better to figure out your schema and test it before deployment. In a production system, this is not always doable as changes in schema are inevitable. We plan to make improvements in this area ASAP.
   <br><br>
