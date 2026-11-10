@@ -68,7 +68,7 @@
   <br>)No Ethernet ports - bye
   <br>EAL: Error - exiting with code: 1
   <br>No Ethernet ports - bye
-  <br><br>This happens because there is a few second delay before the client ports are set up.The solution is to just wait a few seconds and run the client again. 
+  <br><br>This happens because there is a few second delay before the client ports are set up. The solution is to just wait a few seconds and run the client again. 
   <br><br>
 </details>
 
