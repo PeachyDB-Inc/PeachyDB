@@ -51,7 +51,31 @@
 ---
 
 <details>
-  <summary>4. How do I obtain a support bundle?</summary>
+  <summary>4. Client terminates with error "No Ethernet ports -bye" what should I do?</summary>
+  <br>
+  An example run of the error is as follows:
+  peachdb_client_cqldb 1
+  Launching Threads#:4 and fibers#:512
+  Setting up initial schema/security/data
+  )client network setup with .info files
+  )max pktsize = 1734
+  )ports = 2
+  EAL: Detected CPU lcores: 4
+  EAL: Detected NUMA nodes: 1
+  EAL: Detected shared linkage of DPDK
+ EAL: Multi-process socket /var/run/dpdk/rte/mp_socket
+ EAL: Selected IOVA mode 'PA'
+ )No Ethernet ports - bye
+ EAL: Error - exiting with code: 1
+ No Ethernet ports - bye
+ This happens because there is a few second delay before the client ports are set up.The solution is to just wait a few seconds and run the client again. 
+  <br><br>
+</details>
+
+---
+
+<details>
+  <summary>5. How do I obtain a support bundle?</summary>
   <br>
   The <code>peachydb_status_tool</code> can be utilized to obtain support bundle for servers in the server AWS CloudFormation Stack. This is explained in <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tools-MonitorCluster.md"> monitor servers </a>.
   <br><br>
@@ -60,14 +84,14 @@
 ---
 
 <details>
-  <summary>5. How do I monitor the server cluster?</summary>
+  <summary>6. How do I monitor the server cluster?</summary>
   <br>
   The <code>peachydb_status_tool</code> can be utilized to obtain liveness information of the servers in the server AWS CloudFormation Stack. This is explained in <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tools-MonitorCluster.md"> monitor servers </a>.
   <br><br>
   If you find some server is hung, you can do the following:
   <ul>
-    <li>5.a) Collect the support bundle and look at the logs: <code>peachdb.messglog*</code>, <code>perf.peachdb.messglog*</code>, <code>bulk.peachdb.messglog*</code></li>
-    <li>5.b) Generally, it is best not to SSH into the server instances. However, if a node is not responsive, you suspect some kind of issue, and you want to make a quick check, you can:
+    <li>6.a) Collect the support bundle and look at the logs: <code>peachdb.messglog*</code>, <code>perf.peachdb.messglog*</code>, <code>bulk.peachdb.messglog*</code></li>
+    <li>6.b) Generally, it is best not to SSH into the server instances. However, if a node is not responsive, you suspect some kind of issue, and you want to make a quick check, you can:
       <ul>
         <li>SSH to the server</li>
         <li><code>cd /dbstore</code></li>
@@ -81,7 +105,7 @@
 ---
 
 <details>
-  <summary>6. I get "mvccro garbage collected" or "stale handle" as response to a read query, what should I do?</summary>
+  <summary>7. I get "mvccro garbage collected" or "stale handle" as response to a read query, what should I do?</summary>
   <br>
   This should, hopefully, not occur for cases other than long-running read transactions. Reads (short or long-running) that involve only a single partition key should not be seeing this error. 
   <br><br>
@@ -93,7 +117,7 @@
 ---
 
 <details>
-  <summary>7. How do I determine if clients or the servers are the bottleneck?</summary>
+  <summary>8. How do I determine if clients or the servers are the bottleneck?</summary>
   <br>
   Perform <code>mpstat</code> on the client. You will most likely find an uneven distribution of load on the different cores.
   <br><br>
@@ -106,7 +130,7 @@
 ---
 
 <details>
-  <summary>8. Why does mpstat on the client show uneven distribution of CPU utilization?</summary>
+  <summary>9. Why does mpstat on the client show uneven distribution of CPU utilization?</summary>
   <br>
   Some of this is due to variances of system calls, and some is due to the CPU core 0 being utilized by the OS. Therefore, the numerous cores are not uniformly available to the client.
   <br><br>
@@ -115,7 +139,7 @@
 ---
 
 <details>
-  <summary>9. A Spot instance in AWS was terminated, what should I do?</summary>
+  <summary>10. A Spot instance in AWS was terminated, what should I do?</summary>
   <br>
   Spot instances for server AWS CloudFormation stacks are not recommended for production because they can be asynchronously terminated by AWS due to any reason. 
   <br><br>
@@ -126,7 +150,7 @@
 ---
 
 <details>
-  <summary>10. Why can I not add a materialized view (MV) in the running product?</summary>
+  <summary>11. Why can I not add a materialized view (MV) in the running product?</summary>
   <br>
   We have not yet implemented that functionality. It requires setting up long-running transactions to transfer data between different nodes in the cluster. This functionality requires thorough stress testing and failure testing before release.
   <br><br>
@@ -140,7 +164,7 @@
 ---
 
 <details>
-  <summary>11. What if a write query timed out, should i resubmit it?</summary>
+  <summary>12. What if a write query timed out, should i resubmit it?</summary>
   <br>
   A write could timeout due to multiple reasons, either the write was never submitted to the leader node before it failed over to a different leader or write was submitted but the completion response did not arrive within the timeout window at the client. Depending upon the situation we have to perform different actions. The tests provided peachdb_client_cqldb.c etc contain detailed explanation of what to do in each case.
 Simply resubmitting a write that may already have been submitted is not the correct approach. We have to determine the status of the previously submitted write and only proceed from there as explained in the tests.
@@ -150,7 +174,7 @@ Simply resubmitting a write that may already have been submitted is not the corr
 ---
 
 <details>
-  <summary>12. What is the default timeout of queries?</summary>
+  <summary>13. What is the default timeout of queries?</summary>
   <br>
   We are setting a default timeout of 2 minutes, and this is the minimum timeout allowed because in the event of timeout we do not want to overwhelm the servers with continuous barrage of resubmissions of timed out requests.
   <br><br>
@@ -159,7 +183,7 @@ Simply resubmitting a write that may already have been submitted is not the corr
 ---
 
 <details>
-  <summary>13. I set up the server and client AWS Cloudformation Stacks and run the client but absolutely nothing happens, what is going on?</summary>
+  <summary>14. I set up the server and client AWS Cloudformation Stacks and run the client but absolutely nothing happens, what is going on?</summary>
   <br>
   This situation is often caused because network traffic within the subnet has not been enabled as explained in <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Step1--Prerequisites.md"> prerequisites</a>
   <br><br>
@@ -168,7 +192,7 @@ Simply resubmitting a write that may already have been submitted is not the corr
 ---
 
 <details>
-  <summary>14. What is the topology of the server cluster?</summary>
+  <summary>15. What is the topology of the server cluster?</summary>
   <br>
   In this database there are several co-ordinator nodes which receive all journals for the write transactions submitted to the cluster. The remaining members of the cluster receive writes only pertaining to their node. One node out of the co-ordinators is the leader that manages the raft consensus protocol. If the leader fails, a different co-ordinator node will be elected the leader. Writes get submitted to the leader and are propogated to the other members. In order for writes to be accepted more than K/2 co-rodinators have to be alive. Default number of co-ordinator nodes is 3 and the default replication factor is also 3.
   <br><br>
@@ -177,7 +201,7 @@ Simply resubmitting a write that may already have been submitted is not the corr
 ---
 
 <details>
-  <summary>15. Are there any scheduled tasks to be run on the database servers?</summary>
+  <summary>16. Are there any scheduled tasks to be run on the database servers?</summary>
   <br>
   Any such tasks are currently managed within the database server threads and do not require explicit tuning or scheduling. With the exception of vnode_gc for garbage collecting vnodes after cluster configuration changes and table_ops tasks for create/drop SI/Tables, the other tasks should not have any noticeable impact on performance. For the moment the user should not focus on this, we will check later if there is any need for any tunable parameters or not.
   <br><br>
@@ -186,14 +210,14 @@ Simply resubmitting a write that may already have been submitted is not the corr
 ---
 
 <details>
-  <summary>16. What are the tools to be aware of?</summary>
+  <summary>17. What are the tools to be aware of?</summary>
   <br>
   The following tools are utilized with peachydb:<br><br>
-  <b>16.a</b><code>peachydb_cluster_tool</code>: to create/delete/describe server and client AWS Cloudformation Stacks. It is also utilized to modify (add,remove instances) client stacks. This tool is executed on the <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Step2--ControlUnit.md">Control Unit.</a><br><br>
-  <b>16.b</b><code>peachydb_modify_server_stack</code>: to modify (add/remove/substitute nodes in) server AWS Cloudformation stack. This tool must be executed on a client instance in the client AWS cloudformation stack. Usage of this tool is explained <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tools-ModifyServerStack.md">here</a>.<br><br>
-  <b>16.c</b><code>peachydb_status_tool</code>: to obtain support bundle and to monitor the health of server AWS Cloudformation stack. It is executed on the <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Step2--ControlUnit.md">Control Unit.</a> Usage of this tool is explained <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tools-MonitorCluster.md">here</a>
+  <b>17.a</b><code>peachydb_cluster_tool</code>: to create/delete/describe server and client AWS Cloudformation Stacks. It is also utilized to modify (add,remove instances) client stacks. This tool is executed on the <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Step2--ControlUnit.md">Control Unit.</a><br><br>
+  <b>17.b</b><code>peachydb_modify_server_stack</code>: to modify (add/remove/substitute nodes in) server AWS Cloudformation stack. This tool must be executed on a client instance in the client AWS cloudformation stack. Usage of this tool is explained <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tools-ModifyServerStack.md">here</a>.<br><br>
+  <b>17.c</b><code>peachydb_status_tool</code>: to obtain support bundle and to monitor the health of server AWS Cloudformation stack. It is executed on the <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Step2--ControlUnit.md">Control Unit.</a> Usage of this tool is explained <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tools-MonitorCluster.md">here</a>
   <br><br>
-  <b>16.d</b><code>peachydb_repair_cluster</code>: to repair server AWS Cloudformation stack, if a previous server Stack modification operation did not complete as expected then the <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tools-RepairCluster.md">repair tool</a> can be utilized to address common issues.
+  <b>17.d</b><code>peachydb_repair_cluster</code>: to repair server AWS Cloudformation stack, if a previous server Stack modification operation did not complete as expected then the <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tools-RepairCluster.md">repair tool</a> can be utilized to address common issues.
   <br><br>
 </details>
 
