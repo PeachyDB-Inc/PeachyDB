@@ -11,12 +11,12 @@ This is what the repair tool output looks like.
   AWS Cluster Repair
   This tool is utilized for two purposes:
 
-  Step 1. Remove AWS EC2 instances which are still in AWS server stack even though
-   the instances have been removed from the PeachyDB server cluster.
+  1. Remove AWS EC2 instances which are still in AWS server stack even though
+  the instances have been removed from the PeachyDB server cluster.
   
-  Step 2. You are unable to submit new Cluster configuration changes (add/remove node etc)
-   even though PeachyDB server cluster has completed the operation. In this case
-   this tool will reset the AWS stack state to allow submission of more operations
+  2. You are unable to submit new Cluster configuration changes (add/remove node etc)
+  even though PeachyDB server cluster has completed the operation. In this case
+  this tool will reset the AWS stack state to allow submission of more operations
 ```
 
 **Prerequisite**: Before the repair actions are executed the repair tool ascertains that there is no ongoing Cluster Configuration Change (add/remove/substitute) at the database level. This is done with the cluster <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tools-MonitorCluster.md"> status tool.</a> The status tool should clearly state that no CFG (cluster configuraton change) is ongoing. If a CFG is ongoing at the database level then we have to firstly allow that to either complete or cancel it, before we can start repairing the AWS server stack. The repair tool makes the check and if there is a CFG in progress the repair tool will terminate.<br><br>
@@ -27,12 +27,12 @@ This is what the repair tool output looks like.
   AWS Cluster Repair
   This tool is utilized for two purposes:
 
-  Step 1. Remove AWS EC2 instances which are still in AWS server stack even though
-   the instances have been removed from the PeachyDB server cluster.
+  1. Remove AWS EC2 instances which are still in AWS server stack even though
+  the instances have been removed from the PeachyDB server cluster.
   
-  Step 2. You are unable to submit new Cluster configuration changes (add/remove node etc)
-   even though PeachyDB server cluster has completed the operation. In this case
-   this tool will reset the AWS stack state to allow submission of more operations
+  2. You are unable to submit new Cluster configuration changes (add/remove node etc)
+  even though PeachyDB server cluster has completed the operation. In this case
+  this tool will reset the AWS stack state to allow submission of more operations
 
   Please enter Stack Name: myteststack
   Found some AWS EC2 instances which may need to be removed ...
