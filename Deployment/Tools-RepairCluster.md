@@ -30,9 +30,9 @@ This tool is utilized for two purposes:
 1. Remove AWS EC2 instances which are still in AWS server stack even though
  the instances have been removed from the PeachyDB server cluster.
 
-2. You are unable to submit new Cluster configuration changes (add/remove node etc)
- even though PeachyDB server cluster has completed the operation. In this case
- this tool will reset the AWS stack state to allow submission of more operations
+2. Reset state of AWS Cloudformation Server Stack to clear any state
+ that is not allowing submission of Cluster configuration changes (add/remove node etc)
+ even though PeachyDB server cluster has completed prior cluster change operation.
 
 Please enter Stack Name: myteststack
 Checking ongoing Cluster Configurgation change at PeachyDB level ...
