@@ -54,21 +54,21 @@
   <summary>4. Client terminates with error "No Ethernet ports -bye" what should I do?</summary>
   <br>
   An example run of the error is as follows:
-  peachdb_client_cqldb 1
-  Launching Threads#:4 and fibers#:512
-  Setting up initial schema/security/data
-  )client network setup with .info files
-  )max pktsize = 1734
-  )ports = 2
-  EAL: Detected CPU lcores: 4
-  EAL: Detected NUMA nodes: 1
-  EAL: Detected shared linkage of DPDK
- EAL: Multi-process socket /var/run/dpdk/rte/mp_socket
- EAL: Selected IOVA mode 'PA'
- )No Ethernet ports - bye
- EAL: Error - exiting with code: 1
- No Ethernet ports - bye
- This happens because there is a few second delay before the client ports are set up.The solution is to just wait a few seconds and run the client again. 
+  <br>peachdb_client_cqldb 1
+  <br>Launching Threads#:4 and fibers#:512
+  <br>Setting up initial schema/security/data
+  <br>)client network setup with .info files
+  <br>)max pktsize = 1734
+  <br>)ports = 2
+  <br>EAL: Detected CPU lcores: 4
+  <br>EAL: Detected NUMA nodes: 1
+  <br>EAL: Detected shared linkage of DPDK
+  <br>EAL: Multi-process socket /var/run/dpdk/rte/mp_socket
+  <br>EAL: Selected IOVA mode 'PA'
+  <br>)No Ethernet ports - bye
+  <br>EAL: Error - exiting with code: 1
+  <br>No Ethernet ports - bye
+  <br>This happens because there is a few second delay before the client ports are set up.The solution is to just wait a few seconds and run the client again. 
   <br><br>
 </details>
 
