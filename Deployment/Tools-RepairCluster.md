@@ -23,30 +23,39 @@ This is what the repair tool output looks like.
 
 **2\.** The repair tool automatically identifies AWS EC2 instances which are still a part of the AWS stack but they have been removed from the PeachyDB server cluster. It will provide the option to remove these instances from the AWS stack to the user as shown here. If there are instances that need to be removed from AWS stack the tool will proceed to remove them. Once the AWS EC2 instances between AWS Stack and PeachyDB server cluster have been reconciled, the tool will give the user the option to reset the stack state, which should always be performed with 'y' as indicated below. Note that if there are no EC2 instances to be removed then it will go to the step of resetting the state directly.<br>
 ```shell
-  prompt> python3 peachydb_repair_cluster.py
-  AWS Cluster Repair
-  This tool is utilized for two purposes:
+prompt> python3 peachydb_repair_cluster.py
+AWS Cluster Repair
+This tool is utilized for two purposes:
 
-  1. Remove AWS EC2 instances which are still in AWS server stack even though
-   the instances have been removed from the PeachyDB server cluster.
-  
-  2. Reset state of AWS Cloudformation Server Stack to clear any state
-   that is not allowing submission of Cluster configuration changes (add/remove node etc)
-   even though PeachyDB server cluster has completed prior cluster change operation.
+1. Remove AWS EC2 instances which are still in AWS server stack even though
+ the instances have been removed from the PeachyDB server cluster.
 
-  Please enter Stack Name: myteststack
-  Found some AWS EC2 instances which may need to be removed ...
-  Removing AWS instances to repair a server cluster must only be done
-  if the instances are no longer part of the cluster and were mistakenly
-  not removed from the AWS stack by the cluster tools automatically
-  
-  AWS Stack EC2 Instances not present in PeachyDB server cluster: [i-0b5089d37bd750dd3, i-0b3059d37bd550dd3]
+2. You are unable to submit new Cluster configuration changes (add/remove node etc)
+ even though PeachyDB server cluster has completed the operation. In this case
+ this tool will reset the AWS stack state to allow submission of more operations
+
+Please enter Stack Name: myteststack
+Checking ongoing Cluster Configurgation change at PeachyDB level ...
+No Cluster config change is ongoing in PeachyDB database
+Checking for AWS Server Stack EC2 instances NOT part of PeachyDB server cluster ...
+
+Found some AWS EC2 instances which may need to be removed ...
+Removing AWS instances to repair a server cluster must only be done
+if the instances are no longer part of the cluster and were mistakenly
+not removed from the AWS stack by the cluster tools automatically
+
+AWS Stack EC2 Instances not present in PeachyDB server cluster: ['i-0738498d5ae40416e', 'i-0728397c5df20314e']
 
 Do you want to proceed with removal of AWS EC2 instances (y/n)? y
-Really want to go ahead? Please type the word "proceed" to continue: proceed
-...
-...
+Really? Please type the word "proceed" to continue: proceed
+Removing AWS instances from server stack. Please do NOT Ctrl-C, operation in progress ...
+Waiting for AWS stack update to remove instance[s] to complete
+Please check AWS console to ensure operation completes ...
+. . . . . . . . . . . . . . . . . . .
+Stack update complete
+Done removing AWS EC2 instances from AWS Server Stack
 AWS Server Stack Instances are reconciled with PeachyDB server cluster
+
 Do you want to reset state of AWS Server Stack (y/n): y
 Resetting state of AWS Cloudformation Server Stack
-```
+
