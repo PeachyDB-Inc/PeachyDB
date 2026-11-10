@@ -54,7 +54,7 @@
   <summary>4. Client terminates with error "No Ethernet ports -bye" what should I do?</summary>
   <br>
   An example run of the error is as follows:
-  <br>peachdb_client_cqldb 1
+  <br>prompt> peachdb_client_cqldb 1
   <br>Launching Threads#:4 and fibers#:512
   <br>Setting up initial schema/security/data
   <br>)client network setup with .info files
@@ -68,7 +68,7 @@
   <br>)No Ethernet ports - bye
   <br>EAL: Error - exiting with code: 1
   <br>No Ethernet ports - bye
-  <br>This happens because there is a few second delay before the client ports are set up.The solution is to just wait a few seconds and run the client again. 
+  <br><br>This happens because there is a few second delay before the client ports are set up.The solution is to just wait a few seconds and run the client again. 
   <br><br>
 </details>
 
