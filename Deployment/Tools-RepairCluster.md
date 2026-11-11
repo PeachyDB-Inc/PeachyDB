@@ -58,4 +58,5 @@ AWS Server Stack Instances are reconciled with PeachyDB server cluster
 
 Do you want to reset state of AWS Server Stack (y/n): y
 Resetting state of AWS Cloudformation Server Stack
+```
 
