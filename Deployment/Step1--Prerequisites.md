@@ -7,7 +7,7 @@ Before you can start utilizing the product, the following requirements have to b
  <br>
  {prefix}-{account_id}-{region_name}
  <br>
-This contains the user account-id in the bucket name. When the bucket is created we block all Public Access to the bucket and enable encryption on it.
+This contains the user account-id in the bucket name. When the bucket is created we block all Public Access to the bucket and enable encryption on it. AWS account level protections override bucket level protections. If AWS account level restrictions are stronger they will be applicable to the bucket as well.
 
 - Create an S3 bucket with write permissions for cluster config files, in keeping with AWS requirements the bucket must have a name with the prefix 'peachydb'. This bucket will contain configuration files of the AWS Cloudformation Stacks, which are needed by AWS Server as well as Client EC2 Instances.
 - Create a Security Group to utilize for instances
