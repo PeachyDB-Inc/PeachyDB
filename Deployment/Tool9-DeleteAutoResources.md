@@ -1,4 +1,4 @@
-## Delete auto generated AWS resources
+## 9. Delete auto generated AWS resources
 If you created server/client AWS stacks with auto generated S3 bucket and auto generated Security Group and Subnet,
 then the command below can be utilized to delete these resources. Running this command is only needed if you are
 no longer utilizing PeachyDB or if you plan to utilize your own S3 bucket and Security Group and Subnet for 
