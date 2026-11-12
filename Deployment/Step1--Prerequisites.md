@@ -3,6 +3,9 @@ Before you can start utilizing the product, the following requirements have to b
 - Create an AWS EC2 Key Pair, which will be utilized to create Server and Client AWS Cloudformation stacks
 
 **NOTE**: The steps below are **OPTIONAL**, if the user wants to create their own S3 bucket, security-group and VPC and subnet they can follow these steps else they can allow the tools to auto-create these resources with auto generated names and or tags where applicable.  In order to auto-create security-group and subnet (with auto-generated CIDR block) the user will have to provide a VPC-ID as that is not auto-generated. If these resources are auto-created they will be created only once for each specified AWS region and thereafter any subsequent invocations of the tools will lookup prior resource by tags in the AWS region VPC Id provided and utilize those. So the very first attempt to create a stack will take extra time to create the below resources but thereafter the resources will be reutilized for any subsequent stack creation in the AWS region.
+**NOTE**: If auto generated bucket name is utilized it follows the naming pattern as required by AWS:
+  {prefix}-{account_id}-{region_name}
+This contains the user account-id in the bucket name. When the bucket is created we block all Public Access to the bucket and enable encryption on it.
 
 - Create an S3 bucket with write permissions for cluster config files, in keeping with AWS requirements the bucket must have a name with the prefix 'peachydb'. This bucket will contain configuration files of the AWS Cloudformation Stacks, which are needed by AWS Server as well as Client EC2 Instances.
 - Create a Security Group to utilize for instances
