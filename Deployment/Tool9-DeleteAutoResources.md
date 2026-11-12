@@ -37,7 +37,23 @@ Common:
  10 - Syntax <command#> - syntax for any commands (1 to 9) listed above
  q  - Quit - exit this tool
 
-Enter Choice [1-9, q]: 1
+Enter Choice [1-9, q]: 9
 
-Create Stack Arguments:
+Delete auto generated resources (s3 bucket, security group, subnet) Arguments: vpc-id=<aws-vpc-id-name>
+Enter Arguments: vpc-id=vpc-2127c314
+
+Removing Auto created AWS S3 bucket ...
+Emptying all objects from 'peachydb-352163213483-us-west-1' before deletion...
+Deleting bucket: peachydb-352163213483-us-west-1 ...
+Successfully deleted bucket: peachydb-352163213483-us-west-1
+
+Removing Auto created Subnet ...
+Searching for subnets with tag AWS-Marketplace-PeachyDB-Product=PeachyDB-Subnet ...
+Attempting to delete subnet: subnet-0d6a45dfe43b23a8a
+Successfully deleted subnet: subnet-0d6a45dfe43b23a8a
+
+Removing Auto created Security Group ...
+Searching for security groups with tag AWS-Marketplace-PeachyDB-Product=PeachyDB-SecurityGroup ...
+Attempting to delete security group: peachydb-sg (sg-0f23ae1b422456729)
+Successfully deleted security group sg-0f23ae1b422456729
 ```
