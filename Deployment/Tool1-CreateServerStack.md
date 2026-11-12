@@ -40,7 +40,7 @@ Create Stack Arguments: aws-key-pair-name=<name> s3-bucket-name=<name> stack-nam
 Enter Arguments: aws-key-pair-name=user-choice-key-pair-uswest1 s3-bucket-name=peachydb-test-bucket stack-name=peachydb-teststack security-group-id=sg-2cc5c28c subnet-id=subnet-34233d12 aws-instance-type=i3.2xlarge number-of-instances=3 number-of-coordinators=3 ssh-location=03.102.20.36/32 spot-instance=1
 
 ```
-- If you want to auto create the S3 bucket and the Security Group and Subnet then provide the following parameters in the create command, and these AWS resources will be created once and reutilized for every subsequent invocation of the create stack operation, till these resources are explicitly deleted. Note that vpc-id only needs to be provided for the auto resource generation case.
+- If you want to auto create the S3 bucket and the Security Group and Subnet then provide the following parameters in the create command, and these AWS resources will be created once and reutilized for every subsequent invocation of the create stack operation, till these resources are explicitly deleted. Note that vpc-id only needs to be provided for the auto resource generation.
 ```
 vpc-id=<aws-vps-id-name> s3-bucket-name=auto securty-group-id=auto subnet=auto
 ```
