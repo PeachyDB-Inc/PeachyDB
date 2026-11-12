@@ -30,7 +30,6 @@ Client Utilities (4-8):
  7 - Client Stack Remove Instances - remove one or more EC2 instance from a client Stack
  8 - Client Stack Describe - describe all client instances in the client Stack
 
-
 Common:
  9 - Delete Auto Generated AWS resources: S3 bucket, Security Group and Subnet
  10 - Syntax <command#> - syntax for any commands (1 to 9) listed above
