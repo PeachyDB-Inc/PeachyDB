@@ -26,18 +26,20 @@ After 1) and 2) above we are now ready to issue commands 3) through 12) to manag
 
 11. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Tool8-DescribeClientStack.md" title="describe client stack">Describe Client Stack</a> -- how to describe PeachyDB Client Stack
 
-12. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Tool9-CommandSyntax.md" title="syntax commands">Syntax for any of the above commands</a> -- explain syntax and arguments for each of the peachydb_cluster_tool.py commands. Although the commands themselves are quite self explanatory.
+12. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Tool9-DeleteAutoResources.md" title="delete auto generated resources">Delete auto generated resources</a> -- deleting auto generated S3 bucket, Securty Group and Subnet.
+
+13. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Tool9-CommandSyntax.md" title="syntax commands">Syntax for any of the above commands</a> -- explain syntax and arguments for each of the peachydb_cluster_tool.py commands. Although the commands themselves are quite self explanatory.
 
 
 Modifying an existing PeachyDB Server Stack requires its own unique command tools which are described here in 13).<br>
 
-13. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Tools-ModifyServerStack.md" title="modify server stack">Modify Server Stack</a> -- a different tool has to be utilized to add/remove/substitute AWS EC2 Instances in the PeachyDB Server Stack.
+14. <a href="https://github.com/akseg73/PeachyDB/blob/main/Deployment/Tools-ModifyServerStack.md" title="modify server stack">Modify Server Stack</a> -- a different tool has to be utilized to add/remove/substitute AWS EC2 Instances in the PeachyDB Server Stack.
 
 
 Once a Client stack has been created, the user can ssh into the Client EC2 Instances and perform 14) below to run Client driver.
 
-14. <a href="https://github.com/PeachyDB-Inc/PeachyDB/tree/main/examples" title="client examples"> Client Driver Examples</a> -- explains how to utilize clients to drive load onto servers. These examples are meant to be executed on the AWS EC2 Instances which are part of the Client Stack.
+15. <a href="https://github.com/PeachyDB-Inc/PeachyDB/tree/main/examples" title="client examples"> Client Driver Examples</a> -- explains how to utilize clients to drive load onto servers. These examples are meant to be executed on the AWS EC2 Instances which are part of the Client Stack.
 
-15. <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tools-MonitorCluster.md"> Server Cluster Monitoring</a> -- explains how to monitor the health of the server cluster and to obtain support bundle in case of issues.
+16. <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tools-MonitorCluster.md"> Server Cluster Monitoring</a> -- explains how to monitor the health of the server cluster and to obtain support bundle in case of issues.
 
 16. <a href="https://github.com/PeachyDB-Inc/PeachyDB/blob/main/Deployment/Tools-RepairCluster.md"> AWS Server Stack Repair Tool</a> -- is a utility that can help repair AWS Server Stack that may have been left in an inconsistent state after a Cluster Configuration Change that did not complete as expected.
