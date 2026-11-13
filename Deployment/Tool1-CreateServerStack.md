@@ -44,7 +44,7 @@ stack-name=peachydb-teststack security-group-id=sg-2cc5c28c subnet-id=subnet-342
 number-of-instances=3 number-of-coordinators=3 ssh-location=03.102.20.36/32 spot-instance=1
 
 ```
-- If you want to auto create the S3 bucket and the Security Group and Subnet then provide the following parameters in the create command, and these AWS resources will be created once and reutilized for every subsequent invocation of the create stack operation, till these resources are explicitly deleted. Note that vpc-id only needs to be provided for the auto resource generation.
+- If you want to auto create the S3 bucket and the Security Group and Subnet then provide the following parameters in the create command, and these AWS resources will be created once and reutilized for every subsequent invocation of the create stack operation, till these resources are explicitly deleted. Note that vpc-id only needs to be provided for the auto resource generation. Auto creation will automatically allow ssh into the EC2 instances from the ssh-location specified. This should be specified as the ip address of the control unit from which the create command is issued.
 ```
 vpc-id=<aws-vps-id-name> s3-bucket-name=auto securty-group-id=auto subnet=auto
 ```
