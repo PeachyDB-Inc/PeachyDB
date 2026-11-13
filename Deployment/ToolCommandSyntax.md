@@ -78,9 +78,10 @@ Describe Arguments: <stack-name> [<optional-output-file-name>]
 
 Enter command# for Syntax (1-9 or q to quit): 4
 
-Client Create Stack Arguments: aws-key-pair-name=<key-pair-name> s3-bucket-name=<bucket-name> peachydb-stack-name=<stack-name>
- client-stack-name=<name> [vpc-id=<vpc-id-name>] security-group-id=<sgroup-id> subnet-id=<subnetid> aws-instance-type=<instance-type>
- number-of-instances=<num> ssh-location=<ssh-location> spot-instance=[1/0]
+Client Create Stack Arguments: aws-key-pair-name=<key-pair-name> s3-bucket-name=<bucket-name>
+ peachydb-stack-name=<stack-name> client-stack-name=<name> [vpc-id=<vpc-id-name>] security-group-id=<sgroup-id>
+ subnet-id=<subnetid> aws-instance-type=<instance-type> number-of-instances=<num> ssh-location=<ssh-location>
+ spot-instance=[1/0]
 
  Arguments Description:
  aws-key-pair-name=<keypair-name> - name of the AWS key-pair to utilize for AWS commands
