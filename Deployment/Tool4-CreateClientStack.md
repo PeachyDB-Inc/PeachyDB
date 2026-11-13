@@ -44,7 +44,8 @@ spot-instance=[1/0]
 
 Enter Arguments: aws-key-pair-name=user-choice-key-pair-uswest1 s3-bucket-name=peachydb-test-bucket
 peachydb-stack-name=peachydb-teststack client-stack-name=peachydb-test-client-stack security-group-id=sg-2cc5c28c
-subnet-id=subnet-34233d12 aws-instance-type=m5.xlarge number-of-instances=1 ssh-location=03.102.20.36/32 spot-instance=1
+subnet-id=subnet-34233d12 aws-instance-type=m5.xlarge number-of-instances=1 ssh-location=03.102.20.36/32
+spot-instance=1
 
 ```
 - If you want to utilize auto created S3 bucket and the Security Group and Subnet then provide the following parameters in the create command, and these AWS resources will be created once and reutilized for every subsequent invocation of the create stack operation, till these resources are explicitly deleted. Note that vpc-id only needs to be provided for the auto resource generation case.
