@@ -41,9 +41,10 @@ Enter Choice [1-10, q]: 10
 
 Enter command# for Syntax (1-9 or q to quit): 1
 
-Create Stack Arguments: aws-key-pair-name=<key-pair-name> s3-bucket-name=<bucket-name> stack-name=<name> [vpc-id=<vpc-id-name>]
-security-group-id=<sgroup-id> subnet-id=<subnet-id> aws-instance-type=<instance-type> number-of-instances=<num>
-number-of-coordinators=<num> ssh-location=<ssh-location> spot-instance=[1/0] use-placement-groups=[1/0]
+Create Stack Arguments: aws-key-pair-name=<key-pair-name> s3-bucket-name=<bucket-name> stack-name=<name>
+[vpc-id=<vpc-id-name>] security-group-id=<sgroup-id> subnet-id=<subnet-id> aws-instance-type=<instance-type>
+number-of-instances=<num> number-of-coordinators=<num> ssh-location=<ssh-location> spot-instance=[1/0]
+use-placement-groups=[1/0]
 
  Arguments Description:
  aws-key-pair-name=<keypair-name> - name of the AWS key-pair to utilize for AWS commands
