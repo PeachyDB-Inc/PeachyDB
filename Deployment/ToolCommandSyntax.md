@@ -139,8 +139,8 @@ Client Stack Describe Arguments: <client-stack-name> [<optional-output-file-name
 
 Enter command# for Syntax (1-9 or q to quit): 9
 
- vpc-id=<aws-vpc-id> - AWS VPC Id from which to Delete Auto Generated AWS resources Security Group and Subnet, auto-generated
- S3 bucket will also be deleted
+ vpc-id=<aws-vpc-id> - AWS VPC Id from which to Delete Auto Generated AWS resources Security Group and Subnet,
+ auto-generated S3 bucket will also be deleted
 
 Enter command# for Syntax (1-9 or q to quit): q
 
