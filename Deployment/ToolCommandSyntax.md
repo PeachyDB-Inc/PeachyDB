@@ -41,17 +41,21 @@ Enter Choice [1-10, q]: 10
 
 Enter command# for Syntax (1-9 or q to quit): 1
 
-Create Stack Arguments: aws-key-pair-name=<key-pair-name> s3-bucket-name=<bucket-name> stack-name=<name> [vpc-id=<vpc-id-name>] security-group-id=<sgroup-id> subnet-id=<subnet-id> aws-instance-type=<instance-type> number-of-instances=<num> number-of-coordinators=<num> ssh-location=<ssh-location> spot-instance=[1/0] use-placement-groups=[1/0]
+Create Stack Arguments: aws-key-pair-name=<key-pair-name> s3-bucket-name=<bucket-name> stack-name=<name> [vpc-id=<vpc-id-name>]
+security-group-id=<sgroup-id> subnet-id=<subnet-id> aws-instance-type=<instance-type> number-of-instances=<num>
+number-of-coordinators=<num> ssh-location=<ssh-location> spot-instance=[1/0] use-placement-groups=[1/0]
 
  Arguments Description:
  aws-key-pair-name=<keypair-name> - name of the AWS key-pair to utilize for AWS commands
  s3-bucket-name=<bucketname> - AWS S3 bucket name to be utilized for templates, specify 'auto' to auto generate
  stack-name=<name> - AWS Stack name to be utilized for the PeachyDB cluster
- [vpc-id=<vpc-id-name>] - optional, AWS VPC Id in which to auto create Security Group, Subnet, ONLY provided for auto-creating resources
+ [vpc-id=<vpc-id-name>] - optional, AWS VPC Id in which to auto create Security Group, Subnet, ONLY provided for
+ auto-creating resources
  security-group-id=<sgroupid> - Security Group Id to utilize for the Cluster, specify 'auto' to auto generate
  subnet-id=<subnetid> - Subnet ID to utilize for the cluster, specify 'auto' to auto generate
  aws-instance-type=<type> - one of the supported instance types:
-i3.2xlarge, i3.4xlarge, i3.8xlarge, i3.16xlarge, i3.metal, i3en.2xlarge, i3en.3xlarge, i3en.6xlarge, i3en.12xlarge, i3en.24xlarge, i3en.metal
+i3.2xlarge, i3.4xlarge, i3.8xlarge, i3.16xlarge, i3.metal, i3en.2xlarge, i3en.3xlarge, i3en.6xlarge, i3en.12xlarge,
+i3en.24xlarge, i3en.metal
  number-of-instances=<num> - between 3 to 64 instances (default 3)
  number-of-Coordinators=<num> - either 3, 5 or 7 co-ordinators (default 3)
  ssh-location=<sshloc> - The IP address range that can be used to SSH to the EC2 instances
@@ -74,18 +78,25 @@ Describe Arguments: <stack-name> [<optional-output-file-name>]
 
 Enter command# for Syntax (1-9 or q to quit): 4
 
-Client Create Stack Arguments: aws-key-pair-name=<key-pair-name> s3-bucket-name=<bucket-name> peachydb-stack-name=<stack-name> client-stack-name=<name> [vpc-id=<vpc-id-name>] security-group-id=<sgroup-id> subnet-id=<subnetid> aws-instance-type=<instance-type> number-of-instances=<num> ssh-location=<ssh-location> spot-instance=[1/0]
+Client Create Stack Arguments: aws-key-pair-name=<key-pair-name> s3-bucket-name=<bucket-name> peachydb-stack-name=<stack-name>
+ client-stack-name=<name> [vpc-id=<vpc-id-name>] security-group-id=<sgroup-id> subnet-id=<subnetid> aws-instance-type=<instance-type>
+ number-of-instances=<num> ssh-location=<ssh-location> spot-instance=[1/0]
 
  Arguments Description:
  aws-key-pair-name=<keypair-name> - name of the AWS key-pair to utilize for AWS commands
  s3-bucket-name=<bucketname> - AWS S3 bucket name to be utilized for templates, specify 'auto' to auto generate
  peachydb-stack-name=<name> - AWS Stack name of the PeachyDB Server cluster
  client-stack-name=<name> - AWS Stack name to be utilized for the client cluster
- [vpc-id=<vpc-id-name>] - optional, AWS VPC Id in which to auto create Security Group, Subnet, ONLY provided for auto-creating resources
+ [vpc-id=<vpc-id-name>] - optional, AWS VPC Id in which to auto create Security Group, Subnet, ONLY provided for
+ auto-creating resources
  security-group-id=<sgroupid> - Security Group Id to utilize for the Cluster, specify 'auto' to auto generate
  subnet-id=<subnetid> - Subnet ID to utilize for the cluster, specify 'auto' to auto generate
  aws-instance-type=<type> - AWS instance type to be added to client cluster, valid types are:
-m5.large, m5n.large, m5a.large, m5ad.large, c5.large, c5n.large, c5a.large, c5ad.large, i3.large, m5.xlarge, m5n.xlarge, m5a.xlarge, m5ad.xlarge, c5.xlarge, c5n.xlarge, c5a.xlarge, c5ad.xlarge, i3.xlarge, m5.2xlarge, m5n.2xlarge, m5a.2xlarge, m5ad.2xlarge, c5.2xlarge, c5n.2xlarge, c5a.2xlarge, c5ad.2xlarge, m5.4xlarge, m5n.4xlarge, m5a.4xlarge, m5ad.4xlarge, c5.4xlarge, c5n.4xlarge, c5a.4xlarge, c5ad.4xlarge, m5.8xlarge, m5n.8xlarge, m5a.8xlarge, m5ad.8xlarge, c5.9xlarge, c5n.9xlarge, c5a.8xlarge, c5ad.8xlarge
+m5.large, m5n.large, m5a.large, m5ad.large, c5.large, c5n.large, c5a.large, c5ad.large, i3.large, m5.xlarge, m5n.xlarge,
+ m5a.xlarge, m5ad.xlarge, c5.xlarge, c5n.xlarge, c5a.xlarge, c5ad.xlarge, i3.xlarge, m5.2xlarge, m5n.2xlarge, m5a.2xlarge,
+ m5ad.2xlarge, c5.2xlarge, c5n.2xlarge, c5a.2xlarge, c5ad.2xlarge, m5.4xlarge, m5n.4xlarge, m5a.4xlarge, m5ad.4xlarge,
+ c5.4xlarge, c5n.4xlarge, c5a.4xlarge, c5ad.4xlarge, m5.8xlarge, m5n.8xlarge, m5a.8xlarge, m5ad.8xlarge, c5.9xlarge,
+ c5n.9xlarge, c5a.8xlarge, c5ad.8xlarge
  number-of-instances=<num> - between 3 to 64 instances (default 3)
  ssh-location=<sshloc> - The IP address range that can be used to SSH to the EC2 instances
                   Must be a valid IP CIDR range of the form x.x.x.x/x.
@@ -104,7 +115,11 @@ Client Stack Add Instance Arguments: <client-stack-name> <num-instances> <aws-in
  <client-stack-name> - AWS Stack name for client machines
  <num-instances> - number of AWS instances to be added for client machines
  <aws-instance-type> - AWS instance type to be added to client cluster, valid types are:
-m5.large, m5n.large, m5a.large, m5ad.large, c5.large, c5n.large, c5a.large, c5ad.large, i3.large, m5.xlarge, m5n.xlarge, m5a.xlarge, m5ad.xlarge, c5.xlarge, c5n.xlarge, c5a.xlarge, c5ad.xlarge, i3.xlarge, m5.2xlarge, m5n.2xlarge, m5a.2xlarge, m5ad.2xlarge, c5.2xlarge, c5n.2xlarge, c5a.2xlarge, c5ad.2xlarge, m5.4xlarge, m5n.4xlarge, m5a.4xlarge, m5ad.4xlarge, c5.4xlarge, c5n.4xlarge, c5a.4xlarge, c5ad.4xlarge, m5.8xlarge, m5n.8xlarge, m5a.8xlarge, m5ad.8xlarge, c5.9xlarge, c5n.9xlarge, c5a.8xlarge, c5ad.8xlarge
+m5.large, m5n.large, m5a.large, m5ad.large, c5.large, c5n.large, c5a.large, c5ad.large, i3.large, m5.xlarge, m5n.xlarge,
+ m5a.xlarge, m5ad.xlarge, c5.xlarge, c5n.xlarge, c5a.xlarge, c5ad.xlarge, i3.xlarge, m5.2xlarge, m5n.2xlarge, m5a.2xlarge,
+ m5ad.2xlarge, c5.2xlarge, c5n.2xlarge, c5a.2xlarge, c5ad.2xlarge, m5.4xlarge, m5n.4xlarge, m5a.4xlarge, m5ad.4xlarge,
+ c5.4xlarge, c5n.4xlarge, c5a.4xlarge, c5ad.4xlarge, m5.8xlarge, m5n.8xlarge, m5a.8xlarge, m5ad.8xlarge, c5.9xlarge,
+ c5n.9xlarge, c5a.8xlarge, c5ad.8xlarge
 
 Enter command# for Syntax (1-9 or q to quit): 7
 
@@ -122,7 +137,8 @@ Client Stack Describe Arguments: <client-stack-name> [<optional-output-file-name
 
 Enter command# for Syntax (1-9 or q to quit): 9
 
- vpc-id=<aws-vpc-id> - AWS VPC Id from which to Delete Auto Generated AWS resources Security Group and Subnet, auto-generated S3 bucket will also be deleted
+ vpc-id=<aws-vpc-id> - AWS VPC Id from which to Delete Auto Generated AWS resources Security Group and Subnet, auto-generated
+ S3 bucket will also be deleted
 
 Enter command# for Syntax (1-9 or q to quit): q
 
