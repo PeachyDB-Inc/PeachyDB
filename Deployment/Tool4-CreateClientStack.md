@@ -48,7 +48,7 @@ subnet-id=subnet-34233d12 aws-instance-type=m5.xlarge number-of-instances=1 ssh-
 spot-instance=1
 
 ```
-- If you want to utilize auto created S3 bucket and the Security Group and Subnet then provide the following parameters in the create command, and these AWS resources will be created once and reutilized for every subsequent invocation of the create stack operation, till these resources are explicitly deleted. Note that vpc-id only needs to be provided for the auto resource generation case.
+- If you want to utilize auto created S3 bucket and the Security Group and Subnet then provide the following parameters in the create command, and these AWS resources will be created once and reutilized for every subsequent invocation of the create stack operation, till these resources are explicitly deleted. Note that vpc-id only needs to be provided for the auto resource generation case. The ssh-location provided will be automatically added into the ingress rules of the auto-generated security group. The ssh-location should be specified as the cidrip4 address of the control unit from which the create command is issued. Note that only a single cidripv4 address is automatically allowed and will replace any existing auto-created ciripv4 rule with the current one. If you want to add more ssh rules to the security group, you can do so with awscli.
 ```
 vpc-id=<aws-vps-id-name> s3-bucket-name=auto securty-group-id=auto subnet=auto
 ```
